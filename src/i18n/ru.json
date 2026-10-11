@@ -77,5 +77,6 @@
   "ui.settings.resetNo": "Отмена",
   "ui.reward.parts": "Смотреть рекламу: +2 детали",
   "ui.reward.washer": "Смотреть рекламу: +1 шайба",
-  "ui.reward.got": "Награда получена"
+  "ui.reward.got": "Награда получена",
+  "ui.repair.split": "Разберём: {items}"
 }

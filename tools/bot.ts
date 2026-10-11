@@ -40,7 +40,11 @@ export interface BotResult {
 
 const used = (cells: unknown[]) => cells.filter((c) => c !== null).length;
 
-export function runBot(content: Content): BotResult {
+// careful: merges only what the remaining repairs need and builds required levels just in time.
+// greedy: merges everything as far as it goes, like players who love merging (spec 5.5, v0.6).
+export type BotStrategy = 'careful' | 'greedy';
+
+export function runBot(content: Content, strategy: BotStrategy = 'careful'): BotResult {
   let s = createInitialState(content);
   let maxBoard = 0;
   let maxBox = 0;
@@ -103,7 +107,8 @@ export function runBot(content: Content): BotResult {
   const mergeSurplus = () => {
     for (const chain of content.chains) {
       for (let level = 1; level < maxLevel(content, chain.id); level++) {
-        while (countItems(s, chain.id, level) - remainingDemand(chain.id, level) >= 2) {
+        const keep = strategy === 'greedy' ? 0 : remainingDemand(chain.id, level);
+        while (countItems(s, chain.id, level) - keep >= 2) {
           if (!mergePair(chain.id, level)) break;
         }
       }
@@ -141,7 +146,7 @@ export function runBot(content: Content): BotResult {
     record();
 
     for (let goal = currentGoal(s, content); goal; goal = currentGoal(s, content)) {
-      for (const item of goal.object.steps[goal.stepIndex]?.cost.items ?? []) {
+      for (const item of strategy === 'careful' ? (goal.object.steps[goal.stepIndex]?.cost.items ?? []) : []) {
         while (countItems(s, item.chain, item.level) < item.count && produce(item.chain, item.level));
       }
       const r = repair(s, content, goal.object.id);

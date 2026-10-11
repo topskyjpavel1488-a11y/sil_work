@@ -14,7 +14,7 @@ import type { Ads } from '../ads';
 import type { PlatformAdapter } from '../platform/adapter';
 import type { Store } from '../store';
 import { Button } from '../ui/Button';
-import { requirementName } from '../ui/labels';
+import { available, requirementName } from '../ui/labels';
 import { showFindCard } from '../ui/FindCard';
 import { RepairDialog } from '../ui/RepairDialog';
 import { showSettings } from '../ui/SettingsDialog';
@@ -243,10 +243,10 @@ export class WorkshopScene extends Phaser.Scene {
       setAsset(this, hotspot.box, key);
       // Names are written only on placeholders; real art speaks for itself.
       hotspot.label.setVisible(!this.textures.exists(key));
-      const available = isObjectAvailable(state, object);
-      hotspot.box.setAlpha(available ? 1 : 0.4);
-      hotspot.label.setAlpha(available ? 1 : 0.5);
-      if (hotspot.box.input) hotspot.box.input.enabled = available;
+      const unlocked = isObjectAvailable(state, object);
+      hotspot.box.setAlpha(unlocked ? 1 : 0.4);
+      hotspot.label.setAlpha(unlocked ? 1 : 0.5);
+      if (hotspot.box.input) hotspot.box.input.enabled = unlocked;
     }
     for (const zone of content.zones) {
       const hotspot = this.zones.get(zone.id);
@@ -273,6 +273,6 @@ export class WorkshopScene extends Phaser.Scene {
     }
     this.goalTitle.setText(t('ui.goal.title', { name: t(goal.object.nameKey) }));
     const check = checkRepair(state, content, goal.object.id);
-    this.goalCost.setText(check.requirements.map((r) => `${requirementName(content, r)} ${Math.min(r.have, r.need)}/${r.need}`).join(' · '));
+    this.goalCost.setText(check.requirements.map((r) => `${requirementName(content, r)} ${Math.min(available(r), r.need)}/${r.need}`).join(' · '));
   }
 }

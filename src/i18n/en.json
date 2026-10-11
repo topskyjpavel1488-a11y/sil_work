@@ -77,5 +77,6 @@
   "ui.settings.resetNo": "Cancel",
   "ui.reward.parts": "Watch an ad: +2 parts",
   "ui.reward.washer": "Watch an ad: +1 washer",
-  "ui.reward.got": "Reward received"
+  "ui.reward.got": "Reward received",
+  "ui.repair.split": "Will take apart: {items}"
 }

@@ -65,7 +65,8 @@ export type RejectReason =
   | 'unknownObject'
   | 'objectLocked'
   | 'objectRestored'
-  | 'notEnough';
+  | 'notEnough'
+  | 'noSpace';
 
 export interface ActionResult {
   state: GameState;

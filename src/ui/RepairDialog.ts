@@ -8,7 +8,7 @@ import { t } from '../i18n';
 import type { Store } from '../store';
 import { Button } from './Button';
 import { addItemView } from './ItemView';
-import { requirementImage, requirementName } from './labels';
+import { available, itemName, requirementImage, requirementName } from './labels';
 import { COLORS, textStyle } from './style';
 import { onTap } from './tap';
 
@@ -33,7 +33,10 @@ export class RepairDialog extends Phaser.GameObjects.Container {
     this.add(shade);
 
     const rows = check.requirements.length;
-    const panelH = 120 + 64 + rows * ROW_H + 176;
+    // One extra line explains a split, or why the repair waits for room on the table.
+    const note = check.reason === 'noSpace' ? t('ui.noSpace') : check.splits.length ? t('ui.repair.split', { items: check.splits.map((i) => itemName(store.content, i.chain, i.level)).join(', ') }) : '';
+    const noteH = note ? 72 : 0;
+    const panelH = 120 + 64 + rows * ROW_H + noteH + 176;
     const px = (DESIGN_WIDTH - PANEL_W) / 2;
     const py = (DESIGN_HEIGHT - panelH) / 2;
     const panel = scene.add.graphics();
@@ -54,7 +57,7 @@ export class RepairDialog extends Phaser.GameObjects.Container {
 
     let y = py + 184;
     for (const req of check.requirements) {
-      const enough = req.have >= req.need;
+      const enough = available(req) >= req.need;
       const icon = { x: px + 40, y: y + 8, w: 72, h: 72 };
       this.add(req.kind === 'item' ? addItemView(scene, store.content, req.chain, req.level, icon) : addAsset(scene, requirementImage(store.content, req), icon));
       this.add(
@@ -62,10 +65,14 @@ export class RepairDialog extends Phaser.GameObjects.Container {
       );
       this.add(
         scene.add
-          .text(px + PANEL_W - 40, y + 44, `${Math.min(req.have, req.need)}/${req.need}`, textStyle(38, enough ? COLORS.ok : COLORS.missing, { fontStyle: 'bold' }))
+          .text(px + PANEL_W - 40, y + 44, `${Math.min(available(req), req.need)}/${req.need}`, textStyle(38, enough ? COLORS.ok : COLORS.missing, { fontStyle: 'bold' }))
           .setOrigin(1, 0.5),
       );
       y += ROW_H;
+    }
+    if (note) {
+      this.add(scene.add.text(px + 40, y + 16, note, textStyle(32, check.ok ? COLORS.text : COLORS.missing, { wordWrap: { width: PANEL_W - 80 } })));
+      y += noteH;
     }
 
     const button = new Button(scene, {

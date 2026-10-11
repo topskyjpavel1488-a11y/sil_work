@@ -21,6 +21,10 @@ describe('content', () => {
     expect(sim.state.finds).toHaveLength(content.finds.length);
   });
 
+  it('can be finished by a player who merges everything to the top', () => {
+    expect(runBot(content, 'greedy').finished).toBe(true);
+  });
+
   it('reports a shortage of supply', () => {
     const broken = structuredClone(content);
     broken.zones = broken.zones.map((z) => ({ ...z, debris: z.debris.map((d) => ({ ...d, drop: { resources: { wood: 1 } } })) }));

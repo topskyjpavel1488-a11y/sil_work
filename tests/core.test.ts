@@ -158,14 +158,68 @@ describe('repair', () => {
     expect(types(r.events)).toEqual(['repaired']);
   });
 
-  it('counts only items of the exact level', () => {
+  it('never takes lower-level items for a higher requirement', () => {
+    const s = withWorkbenchDone(1);
+    s.resources.wood = 3;
+    s.board[0] = item(1);
+    s.board[1] = item(1);
+    expect(checkRepair(s, content, 'workbench').ok).toBe(false);
+  });
+
+  it('prefers the exact level and splits nothing then', () => {
     const s = withWorkbenchDone(1);
     s.resources.wood = 3;
     s.board[0] = item(3);
-    s.board[1] = item(1);
-    expect(checkRepair(s, content, 'workbench').ok).toBe(false);
     s.box[2] = item(2);
-    expect(checkRepair(s, content, 'workbench').ok).toBe(true);
+    const check = checkRepair(s, content, 'workbench');
+    expect(check.ok).toBe(true);
+    expect(check.splits).toEqual([]);
+    const r = repair(s, content, 'workbench');
+    expect(r.state.board[0]).toEqual(item(3));
+    expect(r.state.box[2]).toBeNull();
+  });
+
+  it('splits a higher item and leaves the rest on the table', () => {
+    const s = withWorkbenchDone(1);
+    s.resources.wood = 3;
+    s.board[5] = item(3);
+    const check = checkRepair(s, content, 'workbench');
+    expect(check.ok).toBe(true);
+    expect(check.splits).toEqual([item(3)]);
+    expect(check.requirements.find((r) => r.kind === 'item')).toMatchObject({ have: 0, covered: 1, need: 1 });
+    const r = repair(s, content, 'workbench');
+    // 3 = 2 + 2: one goes to the repair, one stays, in the first free cell.
+    expect(r.state.board.filter(Boolean)).toEqual([item(2)]);
+    expect(r.state.board[0]).toEqual(item(2));
+  });
+
+  it('splits level 4 for level 2 into one 3 and one 2 left over', () => {
+    const s = withWorkbenchDone(1);
+    s.resources.wood = 3;
+    s.board[0] = item(4);
+    const r = repair(s, content, 'workbench');
+    expect(r.state.board.filter(Boolean)).toEqual([item(2), item(3)]);
+  });
+
+  it('uses a split leftover for a second item of the same step', () => {
+    const s = fresh();
+    s.objects = { ...s.objects, workbench: { step: 3 }, lamp: { step: 2 }, window: { step: 2 }, cabinet: { step: 1 } };
+    s.resources.metal = 3;
+    s.board[0] = item(3);
+    const r = repair(s, content, 'cabinet');
+    expect(types(r.events)).toContain('repaired');
+    expect(r.state.board.filter(Boolean)).toEqual([]);
+  });
+
+  it('waits for room when the leftovers have nowhere to go', () => {
+    const s = withWorkbenchDone(1);
+    s.resources.wood = 3;
+    fill(s.board);
+    fill(s.box);
+    const check = checkRepair(s, content, 'workbench');
+    // A 4 split for a 2 leaves a 3 and a 2: one freed cell is not enough.
+    expect(check.reason).toBe('noSpace');
+    expect(repair(s, content, 'workbench').state).toBe(s);
   });
 
   it('takes items from the box first, then from the end of the board', () => {

@@ -20,4 +20,10 @@ console.log('');
 console.log(`Peak board ${sim.maxBoard}/${config.boardCols * config.boardRows} (limit ${config.simMaxBoardCells}), peak box ${sim.maxBox}/${config.boxSize} (limit ${config.simMaxBoxCells})`);
 console.log(`Actions: ${sim.actions}. Left over: W${sim.state.resources.wood} M${sim.state.resources.metal} P${sim.state.resources.parts}`);
 console.log(sim.finished ? 'Finished: the workshop is restored.' : `NOT finished: stuck at ${sim.stuckAt}`);
-if (!sim.finished) process.exit(1);
+const greedy = runBot(content, 'greedy');
+console.log(
+  greedy.finished
+    ? `Merge-everything run: finished too (peak board ${greedy.maxBoard}/${config.boardCols * config.boardRows}, ${greedy.actions} actions).`
+    : `Merge-everything run: NOT finished, stuck at ${greedy.stuckAt}`,
+);
+if (!sim.finished || !greedy.finished) process.exit(1);

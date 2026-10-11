@@ -249,6 +249,8 @@ export function checkContent(content: Content, ru: Strings, en: Strings, manifes
     if (!sim.finished) err(`simulation: stuck at ${sim.stuckAt ?? 'unknown point'}`);
     if (sim.maxBoard > config.simMaxBoardCells) err(`simulation: board reached ${sim.maxBoard} cells, max ${config.simMaxBoardCells}`);
     if (sim.maxBox > config.simMaxBoxCells) err(`simulation: box reached ${sim.maxBox} cells, max ${config.simMaxBoxCells}`);
+    const greedy = runBot(content, 'greedy');
+    if (!greedy.finished) err(`simulation (merge everything): stuck at ${greedy.stuckAt ?? 'unknown point'}`);
   }
   return errors;
 }

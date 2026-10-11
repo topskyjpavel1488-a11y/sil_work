@@ -19,3 +19,6 @@ export const requirementImage = (content: Content, req: Requirement) =>
   req.kind === 'resource'
     ? (content.resources.find((r) => r.id === req.resource)?.image ?? '')
     : (content.chains.find((c) => c.id === req.chain)?.levels[req.level - 1]?.image ?? '');
+
+// How much of a requirement the player can pay now (items may come from splitting higher ones).
+export const available = (req: Requirement) => (req.kind === 'item' ? req.covered : req.have);
