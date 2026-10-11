@@ -1,7 +1,7 @@
 // npm run validate — checks content invariants (spec 5.5) and exits non-zero on any violation.
 import { readFileSync } from 'node:fs';
 import { content } from '../src/data/index';
-import { checkContent, type Manifest, type Strings } from './content-check';
+import { checkContent, type LayoutData, type Manifest, type Strings } from './content-check';
 
 const readJson = <T>(path: string): T => JSON.parse(readFileSync(path, 'utf8')) as T;
 
@@ -10,6 +10,7 @@ const errors = checkContent(
   readJson<Strings>('src/i18n/ru.json'),
   readJson<Strings>('src/i18n/en.json'),
   readJson<Manifest>('assets/manifest.json'),
+  readJson<LayoutData>('src/data/layout.json'),
 );
 
 if (errors.length) {

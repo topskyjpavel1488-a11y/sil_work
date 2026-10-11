@@ -1,12 +1,12 @@
 // Content invariants for `npm run validate` (spec 5.5). Demand and supply are computed from data.
-import { config } from '../src/config';
+import { config, DESIGN_HEIGHT, DESIGN_WIDTH, UI_IMAGES, UI_SOUNDS } from '../src/config';
 import type { Bundle, Condition, Content } from '../src/core/content';
 import { RESOURCES, type Resource } from '../src/core/state';
 import { goalSequence, runBot } from './bot';
 
 export interface Manifest {
   images: Record<string, { file: string | null; placeholder?: { color: string } }>;
-  sounds: Record<string, { file: string | null; synth?: { freq: number; ms: number } }>;
+  sounds: Record<string, { file: string | null; synth?: { freq: number; ms: number; wave?: string } }>;
 }
 
 export type Strings = Record<string, string>;
@@ -58,6 +58,8 @@ export function collectAssetKeys(content: Content): { images: string[]; sounds: 
     if (f.sound) sounds.add(f.sound);
   });
   images.add(content.final.image);
+  Object.values(UI_SOUNDS).forEach((k) => sounds.add(k));
+  Object.values(UI_IMAGES).forEach((k) => images.add(k));
   return { images: [...images], sounds: [...sounds] };
 }
 
@@ -76,7 +78,26 @@ function collectTextKeys(content: Content): string[] {
 
 const fmt = (u: Units) => `W${u.resources.wood} M${u.resources.metal} P${u.resources.parts} L1×${u.level1}`;
 
-export function checkContent(content: Content, ru: Strings, en: Strings, manifest: Manifest): string[] {
+export type LayoutData = Record<string, Record<string, { x: number; y: number; w: number; h: number }>>;
+
+function checkLayout(content: Content, layout: LayoutData, err: (msg: string) => void): void {
+  const ws = layout.workshop ?? {};
+  const names = ['room', 'ui.resources', 'ui.settings', 'ui.goal', 'ui.nav'];
+  const hotspots = [...content.objects.map((o) => `object.${o.id}`), ...content.zones.map((z) => `zone.${z.id}`)];
+  for (const name of [...names, ...hotspots]) {
+    const r = ws[name];
+    if (!r) {
+      err(`layout: workshop has no "${name}"`);
+      continue;
+    }
+    if (r.x < 0 || r.y < 0 || r.x + r.w > DESIGN_WIDTH || r.y + r.h > DESIGN_HEIGHT) err(`layout: "${name}" is outside the 720×1280 field`);
+    if (hotspots.includes(name) && (r.w < config.minTapSize || r.h < config.minTapSize)) {
+      err(`layout: "${name}" is ${r.w}×${r.h}, tap targets must be at least ${config.minTapSize}×${config.minTapSize}`);
+    }
+  }
+}
+
+export function checkContent(content: Content, ru: Strings, en: Strings, manifest: Manifest, layout: LayoutData): string[] {
   const errors: string[] = [];
   const err = (msg: string) => errors.push(msg);
   const objectIds = new Set(content.objects.map((o) => o.id));
@@ -189,6 +210,8 @@ export function checkContent(content: Content, ru: Strings, en: Strings, manifes
   const { images, sounds } = collectAssetKeys(content);
   for (const key of images) if (!manifest.images[key]) err(`image "${key}" is missing in assets/manifest.json`);
   for (const key of sounds) if (!manifest.sounds[key]) err(`sound "${key}" is missing in assets/manifest.json`);
+
+  checkLayout(content, layout, err);
 
   // No dead ends: the bot must finish within the table limits.
   if (errors.length === 0) {

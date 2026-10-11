@@ -11,7 +11,8 @@
     "lint": "eslint . --max-warnings 0",
     "typecheck": "tsc --noEmit",
     "validate": "tsx tools/validate-content.ts",
-    "simulate": "tsx tools/simulate.ts"
+    "simulate": "tsx tools/simulate.ts",
+    "layout": "vite --config tools/layout-editor/vite.config.ts"
   },
   "dependencies": {
     "phaser": "3.90.0"

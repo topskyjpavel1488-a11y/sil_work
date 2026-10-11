@@ -3,301 +3,313 @@
     "res_wood": {
       "file": null,
       "placeholder": {
-        "color": "dust"
+        "color": "#8B5E3C"
       }
     },
     "res_metal": {
       "file": null,
       "placeholder": {
-        "color": "dust"
+        "color": "#3A3F44"
       }
     },
     "res_parts": {
       "file": null,
       "placeholder": {
-        "color": "dust"
+        "color": "#B87333"
       }
     },
     "item_fasteners_1": {
       "file": null,
       "placeholder": {
-        "color": "dust"
+        "color": "#C9C2B5"
       }
     },
     "item_fasteners_2": {
       "file": null,
       "placeholder": {
-        "color": "dust"
+        "color": "#7D9A78"
       }
     },
     "item_fasteners_3": {
       "file": null,
       "placeholder": {
-        "color": "dust"
+        "color": "#B87333"
       }
     },
     "item_fasteners_4": {
       "file": null,
       "placeholder": {
-        "color": "dust"
+        "color": "#8B5E3C"
       }
     },
     "obj_workbench_0": {
       "file": null,
       "placeholder": {
-        "color": "dust"
+        "color": "#C9C2B5"
       }
     },
     "obj_workbench_1": {
       "file": null,
       "placeholder": {
-        "color": "dust"
+        "color": "#C3A88A"
       }
     },
     "obj_workbench_2": {
       "file": null,
       "placeholder": {
-        "color": "dust"
+        "color": "#BE8D5E"
       }
     },
     "obj_workbench_3": {
       "file": null,
       "placeholder": {
-        "color": "dust"
+        "color": "#B87333"
       }
     },
     "obj_fastener_box_0": {
       "file": null,
       "placeholder": {
-        "color": "dust"
+        "color": "#C9C2B5"
       }
     },
     "obj_fastener_box_1": {
       "file": null,
       "placeholder": {
-        "color": "dust"
+        "color": "#B87333"
       }
     },
     "obj_lamp_0": {
       "file": null,
       "placeholder": {
-        "color": "dust"
+        "color": "#C9C2B5"
       }
     },
     "obj_lamp_1": {
       "file": null,
       "placeholder": {
-        "color": "dust"
+        "color": "#C19B74"
       }
     },
     "obj_lamp_2": {
       "file": null,
       "placeholder": {
-        "color": "dust"
+        "color": "#B87333"
       }
     },
     "obj_window_0": {
       "file": null,
       "placeholder": {
-        "color": "dust"
+        "color": "#C9C2B5"
       }
     },
     "obj_window_1": {
       "file": null,
       "placeholder": {
-        "color": "dust"
+        "color": "#C19B74"
       }
     },
     "obj_window_2": {
       "file": null,
       "placeholder": {
-        "color": "dust"
+        "color": "#B87333"
       }
     },
     "obj_cabinet_0": {
       "file": null,
       "placeholder": {
-        "color": "dust"
+        "color": "#C9C2B5"
       }
     },
     "obj_cabinet_1": {
       "file": null,
       "placeholder": {
-        "color": "dust"
+        "color": "#C3A88A"
       }
     },
     "obj_cabinet_2": {
       "file": null,
       "placeholder": {
-        "color": "dust"
+        "color": "#BE8D5E"
       }
     },
     "obj_cabinet_3": {
       "file": null,
       "placeholder": {
-        "color": "dust"
+        "color": "#B87333"
       }
     },
     "obj_shelf_0": {
       "file": null,
       "placeholder": {
-        "color": "dust"
+        "color": "#C9C2B5"
       }
     },
     "obj_shelf_1": {
       "file": null,
       "placeholder": {
-        "color": "dust"
+        "color": "#C19B74"
       }
     },
     "obj_shelf_2": {
       "file": null,
       "placeholder": {
-        "color": "dust"
+        "color": "#B87333"
       }
     },
     "obj_radio_0": {
       "file": null,
       "placeholder": {
-        "color": "dust"
+        "color": "#C9C2B5"
       }
     },
     "obj_radio_1": {
       "file": null,
       "placeholder": {
-        "color": "dust"
+        "color": "#C19B74"
       }
     },
     "obj_radio_2": {
       "file": null,
       "placeholder": {
-        "color": "dust"
+        "color": "#B87333"
       }
     },
     "obj_wall_clock_0": {
       "file": null,
       "placeholder": {
-        "color": "dust"
+        "color": "#C9C2B5"
       }
     },
     "obj_wall_clock_1": {
       "file": null,
       "placeholder": {
-        "color": "dust"
+        "color": "#C19B74"
       }
     },
     "obj_wall_clock_2": {
       "file": null,
       "placeholder": {
-        "color": "dust"
+        "color": "#B87333"
       }
     },
     "zone_door": {
       "file": null,
       "placeholder": {
-        "color": "dust"
+        "color": "#A39A8C"
       }
     },
     "zone_under_workbench": {
       "file": null,
       "placeholder": {
-        "color": "dust"
+        "color": "#A39A8C"
       }
     },
     "zone_window_shelves": {
       "file": null,
       "placeholder": {
-        "color": "dust"
+        "color": "#A39A8C"
       }
     },
     "zone_corner_crates": {
       "file": null,
       "placeholder": {
-        "color": "dust"
+        "color": "#A39A8C"
       }
     },
     "zone_behind_cabinet": {
       "file": null,
       "placeholder": {
-        "color": "dust"
+        "color": "#A39A8C"
       }
     },
     "zone_attic": {
       "file": null,
       "placeholder": {
-        "color": "dust"
+        "color": "#A39A8C"
       }
     },
     "debris_box": {
       "file": null,
       "placeholder": {
-        "color": "dust"
+        "color": "#8F8577"
       }
     },
     "debris_sack": {
       "file": null,
       "placeholder": {
-        "color": "dust"
+        "color": "#8F8577"
       }
     },
     "debris_plank": {
       "file": null,
       "placeholder": {
-        "color": "dust"
+        "color": "#8F8577"
       }
     },
     "debris_jar": {
       "file": null,
       "placeholder": {
-        "color": "dust"
+        "color": "#8F8577"
       }
     },
     "debris_rag": {
       "file": null,
       "placeholder": {
-        "color": "dust"
+        "color": "#8F8577"
       }
     },
     "debris_crate": {
       "file": null,
       "placeholder": {
-        "color": "dust"
+        "color": "#8F8577"
       }
     },
     "find_f_photo": {
       "file": null,
       "placeholder": {
-        "color": "dust"
+        "color": "#F3E9D2"
       }
     },
     "find_f_screws": {
       "file": null,
       "placeholder": {
-        "color": "dust"
+        "color": "#F3E9D2"
       }
     },
     "find_f_note": {
       "file": null,
       "placeholder": {
-        "color": "dust"
+        "color": "#F3E9D2"
       }
     },
     "find_f_radio": {
       "file": null,
       "placeholder": {
-        "color": "dust"
+        "color": "#F3E9D2"
       }
     },
     "find_f_clock": {
       "file": null,
       "placeholder": {
-        "color": "dust"
+        "color": "#F3E9D2"
       }
     },
     "final_card": {
       "file": null,
       "placeholder": {
-        "color": "dust"
+        "color": "#F3E9D2"
+      }
+    },
+    "room_bg": {
+      "file": null,
+      "placeholder": {
+        "color": "#E4DACA"
+      }
+    },
+    "logo": {
+      "file": null,
+      "placeholder": {
+        "color": "#8B5E3C"
       }
     }
   },
@@ -305,50 +317,97 @@
     "sfx_debris_box": {
       "file": null,
       "synth": {
-        "freq": 440,
-        "ms": 120
+        "freq": 300,
+        "ms": 90,
+        "wave": "triangle"
       }
     },
     "sfx_debris_sack": {
       "file": null,
       "synth": {
-        "freq": 440,
-        "ms": 120
+        "freq": 180,
+        "ms": 110,
+        "wave": "sine"
       }
     },
     "sfx_debris_plank": {
       "file": null,
       "synth": {
-        "freq": 440,
-        "ms": 120
+        "freq": 260,
+        "ms": 80,
+        "wave": "square"
       }
     },
     "sfx_debris_jar": {
       "file": null,
       "synth": {
-        "freq": 440,
-        "ms": 120
+        "freq": 880,
+        "ms": 70,
+        "wave": "sine"
       }
     },
     "sfx_debris_rag": {
       "file": null,
       "synth": {
-        "freq": 440,
-        "ms": 120
+        "freq": 150,
+        "ms": 120,
+        "wave": "sine"
       }
     },
     "sfx_debris_crate": {
       "file": null,
       "synth": {
-        "freq": 440,
-        "ms": 120
+        "freq": 200,
+        "ms": 100,
+        "wave": "triangle"
       }
     },
     "sfx_radio_melody": {
       "file": null,
       "synth": {
+        "freq": 392,
+        "ms": 900,
+        "wave": "sine"
+      }
+    },
+    "sfx_tap": {
+      "file": null,
+      "synth": {
+        "freq": 660,
+        "ms": 60,
+        "wave": "sine"
+      }
+    },
+    "sfx_repair": {
+      "file": null,
+      "synth": {
+        "freq": 523,
+        "ms": 320,
+        "wave": "triangle"
+      }
+    },
+    "sfx_merge": {
+      "file": null,
+      "synth": {
+        "freq": 784,
+        "ms": 140,
+        "wave": "triangle"
+      }
+    },
+    "sfx_soft": {
+      "file": null,
+      "synth": {
+        "freq": 220,
+        "ms": 160,
+        "wave": "sine"
+      }
+    },
+    "sfx_open": {
+      "file": null,
+      "synth": {
         "freq": 440,
-        "ms": 120
+        "ms": 90,
+        "wave": "sine"
       }
     }
   }

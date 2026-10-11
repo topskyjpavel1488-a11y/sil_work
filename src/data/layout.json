@@ -1,0 +1,23 @@
+{
+  "workshop": {
+    "ui.resources": { "x": 16, "y": 16, "w": 576, "h": 96 },
+    "ui.settings": { "x": 608, "y": 16, "w": 96, "h": 96 },
+    "ui.goal": { "x": 16, "y": 128, "w": 688, "h": 136 },
+    "room": { "x": 0, "y": 280, "w": 720, "h": 848 },
+    "object.shelf": { "x": 16, "y": 296, "w": 224, "h": 152 },
+    "object.window": { "x": 248, "y": 296, "w": 224, "h": 152 },
+    "object.wall_clock": { "x": 480, "y": 296, "w": 224, "h": 152 },
+    "zone.attic": { "x": 16, "y": 456, "w": 224, "h": 112 },
+    "zone.window_shelves": { "x": 248, "y": 456, "w": 224, "h": 112 },
+    "object.radio": { "x": 480, "y": 456, "w": 224, "h": 112 },
+    "object.lamp": { "x": 16, "y": 576, "w": 224, "h": 128 },
+    "object.fastener_box": { "x": 248, "y": 576, "w": 224, "h": 128 },
+    "object.cabinet": { "x": 480, "y": 576, "w": 224, "h": 304 },
+    "object.workbench": { "x": 16, "y": 712, "w": 456, "h": 168 },
+    "zone.under_workbench": { "x": 16, "y": 888, "w": 456, "h": 104 },
+    "zone.door": { "x": 16, "y": 1000, "w": 224, "h": 120 },
+    "zone.corner_crates": { "x": 248, "y": 1000, "w": 224, "h": 120 },
+    "zone.behind_cabinet": { "x": 480, "y": 888, "w": 224, "h": 232 },
+    "ui.nav": { "x": 0, "y": 1136, "w": 720, "h": 144 }
+  }
+}

@@ -23,6 +23,8 @@ export const config = {
   adCooldownSec: 180,
   mockAdDelayMs: 1000,
   findTextMaxChars: 220,
+  minTapSize: 96,
+  minFontSize: 32,
   // Content invariants checked by `npm run validate` (spec 5.5).
   balanceMargin: 1.25,
   zoneCount: { min: 5, max: 7 },
@@ -34,3 +36,27 @@ export const config = {
 } as const;
 
 export const BOARD_SIZE = config.boardCols * config.boardRows;
+
+// Interface images by manifest key.
+export const UI_IMAGES = {
+  room: 'room_bg',
+  logo: 'logo',
+} as const;
+
+// Interface sounds by manifest key (spec 6.3).
+export const UI_SOUNDS = {
+  tap: 'sfx_tap',
+  open: 'sfx_open',
+  repair: 'sfx_repair',
+  merge: 'sfx_merge',
+  soft: 'sfx_soft',
+} as const;
+
+// Feedback timings in ms (spec 6.3).
+export const FEEDBACK = {
+  tapMs: 150,
+  mergeBounceMs: 300,
+  repairFlashMs: 400,
+  transitionMs: 300,
+  toastMs: 2000,
+} as const;

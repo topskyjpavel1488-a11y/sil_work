@@ -2,12 +2,13 @@ import { describe, expect, it } from 'vitest';
 import type { Content } from '../src/core/content';
 import { content } from '../src/data/index';
 import manifest from '../assets/manifest.json';
+import layout from '../src/data/layout.json';
 import en from '../src/i18n/en.json';
 import ru from '../src/i18n/ru.json';
 import { runBot } from '../tools/bot';
 import { checkContent, type Manifest } from '../tools/content-check';
 
-const check = (c: Content) => checkContent(c, ru, en, manifest as Manifest);
+const check = (c: Content) => checkContent(c, ru, en, manifest as Manifest, layout);
 
 describe('content', () => {
   it('passes every invariant', () => {

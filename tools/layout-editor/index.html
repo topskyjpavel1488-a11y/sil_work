@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Редактор раскладки</title>
+    <style>
+      * { box-sizing: border-box; }
+      html, body { margin: 0; height: 100%; font: 15px system-ui, sans-serif; background: #2b2622; color: #f3e9d2; }
+      body { display: flex; gap: 16px; padding: 12px; }
+      #side { width: 280px; flex: none; display: flex; flex-direction: column; gap: 10px; }
+      #side h1 { font-size: 18px; margin: 0 0 4px; }
+      #side label { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+      #side input, #side select { width: 120px; padding: 4px 6px; font: inherit; }
+      button { padding: 8px 12px; font: inherit; cursor: pointer; border: 0; border-radius: 6px; background: #b87333; color: #fff; }
+      button.secondary { background: #3a3f44; }
+      #status { min-height: 20px; color: #c9c2b5; }
+      #status.dirty { color: #e8b26a; }
+      #hint { color: #c9c2b5; font-size: 13px; line-height: 1.4; }
+      #warn { color: #ff9b7a; font-size: 13px; }
+      #wrap { flex: 1; min-width: 0; display: flex; justify-content: center; align-items: flex-start; }
+      #sizer { position: relative; overflow: hidden; flex: none; }
+      #stage {
+        position: absolute; left: 0; top: 0; width: 720px; height: 1280px; transform-origin: top left;
+        background-color: #f3e9d2;
+        background-image: linear-gradient(rgba(0,0,0,.06) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,.06) 1px, transparent 1px);
+        background-size: 8px 8px;
+        user-select: none;
+      }
+      .el { position: absolute; border: 2px solid rgba(58,63,68,.5); border-radius: 10px; display: flex; align-items: center;
+        justify-content: center; text-align: center; color: #3a3f44; font-size: 22px; padding: 4px; cursor: move; overflow: hidden; }
+      .el.room { background: rgba(228,218,202,.6); border-style: dashed; align-items: flex-start; justify-content: flex-end; font-size: 16px; }
+      .el.object { background: #d9cbb4; }
+      .el.zone { background: #a39a8c; }
+      .el.ui { background: rgba(125,154,120,.55); }
+      .el.small { border-color: #c0392b; border-width: 3px; }
+      .el.selected { outline: 4px solid #b87333; z-index: 10; }
+      .handle { position: absolute; width: 22px; height: 22px; background: #b87333; border-radius: 4px; display: none; }
+      .el.selected .handle { display: block; }
+      .handle.nw { left: -2px; top: -2px; cursor: nwse-resize; }
+      .handle.ne { right: -2px; top: -2px; cursor: nesw-resize; }
+      .handle.sw { left: -2px; bottom: -2px; cursor: nesw-resize; }
+      .handle.se { right: -2px; bottom: -2px; cursor: nwse-resize; }
+    </style>
+  </head>
+  <body>
+    <div id="side">
+      <h1>Редактор раскладки</h1>
+      <label>Экран <select id="section"></select></label>
+      <div id="selected">Ничего не выбрано</div>
+      <label>X <input id="fx" type="number" step="8" /></label>
+      <label>Y <input id="fy" type="number" step="8" /></label>
+      <label>Ширина <input id="fw" type="number" step="8" /></label>
+      <label>Высота <input id="fh" type="number" step="8" /></label>
+      <button id="save">Сохранить</button>
+      <button id="revert" class="secondary">Отменить несохранённое</button>
+      <div id="status"></div>
+      <div id="warn"></div>
+      <div id="hint">
+        Перетаскивайте элементы мышью, размер меняется за углы. Всё привязано к сетке 8 px.
+        Стрелки сдвигают выбранный элемент на 8 px. Красная рамка — хотспот меньше 96×96.
+        После сохранения обновите игру (npm run dev), чтобы увидеть результат.
+      </div>
+    </div>
+    <div id="wrap"><div id="sizer"><div id="stage"></div></div></div>
+    <script type="module" src="./main.ts"></script>
+  </body>
+</html>
