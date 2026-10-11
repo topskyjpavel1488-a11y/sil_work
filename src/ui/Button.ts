@@ -3,6 +3,7 @@ import Phaser from 'phaser';
 import { audio } from '../audio';
 import { FEEDBACK, PALETTE, UI_SOUNDS } from '../config';
 import { COLORS, textStyle } from './style';
+import { onTap } from './tap';
 
 export interface ButtonOptions {
   x: number;
@@ -35,7 +36,7 @@ export class Button extends Phaser.GameObjects.Container {
       if (!this.enabled) return;
       scene.tweens.add({ targets: this, scale: 0.94, duration: FEEDBACK.tapMs / 2, yoyo: true });
     });
-    this.on('pointerup', () => {
+    onTap(this, () => {
       if (!this.enabled) return;
       audio.play(UI_SOUNDS.tap);
       opts.onTap();

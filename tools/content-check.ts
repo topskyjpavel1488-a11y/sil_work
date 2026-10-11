@@ -101,6 +101,10 @@ function checkLayout(content: Content, layout: LayoutData, err: (msg: string) =>
     [...content.objects.map((o) => `object.${o.id}`), ...content.zones.map((z) => `zone.${z.id}`)],
   );
   checkSection('scavenge', ['ui.resources', 'ui.title', 'area', 'ui.back'], []);
+  checkSection('table', ['ui.resources', 'ui.boxLabel', 'ui.back'], [
+    ...Array.from({ length: config.boardCols * config.boardRows }, (_, i) => `cell.board.${i}`),
+    ...Array.from({ length: config.boxSize }, (_, i) => `cell.box.${i}`),
+  ]);
   for (const zone of content.zones) {
     checkSection(
       `scavenge.${zone.id}`,

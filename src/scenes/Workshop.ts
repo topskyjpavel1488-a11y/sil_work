@@ -17,6 +17,7 @@ import { RepairDialog } from '../ui/RepairDialog';
 import { ResourceBar } from '../ui/ResourceBar';
 import { COLORS, textStyle } from '../ui/style';
 import { fadeIn, goTo } from '../ui/transition';
+import { onTap } from '../ui/tap';
 
 const SECTION = 'workshop';
 
@@ -71,17 +72,17 @@ export class WorkshopScene extends Phaser.Scene {
     }
   }
 
-  private addHotspot(imageKey: string, r: Rect, nameKey: string, onTap: () => void): Hotspot {
+  private addHotspot(imageKey: string, r: Rect, nameKey: string, action: () => void): Hotspot {
     const box = addAsset(this, imageKey, r);
     const label = this.add
       .text(r.x + r.w / 2, r.y + r.h / 2, t(nameKey), textStyle(32, COLORS.text, { align: 'center', wordWrap: { width: Math.max(r.w - 8, 96) } }))
       .setOrigin(0.5);
     box.setInteractive({ useHandCursor: true });
     box.on('pointerdown', () => this.tweens.add({ targets: box, scale: 0.96, duration: FEEDBACK.tapMs / 2, yoyo: true }));
-    box.on('pointerup', () => {
+    onTap(box, () => {
       if (this.dialog) return;
       audio.play(UI_SOUNDS.tap);
-      onTap();
+      action();
     });
     return { box, label };
   }
@@ -103,7 +104,7 @@ export class WorkshopScene extends Phaser.Scene {
     this.goalTitle = this.add.text(r.x + 28, r.y + 20, '', textStyle(40, COLORS.text, { fontStyle: 'bold' }));
     this.goalCost = this.add.text(r.x + 28, r.y + 76, '', textStyle(32, COLORS.text));
     const hit = this.add.zone(r.x, r.y, r.w, r.h).setOrigin(0).setInteractive({ useHandCursor: true });
-    hit.on('pointerup', () => {
+    onTap(hit, () => {
       const goal = currentGoal(this.store.state, this.store.content);
       if (goal && !this.dialog) {
         audio.play(UI_SOUNDS.tap);
@@ -126,10 +127,12 @@ export class WorkshopScene extends Phaser.Scene {
         label: t(key),
         fill: i === 0 ? PALETTE.copper : PALETTE.metal,
         fontSize: 32,
-        onTap: () => undefined,
+        onTap: () => {
+          if (i === 1) goTo(this, 'MergeTable');
+        },
       });
-      // The table and the journal open in later stages (M4, M5).
-      if (i > 0) button.setEnabled(false);
+      // The journal opens in M5.
+      if (i === 2) button.setEnabled(false);
     });
   }
 

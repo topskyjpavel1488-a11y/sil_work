@@ -15,6 +15,7 @@ import { ResourceBar } from '../ui/ResourceBar';
 import { COLORS, textStyle } from '../ui/style';
 import { showToast } from '../ui/Toast';
 import { fadeIn, goTo } from '../ui/transition';
+import { onTap } from '../ui/tap';
 
 const SECTION = 'scavenge';
 
@@ -68,7 +69,7 @@ export class ScavengeScene extends Phaser.Scene {
     box.add(this.add.text(0, 0, t(kind?.nameKey ?? d.kind), textStyle(32, COLORS.text)).setOrigin(0.5));
     box.setInteractive({ useHandCursor: true });
     box.on('pointerdown', () => this.tweens.add({ targets: box, scale: 0.94, duration: FEEDBACK.tapMs / 2, yoyo: true }));
-    box.on('pointerup', () => {
+    onTap(box, () => {
       if (this.busy) return;
       this.store.takeDebris(this.zone.id, d.id);
     });

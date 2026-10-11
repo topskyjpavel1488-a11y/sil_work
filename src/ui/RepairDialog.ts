@@ -7,8 +7,10 @@ import { checkRepair } from '../core/repair';
 import { t } from '../i18n';
 import type { Store } from '../store';
 import { Button } from './Button';
+import { addItemView } from './ItemView';
 import { requirementImage, requirementName } from './labels';
 import { COLORS, textStyle } from './style';
+import { onTap } from './tap';
 
 const PANEL_W = 640;
 const ROW_H = 96;
@@ -27,7 +29,7 @@ export class RepairDialog extends Phaser.GameObjects.Container {
 
     // The shade blocks taps on the room underneath; tapping it closes the dialog.
     const shade = scene.add.rectangle(0, 0, DESIGN_WIDTH, DESIGN_HEIGHT, 0x000000, 0.45).setOrigin(0).setInteractive();
-    shade.on('pointerup', () => this.close());
+    onTap(shade, () => this.close());
     this.add(shade);
 
     const rows = check.requirements.length;
@@ -53,7 +55,8 @@ export class RepairDialog extends Phaser.GameObjects.Container {
     let y = py + 184;
     for (const req of check.requirements) {
       const enough = req.have >= req.need;
-      this.add(addAsset(scene, requirementImage(store.content, req), { x: px + 40, y: y + 8, w: 72, h: 72 }));
+      const icon = { x: px + 40, y: y + 8, w: 72, h: 72 };
+      this.add(req.kind === 'item' ? addItemView(scene, store.content, req.chain, req.level, icon) : addAsset(scene, requirementImage(store.content, req), icon));
       this.add(
         scene.add.text(px + 136, y + 44, requirementName(store.content, req), textStyle(34, COLORS.text, { wordWrap: { width: 300 } })).setOrigin(0, 0.5),
       );

@@ -50,5 +50,6 @@
   "ui.nav.journal": "Journal",
   "ui.back": "Back",
   "ui.zone.cleared": "All cleared!",
-  "ui.zone.toWorkshop": "To the workshop"
+  "ui.zone.toWorkshop": "To the workshop",
+  "ui.table.box": "Box — items are only stored here"
 }

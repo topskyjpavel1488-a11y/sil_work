@@ -50,5 +50,6 @@
   "ui.nav.journal": "Журнал",
   "ui.back": "Назад",
   "ui.zone.cleared": "Завал разобран!",
-  "ui.zone.toWorkshop": "В мастерскую"
+  "ui.zone.toWorkshop": "В мастерскую",
+  "ui.table.box": "Короб — здесь детали только хранятся"
 }

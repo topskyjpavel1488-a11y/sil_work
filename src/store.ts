@@ -1,8 +1,9 @@
 // Holds the current state, applies core actions and notifies scenes (spec 3.3).
 import type { Content } from './core/content';
+import { moveItem } from './core/merge';
 import { repair } from './core/repair';
 import { takeDebris } from './core/scavenge';
-import type { ActionResult, GameEvent, GameState } from './core/state';
+import type { ActionResult, CellRef, GameEvent, GameState } from './core/state';
 import type { SaveManager } from './save';
 
 type Listener = (events: GameEvent[], state: GameState) => void;
@@ -32,6 +33,10 @@ export class Store {
     // A repair is saved immediately (spec 7).
     if (events.some((e) => e.type === 'repaired')) this.saver.saveNow();
     return events;
+  }
+
+  moveItem(from: CellRef, to: CellRef): GameEvent[] {
+    return this.commit(moveItem(this.current, this.content, from, to));
   }
 
   takeDebris(zoneId: string, debrisId: string): GameEvent[] {
