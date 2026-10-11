@@ -1,0 +1,113 @@
+{
+  "debrisKinds": {
+    "box": { "nameKey": "debris.box", "image": "debris_box", "sound": "sfx_debris_box" },
+    "sack": { "nameKey": "debris.sack", "image": "debris_sack", "sound": "sfx_debris_sack" },
+    "plank": { "nameKey": "debris.plank", "image": "debris_plank", "sound": "sfx_debris_plank" },
+    "jar": { "nameKey": "debris.jar", "image": "debris_jar", "sound": "sfx_debris_jar" },
+    "rag": { "nameKey": "debris.rag", "image": "debris_rag", "sound": "sfx_debris_rag" },
+    "crate": { "nameKey": "debris.crate", "image": "debris_crate", "sound": "sfx_debris_crate" }
+  },
+  "zones": [
+    {
+      "id": "door",
+      "nameKey": "zone.door",
+      "image": "zone_door",
+      "debris": [
+        { "id": "door_1", "kind": "plank", "drop": { "resources": { "wood": 2 } } },
+        { "id": "door_2", "kind": "plank", "drop": { "resources": { "wood": 2 } } },
+        { "id": "door_3", "kind": "box", "drop": { "items": [{ "chain": "fasteners", "level": 1, "count": 2 }] } },
+        { "id": "door_4", "kind": "rag", "drop": { "resources": { "wood": 1, "parts": 1 } } },
+        { "id": "door_5", "kind": "crate", "drop": { "resources": { "metal": 2 } } },
+        { "id": "door_6", "kind": "jar", "drop": { "resources": { "parts": 2 } } },
+        { "id": "door_7", "kind": "box", "drop": { "items": [{ "chain": "fasteners", "level": 1, "count": 2 }] } },
+        { "id": "door_8", "kind": "rag", "drop": { "resources": { "wood": 1 } } }
+      ]
+    },
+    {
+      "id": "under_workbench",
+      "nameKey": "zone.under_workbench",
+      "image": "zone_under_workbench",
+      "unlock": { "object": "workbench", "step": 1 },
+      "debris": [
+        { "id": "under_workbench_1", "kind": "plank", "drop": { "resources": { "wood": 2 } } },
+        { "id": "under_workbench_2", "kind": "box", "drop": { "items": [{ "chain": "fasteners", "level": 1, "count": 3 }] } },
+        { "id": "under_workbench_3", "kind": "sack", "drop": { "resources": { "parts": 1 }, "items": [{ "chain": "fasteners", "level": 1, "count": 2 }] } },
+        { "id": "under_workbench_4", "kind": "crate", "drop": { "resources": { "metal": 2 } } },
+        { "id": "under_workbench_5", "kind": "box", "drop": { "items": [{ "chain": "fasteners", "level": 1, "count": 2 }] } },
+        { "id": "under_workbench_6", "kind": "jar", "drop": { "resources": { "parts": 2 } } },
+        { "id": "under_workbench_7", "kind": "rag", "drop": { "resources": { "wood": 2 } } },
+        { "id": "under_workbench_8", "kind": "sack", "drop": { "resources": { "parts": 1 }, "items": [{ "chain": "fasteners", "level": 1, "count": 2 }] } },
+        { "id": "under_workbench_9", "kind": "crate", "drop": { "resources": { "metal": 1 }, "items": [{ "chain": "fasteners", "level": 1, "count": 2 }] } }
+      ]
+    },
+    {
+      "id": "window_shelves",
+      "nameKey": "zone.window_shelves",
+      "image": "zone_window_shelves",
+      "unlock": { "object": "lamp", "step": 1 },
+      "debris": [
+        { "id": "window_shelves_1", "kind": "jar", "drop": { "resources": { "parts": 3 } } },
+        { "id": "window_shelves_2", "kind": "plank", "drop": { "resources": { "wood": 2 } } },
+        { "id": "window_shelves_3", "kind": "box", "drop": { "items": [{ "chain": "fasteners", "level": 1, "count": 2 }] } },
+        { "id": "window_shelves_4", "kind": "crate", "drop": { "resources": { "metal": 2 } } },
+        { "id": "window_shelves_5", "kind": "sack", "drop": { "resources": { "parts": 1 }, "items": [{ "chain": "fasteners", "level": 1, "count": 2 }] } },
+        { "id": "window_shelves_6", "kind": "jar", "drop": { "resources": { "parts": 2 } } },
+        { "id": "window_shelves_7", "kind": "box", "drop": { "items": [{ "chain": "fasteners", "level": 1, "count": 2 }] } },
+        { "id": "window_shelves_8", "kind": "rag", "drop": { "resources": { "wood": 1, "parts": 1 } } },
+        { "id": "window_shelves_9", "kind": "crate", "drop": { "resources": { "metal": 1 }, "items": [{ "chain": "fasteners", "level": 1, "count": 2 }] } }
+      ]
+    },
+    {
+      "id": "corner_crates",
+      "nameKey": "zone.corner_crates",
+      "image": "zone_corner_crates",
+      "unlock": { "object": "window", "step": 2 },
+      "debris": [
+        { "id": "corner_crates_1", "kind": "crate", "drop": { "resources": { "metal": 3 } } },
+        { "id": "corner_crates_2", "kind": "plank", "drop": { "resources": { "wood": 2 } } },
+        { "id": "corner_crates_3", "kind": "box", "drop": { "items": [{ "chain": "fasteners", "level": 1, "count": 2 }] } },
+        { "id": "corner_crates_4", "kind": "crate", "drop": { "resources": { "metal": 2 } } },
+        { "id": "corner_crates_5", "kind": "sack", "drop": { "resources": { "parts": 1 }, "items": [{ "chain": "fasteners", "level": 1, "count": 2 }] } },
+        { "id": "corner_crates_6", "kind": "jar", "drop": { "resources": { "parts": 2 } } },
+        { "id": "corner_crates_7", "kind": "box", "drop": { "items": [{ "chain": "fasteners", "level": 1, "count": 2 }] } },
+        { "id": "corner_crates_8", "kind": "rag", "drop": { "resources": { "wood": 1 } } }
+      ]
+    },
+    {
+      "id": "behind_cabinet",
+      "nameKey": "zone.behind_cabinet",
+      "image": "zone_behind_cabinet",
+      "unlock": { "object": "cabinet", "step": 2 },
+      "debris": [
+        { "id": "behind_cabinet_1", "kind": "box", "drop": { "items": [{ "chain": "fasteners", "level": 1, "count": 3 }] } },
+        { "id": "behind_cabinet_2", "kind": "jar", "drop": { "resources": { "parts": 3 } } },
+        { "id": "behind_cabinet_3", "kind": "plank", "drop": { "resources": { "wood": 2 } } },
+        { "id": "behind_cabinet_4", "kind": "sack", "drop": { "resources": { "parts": 1 }, "items": [{ "chain": "fasteners", "level": 1, "count": 2 }] } },
+        { "id": "behind_cabinet_5", "kind": "box", "drop": { "items": [{ "chain": "fasteners", "level": 1, "count": 2 }] } },
+        { "id": "behind_cabinet_6", "kind": "crate", "drop": { "resources": { "metal": 2 } } },
+        { "id": "behind_cabinet_7", "kind": "jar", "drop": { "resources": { "parts": 2 } } },
+        { "id": "behind_cabinet_8", "kind": "box", "drop": { "items": [{ "chain": "fasteners", "level": 1, "count": 3 }] } },
+        { "id": "behind_cabinet_9", "kind": "rag", "drop": { "resources": { "wood": 1, "parts": 1 } } },
+        { "id": "behind_cabinet_10", "kind": "sack", "drop": { "items": [{ "chain": "fasteners", "level": 1, "count": 2 }] } }
+      ]
+    },
+    {
+      "id": "attic",
+      "nameKey": "zone.attic",
+      "image": "zone_attic",
+      "unlock": { "object": "radio", "step": 1 },
+      "debris": [
+        { "id": "attic_1", "kind": "jar", "drop": { "resources": { "parts": 3 } } },
+        { "id": "attic_2", "kind": "box", "drop": { "items": [{ "chain": "fasteners", "level": 1, "count": 3 }] } },
+        { "id": "attic_3", "kind": "sack", "drop": { "resources": { "parts": 1 }, "items": [{ "chain": "fasteners", "level": 1, "count": 2 }] } },
+        { "id": "attic_4", "kind": "jar", "drop": { "resources": { "parts": 2 } } },
+        { "id": "attic_5", "kind": "box", "drop": { "items": [{ "chain": "fasteners", "level": 1, "count": 3 }] } },
+        { "id": "attic_6", "kind": "crate", "drop": { "resources": { "metal": 1 }, "items": [{ "chain": "fasteners", "level": 1, "count": 2 }] } },
+        { "id": "attic_7", "kind": "jar", "drop": { "resources": { "parts": 2 } } },
+        { "id": "attic_8", "kind": "box", "drop": { "items": [{ "chain": "fasteners", "level": 1, "count": 3 }] } },
+        { "id": "attic_9", "kind": "rag", "drop": { "resources": { "wood": 1, "parts": 2 } } },
+        { "id": "attic_10", "kind": "sack", "drop": { "items": [{ "chain": "fasteners", "level": 1, "count": 2 }] } }
+      ]
+    }
+  ]
+}

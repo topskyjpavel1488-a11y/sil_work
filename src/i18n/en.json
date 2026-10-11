@@ -1,0 +1,49 @@
+{
+  "resource.wood": "Wood",
+  "resource.metal": "Metal",
+  "resource.parts": "Small parts",
+
+  "item.fasteners.1": "Rusty washer",
+  "item.fasteners.2": "Fastener set",
+  "item.fasteners.3": "Repair kit",
+  "item.fasteners.4": "Working tool",
+
+  "object.workbench": "Workbench",
+  "object.fastener_box": "Fastener box",
+  "object.lamp": "Desk lamp",
+  "object.window": "Window",
+  "object.cabinet": "Tool cabinet",
+  "object.shelf": "Shelf with jars",
+  "object.radio": "Radio",
+  "object.wall_clock": "Wall clock",
+
+  "zone.door": "Pile by the door",
+  "zone.under_workbench": "Boxes under the workbench",
+  "zone.window_shelves": "Shelves by the window",
+  "zone.corner_crates": "Crates in the corner",
+  "zone.behind_cabinet": "Clutter behind the cabinet",
+  "zone.attic": "Loft shelf",
+
+  "debris.box": "Box",
+  "debris.sack": "Sack",
+  "debris.plank": "Plank",
+  "debris.jar": "Jar",
+  "debris.rag": "Rag",
+  "debris.crate": "Crate",
+
+  "find.f_photo.title": "Photo at the workbench",
+  "find.f_photo.text": "An old snapshot: Grandpa stands at this very workbench in his work apron, laughing. Someone must have made a joke before he could put on a serious face.",
+  "find.f_screws.title": "A box of screws",
+  "find.f_screws.text": "Screws sorted by size, each slot labelled in his handwriting. Grandpa never threw anything away without a reason: everything comes in handy one day.",
+  "find.f_note.title": "A note in the cabinet",
+  "find.f_note.text": "A folded slip between the shelves: \"The most important thing is behind the cabinet.\" Grandpa's handwriting, a little hurried, as if he remembered at the last moment.",
+  "find.f_radio.title": "Evening tune",
+  "find.f_radio.text": "The radio crackles and suddenly finds a familiar tune. Grandpa played it in the evenings, when he finished work and poured himself some tea.",
+  "find.f_clock.title": "Engraving on the clock",
+  "find.f_clock.text": "An engraving on the back of the clock: \"To the master, from his first customer, with gratitude.\" This clock is where it all began.",
+
+  "final.title": "The workshop is alive",
+  "final.text": "The light is on, the clock is ticking, the radio plays softly. The workshop is alive again, and its story is only beginning. This is the first version of the game. Thank you for stopping by.",
+
+  "ui.noSpace": "Make room on the table"
+}

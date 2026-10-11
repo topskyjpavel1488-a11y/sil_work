@@ -1,0 +1,82 @@
+[
+  {
+    "id": "workbench",
+    "nameKey": "object.workbench",
+    "stateImages": ["obj_workbench_0", "obj_workbench_1", "obj_workbench_2", "obj_workbench_3"],
+    "steps": [
+      { "cost": { "resources": { "wood": 4 } } },
+      { "cost": { "resources": { "wood": 3 }, "items": [{ "chain": "fasteners", "level": 2, "count": 1 }] }, "find": "f_photo" },
+      { "cost": { "resources": { "parts": 3 }, "items": [{ "chain": "fasteners", "level": 3, "count": 1 }] } }
+    ]
+  },
+  {
+    "id": "fastener_box",
+    "nameKey": "object.fastener_box",
+    "requires": { "object": "workbench", "step": 1 },
+    "stateImages": ["obj_fastener_box_0", "obj_fastener_box_1"],
+    "steps": [
+      { "cost": { "resources": { "metal": 3 }, "items": [{ "chain": "fasteners", "level": 2, "count": 1 }] }, "find": "f_screws" }
+    ]
+  },
+  {
+    "id": "lamp",
+    "nameKey": "object.lamp",
+    "requires": { "object": "workbench", "step": 2 },
+    "stateImages": ["obj_lamp_0", "obj_lamp_1", "obj_lamp_2"],
+    "steps": [
+      { "cost": { "resources": { "parts": 2 }, "items": [{ "chain": "fasteners", "level": 2, "count": 1 }] } },
+      { "cost": { "resources": { "parts": 3 }, "items": [{ "chain": "fasteners", "level": 3, "count": 1 }] }, "effect": "warmLight" }
+    ]
+  },
+  {
+    "id": "window",
+    "nameKey": "object.window",
+    "requires": { "object": "lamp", "step": 1 },
+    "stateImages": ["obj_window_0", "obj_window_1", "obj_window_2"],
+    "steps": [
+      { "cost": { "resources": { "wood": 2, "metal": 2 } } },
+      { "cost": { "resources": { "parts": 2 }, "items": [{ "chain": "fasteners", "level": 2, "count": 1 }] } }
+    ]
+  },
+  {
+    "id": "cabinet",
+    "nameKey": "object.cabinet",
+    "requires": { "object": "window", "step": 2 },
+    "stateImages": ["obj_cabinet_0", "obj_cabinet_1", "obj_cabinet_2", "obj_cabinet_3"],
+    "steps": [
+      { "cost": { "resources": { "wood": 3, "metal": 2 } } },
+      { "cost": { "resources": { "metal": 3 }, "items": [{ "chain": "fasteners", "level": 2, "count": 2 }] }, "find": "f_note" },
+      { "cost": { "resources": { "parts": 3 }, "items": [{ "chain": "fasteners", "level": 3, "count": 1 }] } }
+    ]
+  },
+  {
+    "id": "shelf",
+    "nameKey": "object.shelf",
+    "requires": { "object": "cabinet", "step": 1 },
+    "stateImages": ["obj_shelf_0", "obj_shelf_1", "obj_shelf_2"],
+    "steps": [
+      { "cost": { "resources": { "wood": 3 } } },
+      { "cost": { "resources": { "metal": 2 }, "items": [{ "chain": "fasteners", "level": 2, "count": 1 }] } }
+    ]
+  },
+  {
+    "id": "radio",
+    "nameKey": "object.radio",
+    "requires": { "object": "cabinet", "step": 2 },
+    "stateImages": ["obj_radio_0", "obj_radio_1", "obj_radio_2"],
+    "steps": [
+      { "cost": { "resources": { "parts": 3 }, "items": [{ "chain": "fasteners", "level": 2, "count": 1 }] } },
+      { "cost": { "resources": { "parts": 4 }, "items": [{ "chain": "fasteners", "level": 4, "count": 1 }] }, "find": "f_radio" }
+    ]
+  },
+  {
+    "id": "wall_clock",
+    "nameKey": "object.wall_clock",
+    "requires": { "object": "radio", "step": 1 },
+    "stateImages": ["obj_wall_clock_0", "obj_wall_clock_1", "obj_wall_clock_2"],
+    "steps": [
+      { "cost": { "resources": { "parts": 3 }, "items": [{ "chain": "fasteners", "level": 3, "count": 1 }] } },
+      { "cost": { "resources": { "parts": 3 }, "items": [{ "chain": "fasteners", "level": 3, "count": 1 }] }, "find": "f_clock" }
+    ]
+  }
+]

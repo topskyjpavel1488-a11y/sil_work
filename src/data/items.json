@@ -1,0 +1,18 @@
+{
+  "resources": [
+    { "id": "wood", "nameKey": "resource.wood", "image": "res_wood" },
+    { "id": "metal", "nameKey": "resource.metal", "image": "res_metal" },
+    { "id": "parts", "nameKey": "resource.parts", "image": "res_parts" }
+  ],
+  "chains": [
+    {
+      "id": "fasteners",
+      "levels": [
+        { "nameKey": "item.fasteners.1", "image": "item_fasteners_1" },
+        { "nameKey": "item.fasteners.2", "image": "item_fasteners_2" },
+        { "nameKey": "item.fasteners.3", "image": "item_fasteners_3" },
+        { "nameKey": "item.fasteners.4", "image": "item_fasteners_4" }
+      ]
+    }
+  ]
+}

@@ -12,14 +12,25 @@ export const PALETTE = {
   dust: 0xc9c2b5,
 } as const;
 
-export const BUILD: 'test' | 'release' = import.meta.env.VITE_BUILD === 'release' ? 'release' : 'test';
+// Optional chaining keeps this module importable from Node tools, where import.meta.env is absent.
+export const BUILD: 'test' | 'release' = import.meta.env?.VITE_BUILD === 'release' ? 'release' : 'test';
 
 export const config = {
   boardCols: 4,
   boardRows: 5,
   boxSize: 6,
-  maxItemLevel: 4,
   saveDebounceMs: 1000,
   adCooldownSec: 180,
   mockAdDelayMs: 1000,
+  findTextMaxChars: 220,
+  // Content invariants checked by `npm run validate` (spec 5.5).
+  balanceMargin: 1.25,
+  zoneCount: { min: 5, max: 7 },
+  zoneDebris: { min: 8, max: 10 },
+  debrisDropUnits: { min: 1, max: 3 },
+  firstZone: { minWood: 4, minLevel1Items: 2 },
+  simMaxBoardCells: 18,
+  simMaxBoxCells: 3,
 } as const;
+
+export const BOARD_SIZE = config.boardCols * config.boardRows;

@@ -1,0 +1,355 @@
+{
+  "images": {
+    "res_wood": {
+      "file": null,
+      "placeholder": {
+        "color": "dust"
+      }
+    },
+    "res_metal": {
+      "file": null,
+      "placeholder": {
+        "color": "dust"
+      }
+    },
+    "res_parts": {
+      "file": null,
+      "placeholder": {
+        "color": "dust"
+      }
+    },
+    "item_fasteners_1": {
+      "file": null,
+      "placeholder": {
+        "color": "dust"
+      }
+    },
+    "item_fasteners_2": {
+      "file": null,
+      "placeholder": {
+        "color": "dust"
+      }
+    },
+    "item_fasteners_3": {
+      "file": null,
+      "placeholder": {
+        "color": "dust"
+      }
+    },
+    "item_fasteners_4": {
+      "file": null,
+      "placeholder": {
+        "color": "dust"
+      }
+    },
+    "obj_workbench_0": {
+      "file": null,
+      "placeholder": {
+        "color": "dust"
+      }
+    },
+    "obj_workbench_1": {
+      "file": null,
+      "placeholder": {
+        "color": "dust"
+      }
+    },
+    "obj_workbench_2": {
+      "file": null,
+      "placeholder": {
+        "color": "dust"
+      }
+    },
+    "obj_workbench_3": {
+      "file": null,
+      "placeholder": {
+        "color": "dust"
+      }
+    },
+    "obj_fastener_box_0": {
+      "file": null,
+      "placeholder": {
+        "color": "dust"
+      }
+    },
+    "obj_fastener_box_1": {
+      "file": null,
+      "placeholder": {
+        "color": "dust"
+      }
+    },
+    "obj_lamp_0": {
+      "file": null,
+      "placeholder": {
+        "color": "dust"
+      }
+    },
+    "obj_lamp_1": {
+      "file": null,
+      "placeholder": {
+        "color": "dust"
+      }
+    },
+    "obj_lamp_2": {
+      "file": null,
+      "placeholder": {
+        "color": "dust"
+      }
+    },
+    "obj_window_0": {
+      "file": null,
+      "placeholder": {
+        "color": "dust"
+      }
+    },
+    "obj_window_1": {
+      "file": null,
+      "placeholder": {
+        "color": "dust"
+      }
+    },
+    "obj_window_2": {
+      "file": null,
+      "placeholder": {
+        "color": "dust"
+      }
+    },
+    "obj_cabinet_0": {
+      "file": null,
+      "placeholder": {
+        "color": "dust"
+      }
+    },
+    "obj_cabinet_1": {
+      "file": null,
+      "placeholder": {
+        "color": "dust"
+      }
+    },
+    "obj_cabinet_2": {
+      "file": null,
+      "placeholder": {
+        "color": "dust"
+      }
+    },
+    "obj_cabinet_3": {
+      "file": null,
+      "placeholder": {
+        "color": "dust"
+      }
+    },
+    "obj_shelf_0": {
+      "file": null,
+      "placeholder": {
+        "color": "dust"
+      }
+    },
+    "obj_shelf_1": {
+      "file": null,
+      "placeholder": {
+        "color": "dust"
+      }
+    },
+    "obj_shelf_2": {
+      "file": null,
+      "placeholder": {
+        "color": "dust"
+      }
+    },
+    "obj_radio_0": {
+      "file": null,
+      "placeholder": {
+        "color": "dust"
+      }
+    },
+    "obj_radio_1": {
+      "file": null,
+      "placeholder": {
+        "color": "dust"
+      }
+    },
+    "obj_radio_2": {
+      "file": null,
+      "placeholder": {
+        "color": "dust"
+      }
+    },
+    "obj_wall_clock_0": {
+      "file": null,
+      "placeholder": {
+        "color": "dust"
+      }
+    },
+    "obj_wall_clock_1": {
+      "file": null,
+      "placeholder": {
+        "color": "dust"
+      }
+    },
+    "obj_wall_clock_2": {
+      "file": null,
+      "placeholder": {
+        "color": "dust"
+      }
+    },
+    "zone_door": {
+      "file": null,
+      "placeholder": {
+        "color": "dust"
+      }
+    },
+    "zone_under_workbench": {
+      "file": null,
+      "placeholder": {
+        "color": "dust"
+      }
+    },
+    "zone_window_shelves": {
+      "file": null,
+      "placeholder": {
+        "color": "dust"
+      }
+    },
+    "zone_corner_crates": {
+      "file": null,
+      "placeholder": {
+        "color": "dust"
+      }
+    },
+    "zone_behind_cabinet": {
+      "file": null,
+      "placeholder": {
+        "color": "dust"
+      }
+    },
+    "zone_attic": {
+      "file": null,
+      "placeholder": {
+        "color": "dust"
+      }
+    },
+    "debris_box": {
+      "file": null,
+      "placeholder": {
+        "color": "dust"
+      }
+    },
+    "debris_sack": {
+      "file": null,
+      "placeholder": {
+        "color": "dust"
+      }
+    },
+    "debris_plank": {
+      "file": null,
+      "placeholder": {
+        "color": "dust"
+      }
+    },
+    "debris_jar": {
+      "file": null,
+      "placeholder": {
+        "color": "dust"
+      }
+    },
+    "debris_rag": {
+      "file": null,
+      "placeholder": {
+        "color": "dust"
+      }
+    },
+    "debris_crate": {
+      "file": null,
+      "placeholder": {
+        "color": "dust"
+      }
+    },
+    "find_f_photo": {
+      "file": null,
+      "placeholder": {
+        "color": "dust"
+      }
+    },
+    "find_f_screws": {
+      "file": null,
+      "placeholder": {
+        "color": "dust"
+      }
+    },
+    "find_f_note": {
+      "file": null,
+      "placeholder": {
+        "color": "dust"
+      }
+    },
+    "find_f_radio": {
+      "file": null,
+      "placeholder": {
+        "color": "dust"
+      }
+    },
+    "find_f_clock": {
+      "file": null,
+      "placeholder": {
+        "color": "dust"
+      }
+    },
+    "final_card": {
+      "file": null,
+      "placeholder": {
+        "color": "dust"
+      }
+    }
+  },
+  "sounds": {
+    "sfx_debris_box": {
+      "file": null,
+      "synth": {
+        "freq": 440,
+        "ms": 120
+      }
+    },
+    "sfx_debris_sack": {
+      "file": null,
+      "synth": {
+        "freq": 440,
+        "ms": 120
+      }
+    },
+    "sfx_debris_plank": {
+      "file": null,
+      "synth": {
+        "freq": 440,
+        "ms": 120
+      }
+    },
+    "sfx_debris_jar": {
+      "file": null,
+      "synth": {
+        "freq": 440,
+        "ms": 120
+      }
+    },
+    "sfx_debris_rag": {
+      "file": null,
+      "synth": {
+        "freq": 440,
+        "ms": 120
+      }
+    },
+    "sfx_debris_crate": {
+      "file": null,
+      "synth": {
+        "freq": 440,
+        "ms": 120
+      }
+    },
+    "sfx_radio_melody": {
+      "file": null,
+      "synth": {
+        "freq": 440,
+        "ms": 120
+      }
+    }
+  }
+}

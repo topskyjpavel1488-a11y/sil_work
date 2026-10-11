@@ -9,7 +9,9 @@
     "preview": "vite preview",
     "test": "vitest run",
     "lint": "eslint . --max-warnings 0",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "validate": "tsx tools/validate-content.ts",
+    "simulate": "tsx tools/simulate.ts"
   },
   "dependencies": {
     "phaser": "3.90.0"

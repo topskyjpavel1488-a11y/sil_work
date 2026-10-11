@@ -1,0 +1,10 @@
+{
+  "finds": [
+    { "id": "f_photo", "titleKey": "find.f_photo.title", "textKey": "find.f_photo.text", "image": "find_f_photo" },
+    { "id": "f_screws", "titleKey": "find.f_screws.title", "textKey": "find.f_screws.text", "image": "find_f_screws" },
+    { "id": "f_note", "titleKey": "find.f_note.title", "textKey": "find.f_note.text", "image": "find_f_note" },
+    { "id": "f_radio", "titleKey": "find.f_radio.title", "textKey": "find.f_radio.text", "image": "find_f_radio", "sound": "sfx_radio_melody" },
+    { "id": "f_clock", "titleKey": "find.f_clock.title", "textKey": "find.f_clock.text", "image": "find_f_clock" }
+  ],
+  "final": { "titleKey": "final.title", "textKey": "final.text", "image": "final_card" }
+}
