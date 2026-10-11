@@ -55,6 +55,12 @@ export const UI_SOUNDS = {
   soft: 'sfx_soft',
 } as const;
 
+// Drawing order of overlays: modal windows must cover the tutorial hint.
+export const DEPTH = {
+  tutorial: 700,
+  modal: 800,
+} as const;
+
 // Feedback timings in ms (spec 6.3).
 export const FEEDBACK = {
   tapMs: 150,

@@ -26,10 +26,17 @@ export class PauseTracker {
   }
 
   // Sound goes off when the page is hidden or loses focus (spec 2.1).
+  // Browsers do not always send "focus" back (for example, returning to Safari on iOS), so a
+  // visible page or a touch on the game also ends the focus pause; otherwise the game could
+  // stay frozen with no way out.
   watchPage(): void {
     if (typeof document === 'undefined') return;
-    document.addEventListener('visibilitychange', () => this.set('hidden', document.hidden));
+    document.addEventListener('visibilitychange', () => {
+      this.set('hidden', document.hidden);
+      if (!document.hidden && document.hasFocus()) this.set('blur', false);
+    });
     window.addEventListener('blur', () => this.set('blur', true));
     window.addEventListener('focus', () => this.set('blur', false));
+    window.addEventListener('pointerdown', () => this.set('blur', false), { capture: true });
   }
 }

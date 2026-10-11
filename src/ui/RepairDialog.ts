@@ -1,7 +1,7 @@
 // Modal repair window: requirements as "have / need" and the Repair button (spec 4.4, 6.2).
 import Phaser from 'phaser';
 import { addAsset } from '../assets';
-import { DESIGN_HEIGHT, DESIGN_WIDTH, FEEDBACK, PALETTE } from '../config';
+import { DEPTH, DESIGN_HEIGHT, DESIGN_WIDTH, FEEDBACK, PALETTE } from '../config';
 import { findObject } from '../core/content';
 import { checkRepair } from '../core/repair';
 import { t } from '../i18n';
@@ -84,7 +84,7 @@ export class RepairDialog extends Phaser.GameObjects.Container {
     button.setEnabled(check.ok);
     this.add(button);
 
-    this.setAlpha(0);
+    this.setDepth(DEPTH.modal).setAlpha(0);
     scene.add.existing(this);
     scene.tweens.add({ targets: this, alpha: 1, duration: FEEDBACK.transitionMs / 2 });
   }

@@ -1,6 +1,6 @@
 // Shared modal frame: a shade that blocks the screen and a centred cream panel.
 import Phaser from 'phaser';
-import { DESIGN_HEIGHT, DESIGN_WIDTH, FEEDBACK, PALETTE } from '../config';
+import { DEPTH, DESIGN_HEIGHT, DESIGN_WIDTH, FEEDBACK, PALETTE } from '../config';
 import { onTap } from './tap';
 
 export class Modal extends Phaser.GameObjects.Container {
@@ -26,7 +26,7 @@ export class Modal extends Phaser.GameObjects.Container {
     // Taps on the panel itself must not reach the shade.
     const hit = scene.add.zone(this.px, this.py, pw, ph).setOrigin(0).setInteractive();
     this.add([shade, panel, hit]);
-    this.setDepth(800).setAlpha(0).setScale(0.98);
+    this.setDepth(DEPTH.modal).setAlpha(0).setScale(0.98);
     scene.add.existing(this);
     scene.tweens.add({ targets: this, alpha: 1, scale: 1, duration: FEEDBACK.transitionMs, ease: 'Sine.easeOut' });
   }

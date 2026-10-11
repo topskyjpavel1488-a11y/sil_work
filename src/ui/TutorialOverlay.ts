@@ -2,7 +2,7 @@
 // The bubble sits in the screen's "ui.tutorial" rect from layout.json, away from what the player taps.
 // It never blocks taps on the game underneath. The pulse is about once per second (spec 6.3).
 import Phaser from 'phaser';
-import { PALETTE } from '../config';
+import { DEPTH, PALETTE } from '../config';
 import type { TutorialStep } from '../core/tutorial';
 import { t } from '../i18n';
 import type { Rect } from '../layout';
@@ -23,7 +23,7 @@ export class TutorialOverlay {
     private readonly store: Store,
     private readonly bubble: Rect,
   ) {
-    this.layer = scene.add.container(0, 0).setDepth(700);
+    this.layer = scene.add.container(0, 0).setDepth(DEPTH.tutorial);
   }
 
   // Shows the step's phrase and frames the given targets; no targets hides the hint.
