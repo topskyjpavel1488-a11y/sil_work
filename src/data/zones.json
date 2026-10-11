@@ -12,6 +12,7 @@
       "id": "door",
       "nameKey": "zone.door",
       "image": "zone_door",
+      "sceneImage": "scene_door",
       "debris": [
         { "id": "door_1", "kind": "plank", "drop": { "resources": { "wood": 2 } } },
         { "id": "door_2", "kind": "plank", "drop": { "resources": { "wood": 2 } } },
@@ -27,6 +28,7 @@
       "id": "under_workbench",
       "nameKey": "zone.under_workbench",
       "image": "zone_under_workbench",
+      "sceneImage": "scene_under_workbench",
       "unlock": { "object": "workbench", "step": 1 },
       "debris": [
         { "id": "under_workbench_1", "kind": "plank", "drop": { "resources": { "wood": 2 } } },
@@ -44,6 +46,7 @@
       "id": "window_shelves",
       "nameKey": "zone.window_shelves",
       "image": "zone_window_shelves",
+      "sceneImage": "scene_window_shelves",
       "unlock": { "object": "lamp", "step": 1 },
       "debris": [
         { "id": "window_shelves_1", "kind": "jar", "drop": { "resources": { "parts": 3 } } },
@@ -61,6 +64,7 @@
       "id": "corner_crates",
       "nameKey": "zone.corner_crates",
       "image": "zone_corner_crates",
+      "sceneImage": "scene_corner_crates",
       "unlock": { "object": "window", "step": 2 },
       "debris": [
         { "id": "corner_crates_1", "kind": "crate", "drop": { "resources": { "metal": 3 } } },
@@ -77,6 +81,7 @@
       "id": "behind_cabinet",
       "nameKey": "zone.behind_cabinet",
       "image": "zone_behind_cabinet",
+      "sceneImage": "scene_behind_cabinet",
       "unlock": { "object": "cabinet", "step": 2 },
       "debris": [
         { "id": "behind_cabinet_1", "kind": "box", "drop": { "items": [{ "chain": "fasteners", "level": 1, "count": 3 }] } },
@@ -95,6 +100,7 @@
       "id": "attic",
       "nameKey": "zone.attic",
       "image": "zone_attic",
+      "sceneImage": "scene_attic",
       "unlock": { "object": "radio", "step": 1 },
       "debris": [
         { "id": "attic_1", "kind": "jar", "drop": { "resources": { "parts": 3 } } },

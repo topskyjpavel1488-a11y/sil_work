@@ -44,7 +44,9 @@ export interface DebrisDef {
 export interface ZoneDef {
   id: string;
   nameKey: string;
+  // The pile on the main screen and the backdrop of the zone's own scene.
   image: string;
+  sceneImage: string;
   unlock?: Condition;
   debris: DebrisDef[];
 }

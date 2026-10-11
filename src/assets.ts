@@ -48,7 +48,10 @@ export function setAsset(scene: Phaser.Scene, box: Phaser.GameObjects.Container,
   box.removeAll(true);
   const { width: w, height: h } = box;
   if (scene.textures.exists(key)) {
-    box.add(scene.add.image(0, 0, key).setDisplaySize(w, h));
+    // Fit inside the rect keeping proportions, so art of any aspect is never stretched.
+    const image = scene.add.image(0, 0, key);
+    image.setScale(Math.min(w / image.width, h / image.height));
+    box.add(image);
     return;
   }
   const g = scene.add.graphics();

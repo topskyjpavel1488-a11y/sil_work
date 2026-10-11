@@ -311,6 +311,42 @@
       "placeholder": {
         "color": "#8B5E3C"
       }
+    },
+    "scene_door": {
+      "file": null,
+      "placeholder": {
+        "color": "#A39A8C"
+      }
+    },
+    "scene_under_workbench": {
+      "file": null,
+      "placeholder": {
+        "color": "#A39A8C"
+      }
+    },
+    "scene_window_shelves": {
+      "file": null,
+      "placeholder": {
+        "color": "#A39A8C"
+      }
+    },
+    "scene_corner_crates": {
+      "file": null,
+      "placeholder": {
+        "color": "#A39A8C"
+      }
+    },
+    "scene_behind_cabinet": {
+      "file": null,
+      "placeholder": {
+        "color": "#A39A8C"
+      }
+    },
+    "scene_attic": {
+      "file": null,
+      "placeholder": {
+        "color": "#A39A8C"
+      }
     }
   },
   "sounds": {

@@ -48,7 +48,10 @@ export function collectAssetKeys(content: Content): { images: string[]; sounds: 
   content.resources.forEach((r) => images.add(r.image));
   content.chains.forEach((c) => c.levels.forEach((l) => images.add(l.image)));
   content.objects.forEach((o) => o.stateImages.forEach((k) => images.add(k)));
-  content.zones.forEach((z) => images.add(z.image));
+  content.zones.forEach((z) => {
+    images.add(z.image);
+    images.add(z.sceneImage);
+  });
   Object.values(content.debrisKinds).forEach((k) => {
     images.add(k.image);
     sounds.add(k.sound);

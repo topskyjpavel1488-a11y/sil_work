@@ -239,7 +239,10 @@ export class WorkshopScene extends Phaser.Scene {
       const hotspot = this.objects.get(object.id);
       if (!hotspot) continue;
       const step = stepOf(state, object.id);
-      setAsset(this, hotspot.box, object.stateImages[step] ?? object.stateImages[0] ?? '');
+      const key = object.stateImages[step] ?? object.stateImages[0] ?? '';
+      setAsset(this, hotspot.box, key);
+      // Names are written only on placeholders; real art speaks for itself.
+      hotspot.label.setVisible(!this.textures.exists(key));
       const available = isObjectAvailable(state, object);
       hotspot.box.setAlpha(available ? 1 : 0.4);
       hotspot.label.setAlpha(available ? 1 : 0.5);
@@ -252,7 +255,8 @@ export class WorkshopScene extends Phaser.Scene {
       const cleared = isZoneCleared(state, zone);
       hotspot.box.setAlpha(!open ? 0.3 : cleared ? 0.45 : 1);
       hotspot.label.setAlpha(open ? 1 : 0.4);
-      hotspot.label.setText(cleared ? `${t(zone.nameKey)} ✓` : t(zone.nameKey));
+      const name = this.textures.exists(zone.image) ? '' : t(zone.nameKey);
+      hotspot.label.setText(cleared ? `${name} ✓`.trim() : name);
       if (hotspot.box.input) hotspot.box.input.enabled = open && !cleared;
     }
     const warm = content.objects.some((o) => o.steps.some((s, i) => s.effect === 'warmLight' && stepOf(state, o.id) > i));

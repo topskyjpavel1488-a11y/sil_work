@@ -47,7 +47,7 @@ export class ScavengeScene extends Phaser.Scene {
   create(): void {
     fadeIn(this);
     this.add.rectangle(0, 0, DESIGN_WIDTH, DESIGN_HEIGHT, PALETTE.cream).setOrigin(0);
-    addAsset(this, this.zone.image, rect(SECTION, 'area'));
+    addAsset(this, this.zone.sceneImage, rect(SECTION, 'area'));
 
     this.resources = new ResourceBar(this, this.store.content, rect(SECTION, 'ui.resources'));
     this.resources.update(this.store.state);
@@ -85,7 +85,7 @@ export class ScavengeScene extends Phaser.Scene {
     const kind = this.store.content.debrisKinds[d.kind];
     const r = rect(`${SECTION}.${this.zone.id}`, `debris.${d.id}`);
     const box = addAsset(this, kind?.image ?? '', r);
-    box.add(this.add.text(0, 0, t(kind?.nameKey ?? d.kind), textStyle(32, COLORS.text)).setOrigin(0.5));
+    if (!this.textures.exists(kind?.image ?? '')) box.add(this.add.text(0, 0, t(kind?.nameKey ?? d.kind), textStyle(32, COLORS.text)).setOrigin(0.5));
     box.setInteractive({ useHandCursor: true });
     box.on('pointerdown', () => this.tweens.add({ targets: box, scale: 0.94, duration: FEEDBACK.tapMs / 2, yoyo: true }));
     onTap(box, () => {
