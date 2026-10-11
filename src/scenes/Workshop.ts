@@ -77,6 +77,7 @@ export class WorkshopScene extends Phaser.Scene {
     if (!this.readyReported) {
       this.readyReported = true;
       this.platform.gameReady();
+      this.platform.gameplayStart();
     }
   }
 

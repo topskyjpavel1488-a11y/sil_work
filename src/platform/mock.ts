@@ -1,6 +1,7 @@
 import { config } from '../config';
 import type { SaveData } from '../core/state';
 import type { PlatformAdapter } from './adapter';
+import { PauseTracker } from './pause';
 
 const CLOUD_KEY = 'tm_mock_cloud';
 
@@ -26,8 +27,7 @@ const delay = (ms: number) => new Promise<void>((resolve) => setTimeout(resolve,
 export class MockAdapter implements PlatformAdapter {
   private cloud: SaveData | null = null;
   private authorized = false;
-  private pauseHandlers: (() => void)[] = [];
-  private resumeHandlers: (() => void)[] = [];
+  private pause = new PauseTracker();
 
   constructor(private readonly lang: 'ru' | 'en' = 'ru') {}
 
@@ -40,14 +40,7 @@ export class MockAdapter implements PlatformAdapter {
         this.cloud = null;
       }
     }
-    if (typeof document !== 'undefined') {
-      document.addEventListener('visibilitychange', () => {
-        if (document.hidden) this.emitPause();
-        else this.emitResume();
-      });
-      window.addEventListener('blur', () => this.emitPause());
-      window.addEventListener('focus', () => this.emitResume());
-    }
+    this.pause.watchPage();
   }
 
   gameReady(): void {
@@ -81,31 +74,23 @@ export class MockAdapter implements PlatformAdapter {
   }
 
   async showInterstitial(): Promise<void> {
-    this.emitPause();
+    this.pause.set('ad', true);
     await delay(config.mockAdDelayMs);
-    this.emitResume();
+    this.pause.set('ad', false);
   }
 
   async showRewarded(): Promise<boolean> {
-    this.emitPause();
+    this.pause.set('ad', true);
     await delay(config.mockAdDelayMs);
-    this.emitResume();
+    this.pause.set('ad', false);
     return true;
   }
 
   onPause(cb: () => void): void {
-    this.pauseHandlers.push(cb);
+    this.pause.onPause(cb);
   }
 
   onResume(cb: () => void): void {
-    this.resumeHandlers.push(cb);
-  }
-
-  private emitPause(): void {
-    for (const cb of this.pauseHandlers) cb();
-  }
-
-  private emitResume(): void {
-    for (const cb of this.resumeHandlers) cb();
+    this.pause.onResume(cb);
   }
 }

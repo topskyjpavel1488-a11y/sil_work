@@ -62,6 +62,16 @@ export class Store {
     this.commit({ state: next, events: [{ type: 'settings' }] });
   }
 
+  // After signing in: a newer cloud save (another device) replaces local progress,
+  // otherwise local progress goes to the cloud.
+  async syncAfterSignIn(): Promise<void> {
+    const cloud = await this.saver.loadCloud();
+    if (cloud && cloud.savedAt > this.saver.lastSavedAt) {
+      this.apply({ state: cloud, events: [{ type: 'reset' }] });
+    }
+    this.saver.saveNow(true);
+  }
+
   resetProgress(): void {
     const next = createInitialState(this.content);
     next.settings = { ...this.current.settings };

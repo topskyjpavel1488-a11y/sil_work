@@ -8,7 +8,7 @@ export interface PlatformAdapter {
   gameplayStop(): void;
   getLanguage(): 'ru' | 'en';
   loadCloud(): Promise<SaveData | null>;
-  saveCloud(data: SaveData): Promise<void>;
+  saveCloud(data: SaveData, flush?: boolean): Promise<void>; // flush: send now instead of queueing
   isAuthorized(): boolean;
   requestAuth(): Promise<boolean>;
   showInterstitial(): Promise<void>;

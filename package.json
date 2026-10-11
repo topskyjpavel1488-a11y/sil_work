@@ -12,7 +12,8 @@
     "typecheck": "tsc --noEmit",
     "validate": "tsx tools/validate-content.ts",
     "simulate": "tsx tools/simulate.ts",
-    "layout": "vite --config tools/layout-editor/vite.config.ts"
+    "layout": "vite --config tools/layout-editor/vite.config.ts",
+    "build:release": "tsc --noEmit && vite build --mode release && tsx tools/check-dist.ts"
   },
   "dependencies": {
     "phaser": "3.90.0"

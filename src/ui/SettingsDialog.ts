@@ -52,7 +52,11 @@ export function showSettings(scene: Phaser.Scene, store: Store, platform: Platfo
     label: t('ui.settings.login'),
     fill: PALETTE.copper,
     onTap: () => {
-      void platform.requestAuth().then(() => paintAuth());
+      void platform
+        .requestAuth()
+        .then((ok) => (ok ? store.syncAfterSignIn() : undefined))
+        // A cloud save from another device restarts the screen and closes this dialog.
+        .then(() => modal.scene && paintAuth());
     },
   });
   modal.add(login);
