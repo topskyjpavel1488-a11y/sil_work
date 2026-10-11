@@ -81,19 +81,32 @@ const fmt = (u: Units) => `W${u.resources.wood} M${u.resources.metal} P${u.resou
 export type LayoutData = Record<string, Record<string, { x: number; y: number; w: number; h: number }>>;
 
 function checkLayout(content: Content, layout: LayoutData, err: (msg: string) => void): void {
-  const ws = layout.workshop ?? {};
-  const names = ['room', 'ui.resources', 'ui.settings', 'ui.goal', 'ui.nav'];
-  const hotspots = [...content.objects.map((o) => `object.${o.id}`), ...content.zones.map((z) => `zone.${z.id}`)];
-  for (const name of [...names, ...hotspots]) {
-    const r = ws[name];
-    if (!r) {
-      err(`layout: workshop has no "${name}"`);
-      continue;
+  const checkSection = (section: string, names: string[], hotspots: string[]) => {
+    const rects = layout[section] ?? {};
+    for (const name of [...names, ...hotspots]) {
+      const r = rects[name];
+      if (!r) {
+        err(`layout: "${section}" has no "${name}"`);
+        continue;
+      }
+      if (r.x < 0 || r.y < 0 || r.x + r.w > DESIGN_WIDTH || r.y + r.h > DESIGN_HEIGHT) err(`layout: "${section}" → "${name}" is outside the 720×1280 field`);
+      if (hotspots.includes(name) && (r.w < config.minTapSize || r.h < config.minTapSize)) {
+        err(`layout: "${section}" → "${name}" is ${r.w}×${r.h}, tap targets must be at least ${config.minTapSize}×${config.minTapSize}`);
+      }
     }
-    if (r.x < 0 || r.y < 0 || r.x + r.w > DESIGN_WIDTH || r.y + r.h > DESIGN_HEIGHT) err(`layout: "${name}" is outside the 720×1280 field`);
-    if (hotspots.includes(name) && (r.w < config.minTapSize || r.h < config.minTapSize)) {
-      err(`layout: "${name}" is ${r.w}×${r.h}, tap targets must be at least ${config.minTapSize}×${config.minTapSize}`);
-    }
+  };
+  checkSection(
+    'workshop',
+    ['room', 'ui.resources', 'ui.settings', 'ui.goal', 'ui.nav'],
+    [...content.objects.map((o) => `object.${o.id}`), ...content.zones.map((z) => `zone.${z.id}`)],
+  );
+  checkSection('scavenge', ['ui.resources', 'ui.title', 'area', 'ui.back'], []);
+  for (const zone of content.zones) {
+    checkSection(
+      `scavenge.${zone.id}`,
+      [],
+      zone.debris.map((d) => `debris.${d.id}`),
+    );
   }
 }
 

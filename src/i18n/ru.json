@@ -47,5 +47,8 @@
   "ui.repair.step": "Шаг {n} из {total}",
   "ui.nav.workshop": "Мастерская",
   "ui.nav.table": "Стол",
-  "ui.nav.journal": "Журнал"
+  "ui.nav.journal": "Журнал",
+  "ui.back": "Назад",
+  "ui.zone.cleared": "Завал разобран!",
+  "ui.zone.toWorkshop": "В мастерскую"
 }

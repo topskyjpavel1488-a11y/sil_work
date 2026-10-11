@@ -1,6 +1,7 @@
 // Holds the current state, applies core actions and notifies scenes (spec 3.3).
 import type { Content } from './core/content';
 import { repair } from './core/repair';
+import { takeDebris } from './core/scavenge';
 import type { ActionResult, GameEvent, GameState } from './core/state';
 import type { SaveManager } from './save';
 
@@ -31,6 +32,10 @@ export class Store {
     // A repair is saved immediately (spec 7).
     if (events.some((e) => e.type === 'repaired')) this.saver.saveNow();
     return events;
+  }
+
+  takeDebris(zoneId: string, debrisId: string): GameEvent[] {
+    return this.commit(takeDebris(this.current, this.content, zoneId, debrisId));
   }
 
   // Applies a result and schedules a debounced save.

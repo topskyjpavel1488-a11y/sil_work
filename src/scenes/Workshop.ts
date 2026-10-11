@@ -6,7 +6,7 @@ import { FEEDBACK, PALETTE, UI_IMAGES, UI_SOUNDS } from '../config';
 import type { ObjectDef, ZoneDef } from '../core/content';
 import { currentGoal, isObjectAvailable, isObjectRestored, isZoneCleared, isZoneUnlocked } from '../core/progress';
 import { checkRepair } from '../core/repair';
-import { RESOURCES, stepOf, type GameEvent, type GameState } from '../core/state';
+import { stepOf, type GameEvent, type GameState } from '../core/state';
 import { t } from '../i18n';
 import { rect, type Rect } from '../layout';
 import type { PlatformAdapter } from '../platform/adapter';
@@ -14,7 +14,9 @@ import type { Store } from '../store';
 import { Button } from '../ui/Button';
 import { requirementName } from '../ui/labels';
 import { RepairDialog } from '../ui/RepairDialog';
+import { ResourceBar } from '../ui/ResourceBar';
 import { COLORS, textStyle } from '../ui/style';
+import { fadeIn, goTo } from '../ui/transition';
 
 const SECTION = 'workshop';
 
@@ -26,7 +28,7 @@ interface Hotspot {
 export class WorkshopScene extends Phaser.Scene {
   private objects = new Map<string, Hotspot>();
   private zones = new Map<string, Hotspot>();
-  private resourceTexts = new Map<string, Phaser.GameObjects.Text>();
+  private resources!: ResourceBar;
   private goalTitle!: Phaser.GameObjects.Text;
   private goalCost!: Phaser.GameObjects.Text;
   private warmLight!: Phaser.GameObjects.Rectangle;
@@ -41,6 +43,10 @@ export class WorkshopScene extends Phaser.Scene {
   }
 
   create(): void {
+    this.objects.clear();
+    this.zones.clear();
+    this.dialog = null;
+    fadeIn(this);
     this.add.rectangle(0, 0, this.scale.width, this.scale.height, PALETTE.cream).setOrigin(0);
     const room = rect(SECTION, 'room');
     addAsset(this, UI_IMAGES.room, room);
@@ -81,14 +87,7 @@ export class WorkshopScene extends Phaser.Scene {
   }
 
   private createResourceBar(): void {
-    const r = rect(SECTION, 'ui.resources');
-    const slot = r.w / RESOURCES.length;
-    RESOURCES.forEach((res, i) => {
-      const def = this.store.content.resources.find((x) => x.id === res);
-      const x = r.x + i * slot;
-      addAsset(this, def?.image ?? '', { x: x + 8, y: r.y + (r.h - 64) / 2, w: 64, h: 64 });
-      this.resourceTexts.set(res, this.add.text(x + 88, r.y + r.h / 2, '0', textStyle(40, COLORS.text, { fontStyle: 'bold' })).setOrigin(0, 0.5));
-    });
+    this.resources = new ResourceBar(this, this.store.content, rect(SECTION, 'ui.resources'));
     // Settings arrive with the settings window; until then the button is shown inactive.
     const s = rect(SECTION, 'ui.settings');
     new Button(this, { ...s, label: '⚙', fill: PALETTE.dust, textColor: COLORS.text, fontSize: 44, onTap: () => undefined }).setEnabled(false);
@@ -145,9 +144,10 @@ export class WorkshopScene extends Phaser.Scene {
     this.openRepair(object.id);
   }
 
-  // Scavenging opens in M3; until then zones only show their state.
   private onZone(zone: ZoneDef): void {
-    void zone;
+    const state = this.store.state;
+    if (!isZoneUnlocked(state, zone) || isZoneCleared(state, zone)) return;
+    goTo(this, 'Scavenge', { zoneId: zone.id });
   }
 
   private openRepair(objectId: string): void {
@@ -192,14 +192,15 @@ export class WorkshopScene extends Phaser.Scene {
       if (!hotspot) continue;
       const open = isZoneUnlocked(state, zone);
       const cleared = isZoneCleared(state, zone);
-      hotspot.box.setAlpha(!open ? 0.3 : cleared ? 0.55 : 1);
+      hotspot.box.setAlpha(!open ? 0.3 : cleared ? 0.45 : 1);
       hotspot.label.setAlpha(open ? 1 : 0.4);
+      hotspot.label.setText(cleared ? `${t(zone.nameKey)} ✓` : t(zone.nameKey));
       if (hotspot.box.input) hotspot.box.input.enabled = open && !cleared;
     }
     const warm = content.objects.some((o) => o.steps.some((s, i) => s.effect === 'warmLight' && stepOf(state, o.id) > i));
     this.warmLight.setVisible(warm);
 
-    for (const res of RESOURCES) this.resourceTexts.get(res)?.setText(String(state.resources[res]));
+    this.resources.update(state);
 
     const goal = currentGoal(state, content);
     if (!goal) {

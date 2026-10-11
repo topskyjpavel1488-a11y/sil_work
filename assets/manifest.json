@@ -231,37 +231,37 @@
     "debris_box": {
       "file": null,
       "placeholder": {
-        "color": "#8F8577"
+        "color": "#A67B5B"
       }
     },
     "debris_sack": {
       "file": null,
       "placeholder": {
-        "color": "#8F8577"
+        "color": "#BFA982"
       }
     },
     "debris_plank": {
       "file": null,
       "placeholder": {
-        "color": "#8F8577"
+        "color": "#8B5E3C"
       }
     },
     "debris_jar": {
       "file": null,
       "placeholder": {
-        "color": "#8F8577"
+        "color": "#7D9A78"
       }
     },
     "debris_rag": {
       "file": null,
       "placeholder": {
-        "color": "#8F8577"
+        "color": "#D2C3B0"
       }
     },
     "debris_crate": {
       "file": null,
       "placeholder": {
-        "color": "#8F8577"
+        "color": "#6B5B4B"
       }
     },
     "find_f_photo": {

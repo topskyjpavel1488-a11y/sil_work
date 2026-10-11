@@ -19,5 +19,77 @@
     "zone.corner_crates": { "x": 248, "y": 1000, "w": 224, "h": 120 },
     "zone.behind_cabinet": { "x": 480, "y": 888, "w": 224, "h": 232 },
     "ui.nav": { "x": 0, "y": 1136, "w": 720, "h": 144 }
+  },
+  "scavenge": {
+    "ui.resources": { "x": 16, "y": 16, "w": 576, "h": 96 },
+    "ui.title": { "x": 16, "y": 128, "w": 688, "h": 112 },
+    "area": { "x": 0, "y": 256, "w": 720, "h": 872 },
+    "ui.back": { "x": 16, "y": 1144, "w": 688, "h": 120 }
+  },
+  "scavenge.door": {
+    "debris.door_1": { "x": 24, "y": 280, "w": 192, "h": 176 },
+    "debris.door_2": { "x": 256, "y": 488, "w": 160, "h": 152 },
+    "debris.door_3": { "x": 488, "y": 696, "w": 192, "h": 176 },
+    "debris.door_4": { "x": 488, "y": 296, "w": 192, "h": 176 },
+    "debris.door_5": { "x": 24, "y": 696, "w": 160, "h": 152 },
+    "debris.door_6": { "x": 256, "y": 904, "w": 192, "h": 176 },
+    "debris.door_7": { "x": 272, "y": 296, "w": 192, "h": 176 },
+    "debris.door_8": { "x": 40, "y": 920, "w": 160, "h": 152 }
+  },
+  "scavenge.under_workbench": {
+    "debris.under_workbench_1": { "x": 24, "y": 280, "w": 192, "h": 176 },
+    "debris.under_workbench_2": { "x": 256, "y": 488, "w": 160, "h": 152 },
+    "debris.under_workbench_3": { "x": 488, "y": 696, "w": 192, "h": 176 },
+    "debris.under_workbench_4": { "x": 488, "y": 296, "w": 192, "h": 176 },
+    "debris.under_workbench_5": { "x": 24, "y": 696, "w": 160, "h": 152 },
+    "debris.under_workbench_6": { "x": 256, "y": 904, "w": 192, "h": 176 },
+    "debris.under_workbench_7": { "x": 272, "y": 296, "w": 192, "h": 176 },
+    "debris.under_workbench_8": { "x": 40, "y": 920, "w": 160, "h": 152 },
+    "debris.under_workbench_9": { "x": 40, "y": 488, "w": 192, "h": 176 }
+  },
+  "scavenge.window_shelves": {
+    "debris.window_shelves_1": { "x": 24, "y": 280, "w": 192, "h": 176 },
+    "debris.window_shelves_2": { "x": 256, "y": 488, "w": 160, "h": 152 },
+    "debris.window_shelves_3": { "x": 488, "y": 696, "w": 192, "h": 176 },
+    "debris.window_shelves_4": { "x": 488, "y": 296, "w": 192, "h": 176 },
+    "debris.window_shelves_5": { "x": 24, "y": 696, "w": 160, "h": 152 },
+    "debris.window_shelves_6": { "x": 256, "y": 904, "w": 192, "h": 176 },
+    "debris.window_shelves_7": { "x": 272, "y": 296, "w": 192, "h": 176 },
+    "debris.window_shelves_8": { "x": 40, "y": 920, "w": 160, "h": 152 },
+    "debris.window_shelves_9": { "x": 40, "y": 488, "w": 192, "h": 176 }
+  },
+  "scavenge.corner_crates": {
+    "debris.corner_crates_1": { "x": 24, "y": 280, "w": 192, "h": 176 },
+    "debris.corner_crates_2": { "x": 256, "y": 488, "w": 160, "h": 152 },
+    "debris.corner_crates_3": { "x": 488, "y": 696, "w": 192, "h": 176 },
+    "debris.corner_crates_4": { "x": 488, "y": 296, "w": 192, "h": 176 },
+    "debris.corner_crates_5": { "x": 24, "y": 696, "w": 160, "h": 152 },
+    "debris.corner_crates_6": { "x": 256, "y": 904, "w": 192, "h": 176 },
+    "debris.corner_crates_7": { "x": 272, "y": 296, "w": 192, "h": 176 },
+    "debris.corner_crates_8": { "x": 40, "y": 920, "w": 160, "h": 152 }
+  },
+  "scavenge.behind_cabinet": {
+    "debris.behind_cabinet_1": { "x": 24, "y": 280, "w": 192, "h": 176 },
+    "debris.behind_cabinet_2": { "x": 256, "y": 488, "w": 160, "h": 152 },
+    "debris.behind_cabinet_3": { "x": 488, "y": 696, "w": 192, "h": 176 },
+    "debris.behind_cabinet_4": { "x": 488, "y": 296, "w": 192, "h": 176 },
+    "debris.behind_cabinet_5": { "x": 24, "y": 696, "w": 160, "h": 152 },
+    "debris.behind_cabinet_6": { "x": 256, "y": 904, "w": 192, "h": 176 },
+    "debris.behind_cabinet_7": { "x": 272, "y": 296, "w": 192, "h": 176 },
+    "debris.behind_cabinet_8": { "x": 40, "y": 920, "w": 160, "h": 152 },
+    "debris.behind_cabinet_9": { "x": 40, "y": 488, "w": 192, "h": 176 },
+    "debris.behind_cabinet_10": { "x": 504, "y": 920, "w": 192, "h": 176 }
+  },
+  "scavenge.attic": {
+    "debris.attic_1": { "x": 24, "y": 280, "w": 192, "h": 176 },
+    "debris.attic_2": { "x": 256, "y": 488, "w": 160, "h": 152 },
+    "debris.attic_3": { "x": 488, "y": 696, "w": 192, "h": 176 },
+    "debris.attic_4": { "x": 488, "y": 296, "w": 192, "h": 176 },
+    "debris.attic_5": { "x": 24, "y": 696, "w": 160, "h": 152 },
+    "debris.attic_6": { "x": 256, "y": 904, "w": 192, "h": 176 },
+    "debris.attic_7": { "x": 272, "y": 296, "w": 192, "h": 176 },
+    "debris.attic_8": { "x": 40, "y": 920, "w": 160, "h": 152 },
+    "debris.attic_9": { "x": 40, "y": 488, "w": 192, "h": 176 },
+    "debris.attic_10": { "x": 504, "y": 920, "w": 192, "h": 176 }
   }
 }

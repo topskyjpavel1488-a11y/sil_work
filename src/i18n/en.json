@@ -47,5 +47,8 @@
   "ui.repair.step": "Step {n} of {total}",
   "ui.nav.workshop": "Workshop",
   "ui.nav.table": "Table",
-  "ui.nav.journal": "Journal"
+  "ui.nav.journal": "Journal",
+  "ui.back": "Back",
+  "ui.zone.cleared": "All cleared!",
+  "ui.zone.toWorkshop": "To the workshop"
 }
