@@ -103,7 +103,7 @@ function checkLayout(content: Content, layout: LayoutData, err: (msg: string) =>
   );
   checkSection('scavenge', ['ui.resources', 'ui.title', 'area', 'ui.back', 'ui.tutorial'], []);
   checkSection('journal', ['ui.title', 'ui.back'], content.finds.map((_, i) => `slot.${i}`));
-  checkSection('table', ['ui.resources', 'ui.boxLabel', 'ui.back', 'ui.tutorial'], [
+  checkSection('table', ['ui.resources', 'ui.boxLabel', 'ui.back', 'ui.tutorial', 'ui.backWithReward', 'ui.reward'], [
     ...Array.from({ length: config.boardCols * config.boardRows }, (_, i) => `cell.board.${i}`),
     ...Array.from({ length: config.boxSize }, (_, i) => `cell.box.${i}`),
   ]);

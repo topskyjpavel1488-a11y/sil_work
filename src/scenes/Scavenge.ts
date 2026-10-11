@@ -9,6 +9,7 @@ import { currentTutorialStep } from '../core/tutorial';
 import { RESOURCES, type GameEvent } from '../core/state';
 import { t } from '../i18n';
 import { rect } from '../layout';
+import type { Ads } from '../ads';
 import type { Store } from '../store';
 import { Button } from '../ui/Button';
 import { itemName, resourceName } from '../ui/labels';
@@ -28,7 +29,10 @@ export class ScavengeScene extends Phaser.Scene {
   private busy = false;
   private tutorial!: TutorialOverlay;
 
-  constructor(private readonly store: Store) {
+  constructor(
+    private readonly store: Store,
+    private readonly ads: Ads,
+  ) {
     super('Scavenge');
   }
 
@@ -140,7 +144,8 @@ export class ScavengeScene extends Phaser.Scene {
   private showCleared(): void {
     this.busy = true;
     const w = 560;
-    const h = 320;
+    const offerReward = this.ads.enabled;
+    const h = offerReward ? 456 : 320;
     const x = (DESIGN_WIDTH - w) / 2;
     const y = (DESIGN_HEIGHT - h) / 2;
     const shade = this.add.rectangle(0, 0, DESIGN_WIDTH, DESIGN_HEIGHT, 0x000000, 0.35).setOrigin(0).setInteractive();
@@ -152,10 +157,33 @@ export class ScavengeScene extends Phaser.Scene {
     const text = this.add.text(DESIGN_WIDTH / 2, y + 88, t('ui.zone.cleared'), textStyle(44, COLORS.text, { fontStyle: 'bold' })).setOrigin(0.5);
     const button = new Button(this, { x: x + 40, y: y + h - 152, w: w - 80, h: 112, label: t('ui.zone.toWorkshop'), fill: PALETTE.green, onTap: () => this.leave() });
     const group = this.add.container(0, 0, [shade, panel, text, button]).setDepth(900).setAlpha(0);
+    // R1: an optional bonus after clearing (spec 8.4); offered once, hidden after the attempt.
+    if (offerReward) {
+      const reward: Button = new Button(this, {
+        x: x + 40,
+        y: y + 152,
+        w: w - 80,
+        h: 112,
+        label: t('ui.reward.parts'),
+        fill: PALETTE.copper,
+        fontSize: 32,
+        onTap: () => {
+          reward.setEnabled(false);
+          void this.ads.rewarded('parts').then((ok) => {
+            reward.setVisible(false);
+            if (ok) showToast(this, t('ui.reward.got'));
+          });
+        },
+      });
+      group.add(reward);
+    }
     this.tweens.add({ targets: group, alpha: 1, duration: FEEDBACK.transitionMs });
   }
 
+  // Leaving a zone for the main screen is an ad moment (spec 8.3).
   private leave(): void {
-    goTo(this, 'Workshop');
+    if (this.ads.busy) return;
+    this.input.enabled = false;
+    void this.ads.interstitial().then(() => goTo(this, 'Workshop'));
   }
 }

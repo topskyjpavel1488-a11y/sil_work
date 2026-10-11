@@ -3,6 +3,7 @@ import { content } from '../src/data/index';
 import { moveItem } from '../src/core/merge';
 import { currentGoal, isZoneCleared } from '../src/core/progress';
 import { checkRepair, repair } from '../src/core/repair';
+import { canGrantWasher, grantReward } from '../src/core/rewards';
 import { takeDebris } from '../src/core/scavenge';
 import { createInitialState, type GameState, type ItemRef } from '../src/core/state';
 
@@ -210,5 +211,29 @@ describe('repair', () => {
     expect(currentGoal(s, content)).toMatchObject({ object: { id: 'workbench' }, stepIndex: 0 });
     s.objects.workbench = { step: 3 };
     expect(currentGoal(s, content)).toMatchObject({ object: { id: 'fastener_box' }, stepIndex: 0 });
+  });
+});
+
+describe('rewards', () => {
+  it('adds two parts', () => {
+    const r = grantReward(fresh(), 'parts');
+    expect(r.state.resources.parts).toBe(2);
+    expect(types(r.events)).toEqual(['rewardGranted']);
+  });
+
+  it('puts a washer into the first free cell', () => {
+    const s = fresh();
+    s.board[0] = item(2);
+    expect(grantReward(s, 'washer').state.board[1]).toEqual(item(1));
+    fill(s.board);
+    expect(grantReward(s, 'washer').state.box[0]).toEqual(item(1));
+  });
+
+  it('is not offered and changes nothing when there is no room', () => {
+    const s = fresh();
+    fill(s.board);
+    fill(s.box);
+    expect(canGrantWasher(s)).toBe(false);
+    expect(grantReward(s, 'washer').state).toBe(s);
   });
 });

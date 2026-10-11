@@ -74,5 +74,8 @@
   "ui.settings.reset": "Reset progress",
   "ui.settings.resetConfirm": "Start over? All progress will be lost.",
   "ui.settings.resetYes": "Yes, start over",
-  "ui.settings.resetNo": "Cancel"
+  "ui.settings.resetNo": "Cancel",
+  "ui.reward.parts": "Watch an ad: +2 parts",
+  "ui.reward.washer": "Watch an ad: +1 washer",
+  "ui.reward.got": "Reward received"
 }

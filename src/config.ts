@@ -23,6 +23,7 @@ export const config = {
   // The SDK allows 100 data requests per 5 minutes; one cloud write per 5 s stays well under it.
   cloudSaveMinIntervalMs: 5000,
   adCooldownSec: 180,
+  firstSessionNoAdsSec: 180,
   mockAdDelayMs: 1000,
   findTextMaxChars: 220,
   minTapSize: 96,

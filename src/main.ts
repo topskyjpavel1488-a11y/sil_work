@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import { Ads } from './ads';
 import { audio } from './audio';
 import { BUILD, DESIGN_HEIGHT, DESIGN_WIDTH } from './config';
 import { createInitialState } from './core/state';
@@ -43,6 +44,8 @@ async function start(): Promise<void> {
   const saver = new SaveManager(platform);
   const saved = await saver.load();
   const store = new Store(content, saved ?? createInitialState(content), saver);
+  // A player without any save is in their first session: no ads in its first minutes (spec 8.3).
+  const ads = new Ads(platform, store, saver, saved === null);
   audio.setSfx(store.state.settings.sfx);
   audio.setMusic(store.state.settings.music);
 
@@ -63,9 +66,9 @@ async function start(): Promise<void> {
     disableContextMenu: true,
     scene: [
       new BootScene(),
-      new WorkshopScene(store, platform),
-      new ScavengeScene(store),
-      new MergeTableScene(store),
+      new WorkshopScene(store, platform, ads),
+      new ScavengeScene(store, ads),
+      new MergeTableScene(store, ads),
       new JournalScene(store),
       new FinaleScene(store),
     ],

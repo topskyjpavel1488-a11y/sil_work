@@ -2,8 +2,9 @@
 import type { Content } from './core/content';
 import { moveItem } from './core/merge';
 import { repair } from './core/repair';
+import { grantReward } from './core/rewards';
 import { takeDebris } from './core/scavenge';
-import { createInitialState, type ActionResult, type CellRef, type GameEvent, type GameState } from './core/state';
+import { createInitialState, type ActionResult, type CellRef, type GameEvent, type GameState, type RewardKind } from './core/state';
 import { applyTutorialSignal, skipTutorialStep } from './core/tutorial';
 import type { SaveManager } from './save';
 
@@ -44,6 +45,12 @@ export class Store {
 
   takeDebris(zoneId: string, debrisId: string): GameEvent[] {
     return this.commit(takeDebris(this.current, this.content, zoneId, debrisId));
+  }
+
+  grantReward(kind: RewardKind): GameEvent[] {
+    const events = this.apply(grantReward(this.current, kind));
+    this.saver.saveNow();
+    return events;
   }
 
   // Scenes report what the player did that the tutorial waits for (entering a zone, opening the table).

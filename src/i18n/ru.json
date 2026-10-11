@@ -74,5 +74,8 @@
   "ui.settings.reset": "Сбросить прогресс",
   "ui.settings.resetConfirm": "Точно начать заново? Весь прогресс пропадёт.",
   "ui.settings.resetYes": "Да, начать заново",
-  "ui.settings.resetNo": "Отмена"
+  "ui.settings.resetNo": "Отмена",
+  "ui.reward.parts": "Смотреть рекламу: +2 детали",
+  "ui.reward.washer": "Смотреть рекламу: +1 шайба",
+  "ui.reward.got": "Награда получена"
 }

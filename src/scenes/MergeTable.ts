@@ -7,6 +7,8 @@ import type { CellArea, CellRef, GameEvent, GameState } from '../core/state';
 import { currentTutorialStep } from '../core/tutorial';
 import { t } from '../i18n';
 import { rect, type Rect } from '../layout';
+import type { Ads } from '../ads';
+import { canGrantWasher } from '../core/rewards';
 import type { Store } from '../store';
 import { Button } from '../ui/Button';
 import { addItemView } from '../ui/ItemView';
@@ -28,9 +30,13 @@ export class MergeTableScene extends Phaser.Scene {
   private highlight!: Phaser.GameObjects.Graphics;
   private resources!: ResourceBar;
   private selected: CellRef | null = null;
+  private reward: Button | null = null;
   private tutorial!: TutorialOverlay;
 
-  constructor(private readonly store: Store) {
+  constructor(
+    private readonly store: Store,
+    private readonly ads: Ads,
+  ) {
     super('MergeTable');
   }
 
@@ -65,7 +71,24 @@ export class MergeTableScene extends Phaser.Scene {
     addCells('box', state.box.length, 0xd6cbb8);
 
     this.highlight = this.add.graphics().setDepth(5);
-    new Button(this, { ...rect(SECTION, 'ui.back'), label: t('ui.back'), fill: PALETTE.wood, onTap: () => goTo(this, 'Workshop') });
+    // R2 sits next to a narrower Back button in the release build (spec 8.4).
+    this.reward = null;
+    const back = rect(SECTION, this.ads.enabled ? 'ui.backWithReward' : 'ui.back');
+    new Button(this, { ...back, label: t('ui.back'), fill: PALETTE.wood, onTap: () => !this.ads.busy && goTo(this, 'Workshop') });
+    if (this.ads.enabled) {
+      const reward: Button = new Button(this, {
+        ...rect(SECTION, 'ui.reward'),
+        label: t('ui.reward.washer'),
+        fill: PALETTE.copper,
+        fontSize: 32,
+        onTap: () => {
+          reward.setEnabled(false);
+          void this.ads.rewarded('washer').then(() => this.updateReward(this.store.state));
+        },
+      });
+      this.reward = reward;
+      this.updateReward(state);
+    }
 
     this.tutorial = new TutorialOverlay(this, this.store, rect(SECTION, 'ui.tutorial'));
     this.renderItems(state);
@@ -182,8 +205,15 @@ export class MergeTableScene extends Phaser.Scene {
     return null;
   }
 
+  // Offered only while a washer has somewhere to go.
+  private updateReward(state: GameState): void {
+    if (!this.reward) return;
+    this.reward.setVisible(canGrantWasher(state)).setEnabled(!this.ads.busy);
+  }
+
   private onChange(events: GameEvent[], state: GameState): void {
     this.resources.update(state);
+    this.updateReward(state);
     this.renderItems(state);
     this.updateTutorial(state);
     for (const e of events) {

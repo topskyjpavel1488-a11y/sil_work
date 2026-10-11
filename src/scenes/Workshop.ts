@@ -10,6 +10,7 @@ import { currentTutorialStep } from '../core/tutorial';
 import { stepOf, type GameEvent, type GameState } from '../core/state';
 import { t } from '../i18n';
 import { rect, type Rect } from '../layout';
+import type { Ads } from '../ads';
 import type { PlatformAdapter } from '../platform/adapter';
 import type { Store } from '../store';
 import { Button } from '../ui/Button';
@@ -45,6 +46,7 @@ export class WorkshopScene extends Phaser.Scene {
   constructor(
     private readonly store: Store,
     private readonly platform: PlatformAdapter,
+    private readonly ads: Ads,
   ) {
     super('Workshop');
   }
@@ -149,7 +151,12 @@ export class WorkshopScene extends Phaser.Scene {
         fontSize: 32,
         onTap: () => {
           const scene = scenes[i];
-          if (scene && !this.modalOpen) goTo(this, scene);
+          if (!scene || this.modalOpen || this.ads.busy) return;
+          // Opening the table from the main screen is an ad moment (spec 8.3).
+          if (scene === 'MergeTable') {
+            this.input.enabled = false;
+            void this.ads.interstitial().then(() => goTo(this, scene));
+          } else goTo(this, scene);
         },
       });
     });
@@ -197,7 +204,8 @@ export class WorkshopScene extends Phaser.Scene {
     this.time.delayedCall(FEEDBACK.repairFlashMs + 200, () => {
       const toFinale = () => (finished ? goTo(this, 'Finale') : (this.modalOpen = false));
       const def = find?.type === 'findOpened' ? this.store.content.finds.find((f) => f.id === find.findId) : undefined;
-      if (def) showFindCard(this, def, toFinale);
+      // Closing a find card is the natural pause for an ad (spec 4.5, 8.3).
+      if (def) showFindCard(this, def, () => void this.ads.interstitial().then(toFinale));
       else toFinale();
     });
   }

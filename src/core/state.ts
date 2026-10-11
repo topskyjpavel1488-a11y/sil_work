@@ -29,6 +29,9 @@ export type SaveData = GameState;
 
 export type CellArea = 'board' | 'box';
 
+// Rewards for watching an ad (spec 8.4).
+export type RewardKind = 'parts' | 'washer';
+
 export interface CellRef {
   area: CellArea;
   index: number;
@@ -49,6 +52,7 @@ export type GameEvent =
   | { type: 'tutorial' }
   | { type: 'settings' }
   | { type: 'reset' }
+  | { type: 'rewardGranted'; kind: RewardKind; cell?: CellRef }
   | { type: 'rejected'; reason: RejectReason };
 
 export type RejectReason =
