@@ -2,13 +2,16 @@
 import Phaser from 'phaser';
 import { audio } from '../audio';
 import { DESIGN_HEIGHT, DESIGN_WIDTH, FEEDBACK, PALETTE, UI_SOUNDS } from '../config';
+import { maxLevel } from '../core/content';
 import type { CellArea, CellRef, GameEvent, GameState } from '../core/state';
+import { currentTutorialStep } from '../core/tutorial';
 import { t } from '../i18n';
 import { rect, type Rect } from '../layout';
 import type { Store } from '../store';
 import { Button } from '../ui/Button';
 import { addItemView } from '../ui/ItemView';
 import { ResourceBar } from '../ui/ResourceBar';
+import { TutorialOverlay } from '../ui/TutorialOverlay';
 import { COLORS, textStyle } from '../ui/style';
 import { fadeIn, goTo } from '../ui/transition';
 import { onTap } from '../ui/tap';
@@ -25,6 +28,7 @@ export class MergeTableScene extends Phaser.Scene {
   private highlight!: Phaser.GameObjects.Graphics;
   private resources!: ResourceBar;
   private selected: CellRef | null = null;
+  private tutorial!: TutorialOverlay;
 
   constructor(private readonly store: Store) {
     super('MergeTable');
@@ -63,7 +67,10 @@ export class MergeTableScene extends Phaser.Scene {
     this.highlight = this.add.graphics().setDepth(5);
     new Button(this, { ...rect(SECTION, 'ui.back'), label: t('ui.back'), fill: PALETTE.wood, onTap: () => goTo(this, 'Workshop') });
 
+    this.tutorial = new TutorialOverlay(this, this.store, rect(SECTION, 'ui.tutorial'));
     this.renderItems(state);
+    this.store.tutorialSignal('enterTable');
+    this.updateTutorial(this.store.state);
     const unsubscribe = this.store.subscribe((events, s) => this.onChange(events, s));
     this.events.once(Phaser.Scenes.Events.SHUTDOWN, unsubscribe);
   }
@@ -150,9 +157,35 @@ export class MergeTableScene extends Phaser.Scene {
     return this.cells.find(({ r }) => x >= r.x && x <= r.x + r.w && y >= r.y && y <= r.y + r.h)?.ref ?? null;
   }
 
+  // Shows two matching items to merge, or the way back once the next step is the repair.
+  private updateTutorial(state: GameState): void {
+    const step = currentTutorialStep(state, this.store.content.tutorial);
+    const targets: Rect[] = [];
+    if (step?.target.type === 'mergePair') {
+      const pair = this.findPair(state);
+      if (pair) targets.push(...pair.map((ref) => this.cells.find((c) => same(c.ref, ref))?.r).filter((r): r is Rect => !!r));
+    }
+    if (step?.target.type === 'object') targets.push(rect(SECTION, 'ui.back'));
+    this.tutorial.show(targets.length ? step : null, targets);
+  }
+
+  private findPair(state: GameState): [CellRef, CellRef] | null {
+    const seen = new Map<string, CellRef>();
+    for (const { ref } of this.cells) {
+      const item = state[ref.area][ref.index];
+      if (!item || item.level >= maxLevel(this.store.content, item.chain)) continue;
+      const k = `${item.chain}:${item.level}`;
+      const first = seen.get(k);
+      if (first) return first.area === 'board' ? [ref, first] : [first, ref];
+      seen.set(k, ref);
+    }
+    return null;
+  }
+
   private onChange(events: GameEvent[], state: GameState): void {
     this.resources.update(state);
     this.renderItems(state);
+    this.updateTutorial(state);
     for (const e of events) {
       if (e.type === 'itemsMerged') {
         audio.play(UI_SOUNDS.merge);

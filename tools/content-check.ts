@@ -73,6 +73,7 @@ function collectTextKeys(content: Content): string[] {
     ...content.finds.flatMap((f) => [f.titleKey, f.textKey]),
     content.final.titleKey,
     content.final.textKey,
+    ...content.tutorial.map((s) => s.textKey),
   ];
 }
 
@@ -97,11 +98,12 @@ function checkLayout(content: Content, layout: LayoutData, err: (msg: string) =>
   };
   checkSection(
     'workshop',
-    ['room', 'ui.resources', 'ui.settings', 'ui.goal', 'ui.nav'],
+    ['room', 'ui.resources', 'ui.settings', 'ui.goal', 'ui.nav', 'ui.tutorial'],
     [...content.objects.map((o) => `object.${o.id}`), ...content.zones.map((z) => `zone.${z.id}`)],
   );
-  checkSection('scavenge', ['ui.resources', 'ui.title', 'area', 'ui.back'], []);
-  checkSection('table', ['ui.resources', 'ui.boxLabel', 'ui.back'], [
+  checkSection('scavenge', ['ui.resources', 'ui.title', 'area', 'ui.back', 'ui.tutorial'], []);
+  checkSection('journal', ['ui.title', 'ui.back'], content.finds.map((_, i) => `slot.${i}`));
+  checkSection('table', ['ui.resources', 'ui.boxLabel', 'ui.back', 'ui.tutorial'], [
     ...Array.from({ length: config.boardCols * config.boardRows }, (_, i) => `cell.board.${i}`),
     ...Array.from({ length: config.boxSize }, (_, i) => `cell.box.${i}`),
   ]);
@@ -229,6 +231,14 @@ export function checkContent(content: Content, ru: Strings, en: Strings, manifes
   for (const key of sounds) if (!manifest.sounds[key]) err(`sound "${key}" is missing in assets/manifest.json`);
 
   checkLayout(content, layout, err);
+
+  // Tutorial: targets exist, the first zone and object match the tutorial's expectations.
+  for (const step of content.tutorial) {
+    const { type, id } = step.target;
+    if ((type === 'zone' || type === 'debris') && !content.zones.some((z) => z.id === id)) err(`tutorial ${step.id}: unknown zone "${id}"`);
+    if (type === 'object' && !objectIds.has(id)) err(`tutorial ${step.id}: unknown object "${id}"`);
+    if (type === 'mergePair' && !content.chains.some((c) => c.id === id)) err(`tutorial ${step.id}: unknown chain "${id}"`);
+  }
 
   // No dead ends: the bot must finish within the table limits.
   if (errors.length === 0) {

@@ -5,6 +5,7 @@ import { audio } from '../audio';
 import { DESIGN_HEIGHT, DESIGN_WIDTH, FEEDBACK, PALETTE, UI_SOUNDS } from '../config';
 import { findZone, type DebrisDef, type ZoneDef } from '../core/content';
 import { isZoneCleared } from '../core/progress';
+import { currentTutorialStep } from '../core/tutorial';
 import { RESOURCES, type GameEvent } from '../core/state';
 import { t } from '../i18n';
 import { rect } from '../layout';
@@ -14,6 +15,7 @@ import { itemName, resourceName } from '../ui/labels';
 import { ResourceBar } from '../ui/ResourceBar';
 import { COLORS, textStyle } from '../ui/style';
 import { showToast } from '../ui/Toast';
+import { TutorialOverlay } from '../ui/TutorialOverlay';
 import { fadeIn, goTo } from '../ui/transition';
 import { onTap } from '../ui/tap';
 
@@ -24,6 +26,7 @@ export class ScavengeScene extends Phaser.Scene {
   private resources!: ResourceBar;
   private debris = new Map<string, Phaser.GameObjects.Container>();
   private busy = false;
+  private tutorial!: TutorialOverlay;
 
   constructor(private readonly store: Store) {
     super('Scavenge');
@@ -59,7 +62,19 @@ export class ScavengeScene extends Phaser.Scene {
     const unsubscribe = this.store.subscribe((events) => this.onEvents(events));
     this.events.once(Phaser.Scenes.Events.SHUTDOWN, unsubscribe);
 
+    this.tutorial = new TutorialOverlay(this, this.store, rect(SECTION, 'ui.tutorial'));
+    this.store.tutorialSignal(`enterZone:${this.zone.id}`);
+    this.updateTutorial();
+
     if (isZoneCleared(this.store.state, this.zone)) this.showCleared();
+  }
+
+  // Points at the next debris while the tutorial step is about clearing this zone.
+  private updateTutorial(): void {
+    const step = currentTutorialStep(this.store.state, this.store.content.tutorial);
+    const next = this.zone.debris.find((d) => this.debris.has(d.id));
+    const active = step?.target.type === 'debris' && step.target.id === this.zone.id && next;
+    this.tutorial.show(active ? step : null, active ? [rect(`${SECTION}.${this.zone.id}`, `debris.${next.id}`)] : []);
   }
 
   private addDebris(d: DebrisDef): void {
@@ -83,6 +98,7 @@ export class ScavengeScene extends Phaser.Scene {
       if (e.type === 'noSpace') this.playNoSpace(e.debrisId);
       if (e.type === 'zoneCleared') this.time.delayedCall(FEEDBACK.transitionMs, () => this.showCleared());
     }
+    this.updateTutorial();
   }
 
   private playTaken(debrisId: string): void {

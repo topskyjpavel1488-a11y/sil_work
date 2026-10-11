@@ -46,6 +46,9 @@ export type GameEvent =
   | { type: 'objectRestored'; objectId: string }
   | { type: 'findOpened'; findId: string }
   | { type: 'finished' }
+  | { type: 'tutorial' }
+  | { type: 'settings' }
+  | { type: 'reset' }
   | { type: 'rejected'; reason: RejectReason };
 
 export type RejectReason =

@@ -3,6 +3,7 @@ import type { Content } from '../core/content';
 import findsJson from './finds.json';
 import itemsJson from './items.json';
 import objectsJson from './objects.json';
+import tutorialJson from './tutorial.json';
 import zonesJson from './zones.json';
 
 export const content = {
@@ -13,4 +14,5 @@ export const content = {
   debrisKinds: zonesJson.debrisKinds,
   finds: findsJson.finds,
   final: findsJson.final,
+  tutorial: tutorialJson.steps,
 } as Content;

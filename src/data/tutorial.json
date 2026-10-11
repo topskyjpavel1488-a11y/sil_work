@@ -1,0 +1,9 @@
+{
+  "steps": [
+    { "id": "open_zone", "textKey": "tutorial.openZone", "target": { "type": "zone", "id": "door" }, "until": "enterZone:door" },
+    { "id": "clear_zone", "textKey": "tutorial.clearZone", "target": { "type": "debris", "id": "door" }, "until": "zoneCleared:door" },
+    { "id": "open_table", "textKey": "tutorial.openTable", "target": { "type": "nav", "id": "table" }, "until": "enterTable" },
+    { "id": "merge", "textKey": "tutorial.merge", "target": { "type": "mergePair", "id": "fasteners" }, "until": "merged" },
+    { "id": "repair", "textKey": "tutorial.repair", "target": { "type": "object", "id": "workbench" }, "until": "repaired:workbench" }
+  ]
+}

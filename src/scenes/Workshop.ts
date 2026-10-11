@@ -6,6 +6,7 @@ import { FEEDBACK, PALETTE, UI_IMAGES, UI_SOUNDS } from '../config';
 import type { ObjectDef, ZoneDef } from '../core/content';
 import { currentGoal, isObjectAvailable, isObjectRestored, isZoneCleared, isZoneUnlocked } from '../core/progress';
 import { checkRepair } from '../core/repair';
+import { currentTutorialStep } from '../core/tutorial';
 import { stepOf, type GameEvent, type GameState } from '../core/state';
 import { t } from '../i18n';
 import { rect, type Rect } from '../layout';
@@ -13,7 +14,10 @@ import type { PlatformAdapter } from '../platform/adapter';
 import type { Store } from '../store';
 import { Button } from '../ui/Button';
 import { requirementName } from '../ui/labels';
+import { showFindCard } from '../ui/FindCard';
 import { RepairDialog } from '../ui/RepairDialog';
+import { showSettings } from '../ui/SettingsDialog';
+import { TutorialOverlay } from '../ui/TutorialOverlay';
 import { ResourceBar } from '../ui/ResourceBar';
 import { COLORS, textStyle } from '../ui/style';
 import { fadeIn, goTo } from '../ui/transition';
@@ -33,7 +37,9 @@ export class WorkshopScene extends Phaser.Scene {
   private goalTitle!: Phaser.GameObjects.Text;
   private goalCost!: Phaser.GameObjects.Text;
   private warmLight!: Phaser.GameObjects.Rectangle;
-  private dialog: RepairDialog | null = null;
+  private modalOpen = false;
+  private navRects: Rect[] = [];
+  private tutorial!: TutorialOverlay;
   private readyReported = false;
 
   constructor(
@@ -46,7 +52,8 @@ export class WorkshopScene extends Phaser.Scene {
   create(): void {
     this.objects.clear();
     this.zones.clear();
-    this.dialog = null;
+    this.modalOpen = false;
+    this.navRects = [];
     fadeIn(this);
     this.add.rectangle(0, 0, this.scale.width, this.scale.height, PALETTE.cream).setOrigin(0);
     const room = rect(SECTION, 'room');
@@ -64,6 +71,7 @@ export class WorkshopScene extends Phaser.Scene {
 
     const unsubscribe = this.store.subscribe((events, state) => this.onChange(events, state));
     this.events.once(Phaser.Scenes.Events.SHUTDOWN, unsubscribe);
+    this.tutorial = new TutorialOverlay(this, this.store, rect(SECTION, 'ui.tutorial'));
     this.refresh(this.store.state);
 
     if (!this.readyReported) {
@@ -80,7 +88,7 @@ export class WorkshopScene extends Phaser.Scene {
     box.setInteractive({ useHandCursor: true });
     box.on('pointerdown', () => this.tweens.add({ targets: box, scale: 0.96, duration: FEEDBACK.tapMs / 2, yoyo: true }));
     onTap(box, () => {
-      if (this.dialog) return;
+      if (this.modalOpen) return;
       audio.play(UI_SOUNDS.tap);
       action();
     });
@@ -89,9 +97,19 @@ export class WorkshopScene extends Phaser.Scene {
 
   private createResourceBar(): void {
     this.resources = new ResourceBar(this, this.store.content, rect(SECTION, 'ui.resources'));
-    // Settings arrive with the settings window; until then the button is shown inactive.
     const s = rect(SECTION, 'ui.settings');
-    new Button(this, { ...s, label: '⚙', fill: PALETTE.dust, textColor: COLORS.text, fontSize: 44, onTap: () => undefined }).setEnabled(false);
+    new Button(this, {
+      ...s,
+      label: '⚙',
+      fill: PALETTE.dust,
+      textColor: COLORS.text,
+      fontSize: 44,
+      onTap: () => {
+        if (this.modalOpen) return;
+        this.modalOpen = true;
+        showSettings(this, this.store, this.platform, () => (this.modalOpen = false));
+      },
+    });
   }
 
   private createGoalBanner(): void {
@@ -101,12 +119,13 @@ export class WorkshopScene extends Phaser.Scene {
     bg.fillRoundedRect(r.x, r.y, r.w, r.h, 24);
     bg.lineStyle(4, PALETTE.wood, 1);
     bg.strokeRoundedRect(r.x, r.y, r.w, r.h, 24);
-    this.goalTitle = this.add.text(r.x + 28, r.y + 20, '', textStyle(40, COLORS.text, { fontStyle: 'bold' }));
-    this.goalCost = this.add.text(r.x + 28, r.y + 76, '', textStyle(32, COLORS.text));
+    this.goalTitle = this.add.text(r.x + 28, r.y + 12, '', textStyle(38, COLORS.text, { fontStyle: 'bold' }));
+    // The cost may take two lines when it lists several requirements.
+    this.goalCost = this.add.text(r.x + 28, r.y + 62, '', textStyle(32, COLORS.text, { wordWrap: { width: r.w - 56 }, lineSpacing: -4 }));
     const hit = this.add.zone(r.x, r.y, r.w, r.h).setOrigin(0).setInteractive({ useHandCursor: true });
     onTap(hit, () => {
       const goal = currentGoal(this.store.state, this.store.content);
-      if (goal && !this.dialog) {
+      if (goal && !this.modalOpen) {
         audio.play(UI_SOUNDS.tap);
         this.openRepair(goal.object.id);
       }
@@ -118,21 +137,20 @@ export class WorkshopScene extends Phaser.Scene {
     this.add.rectangle(r.x, r.y, r.w, r.h, PALETTE.wood).setOrigin(0);
     const keys = ['ui.nav.workshop', 'ui.nav.table', 'ui.nav.journal'];
     const w = (r.w - 16 * 4) / keys.length;
+    const scenes = [null, 'MergeTable', 'Journal'];
     keys.forEach((key, i) => {
-      const button = new Button(this, {
-        x: r.x + 16 + i * (w + 16),
-        y: r.y + 16,
-        w,
-        h: r.h - 32,
+      const button = { x: r.x + 16 + i * (w + 16), y: r.y + 16, w, h: r.h - 32 };
+      this.navRects.push(button);
+      new Button(this, {
+        ...button,
         label: t(key),
         fill: i === 0 ? PALETTE.copper : PALETTE.metal,
         fontSize: 32,
         onTap: () => {
-          if (i === 1) goTo(this, 'MergeTable');
+          const scene = scenes[i];
+          if (scene && !this.modalOpen) goTo(this, scene);
         },
       });
-      // The journal opens in M5.
-      if (i === 2) button.setEnabled(false);
     });
   }
 
@@ -155,16 +173,44 @@ export class WorkshopScene extends Phaser.Scene {
 
   private openRepair(objectId: string): void {
     audio.play(UI_SOUNDS.open);
-    this.dialog = new RepairDialog(this, this.store, objectId, () => {
-      this.dialog = null;
+    this.modalOpen = true;
+    new RepairDialog(this, this.store, objectId, () => {
+      this.modalOpen = false;
     });
   }
 
   private onChange(events: GameEvent[], state: GameState): void {
+    if (events.some((e) => e.type === 'reset')) {
+      this.scene.restart();
+      return;
+    }
     this.refresh(state);
     for (const e of events) {
       if (e.type === 'repaired') this.playRepair(e.objectId);
     }
+    // After the repair animation: the find card, then the finale once everything is restored.
+    const find = events.find((e) => e.type === 'findOpened');
+    const finished = events.some((e) => e.type === 'finished');
+    if (!find && !finished) return;
+    this.modalOpen = true;
+    this.time.delayedCall(FEEDBACK.repairFlashMs + 200, () => {
+      const toFinale = () => (finished ? goTo(this, 'Finale') : (this.modalOpen = false));
+      const def = find?.type === 'findOpened' ? this.store.content.finds.find((f) => f.id === find.findId) : undefined;
+      if (def) showFindCard(this, def, toFinale);
+      else toFinale();
+    });
+  }
+
+  private updateTutorial(state: GameState): void {
+    const step = currentTutorialStep(state, this.store.content.tutorial);
+    if (!step) return this.tutorial.show(null, []);
+    const { type, id } = step.target;
+    const targets: Rect[] = [];
+    if (type === 'zone' || type === 'debris') targets.push(rect(SECTION, `zone.${id}`));
+    if (type === 'object') targets.push(rect(SECTION, `object.${id}`));
+    const table = this.navRects[1];
+    if ((type === 'nav' || type === 'mergePair') && table) targets.push(table);
+    this.tutorial.show(step, targets);
   }
 
   private playRepair(objectId: string): void {
@@ -204,6 +250,7 @@ export class WorkshopScene extends Phaser.Scene {
     this.warmLight.setVisible(warm);
 
     this.resources.update(state);
+    this.updateTutorial(state);
 
     const goal = currentGoal(state, content);
     if (!goal) {

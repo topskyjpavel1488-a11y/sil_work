@@ -7,6 +7,8 @@ import { setLanguage } from './i18n';
 import { MockAdapter } from './platform/mock';
 import { SaveManager } from './save';
 import { BootScene } from './scenes/Boot';
+import { FinaleScene } from './scenes/Finale';
+import { JournalScene } from './scenes/Journal';
 import { MergeTableScene } from './scenes/MergeTable';
 import { ScavengeScene } from './scenes/Scavenge';
 import { WorkshopScene } from './scenes/Workshop';
@@ -43,7 +45,7 @@ async function start(): Promise<void> {
       height: DESIGN_HEIGHT,
     },
     disableContextMenu: true,
-    scene: [new BootScene(), new WorkshopScene(store, platform), new ScavengeScene(store), new MergeTableScene(store)],
+    scene: [new BootScene(), new WorkshopScene(store, platform), new ScavengeScene(store), new MergeTableScene(store), new JournalScene(store), new FinaleScene(store)],
   });
 }
 

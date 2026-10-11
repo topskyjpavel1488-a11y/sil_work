@@ -1,5 +1,6 @@
 // Content definitions loaded from src/data/*.json (spec 3.3, 5).
 import type { ChainId, Resource } from './state';
+import type { TutorialStep } from './tutorial';
 
 export interface Condition {
   object: string;
@@ -80,6 +81,7 @@ export interface Content {
   debrisKinds: Record<string, DebrisKind>;
   finds: FindDef[];
   final: { titleKey: string; textKey: string; image: string };
+  tutorial: TutorialStep[];
 }
 
 export function maxLevel(content: Content, chain: ChainId): number {
