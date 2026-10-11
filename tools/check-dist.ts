@@ -7,6 +7,10 @@ const LIMIT_MB = 100;
 const TARGET_MB = 30;
 const SAFE_NAME = /^[A-Za-z0-9._-]+$/;
 const S3_URL = /https?:\/\/[^\s"'`]*(storage\.yandexcloud\.net|s3\.yandex)/i;
+// No links to outside resources (spec 2.1). Allowed: XML namespaces and the text of Phaser's
+// console banner, which is switched off and never requested.
+const ANY_URL = /https?:\/\/([a-z0-9.-]+)/gi;
+const ALLOWED_HOSTS = new Set(['www.w3.org', 'phaser.io']);
 
 function walk(dir: string): string[] {
   return readdirSync(dir).flatMap((name) => {
@@ -27,7 +31,11 @@ for (const file of files) {
     if (!SAFE_NAME.test(part)) errors.push(`unsafe file name: ${rel}`);
   }
   if (['.html', '.js', '.css', '.json'].includes(extname(file))) {
-    if (S3_URL.test(readFileSync(file, 'utf8'))) errors.push(`absolute Yandex S3 URL in ${rel}`);
+    const text = readFileSync(file, 'utf8');
+    if (S3_URL.test(text)) errors.push(`absolute Yandex S3 URL in ${rel}`);
+    for (const [, host] of text.matchAll(ANY_URL)) {
+      if (host && !ALLOWED_HOSTS.has(host.toLowerCase())) errors.push(`external URL to ${host} in ${rel}`);
+    }
   }
 }
 

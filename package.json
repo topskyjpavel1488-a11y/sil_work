@@ -13,7 +13,8 @@
     "validate": "tsx tools/validate-content.ts",
     "simulate": "tsx tools/simulate.ts",
     "layout": "vite --config tools/layout-editor/vite.config.ts",
-    "build:release": "tsc --noEmit && vite build --mode release && tsx tools/check-dist.ts"
+    "build:release": "tsc --noEmit && vite build --mode release && tsx tools/check-dist.ts",
+    "package": "npm run build:release && tsx tools/package.ts"
   },
   "dependencies": {
     "phaser": "3.90.0"
