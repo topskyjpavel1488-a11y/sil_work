@@ -34,6 +34,8 @@ export interface BotResult {
   maxBoard: number;
   maxBox: number;
   actions: number;
+  // What a player would have to do, by kind (for the playtime estimate).
+  counts: { debris: number; merges: number; moves: number; repairs: number };
   log: string[];
   state: GameState;
 }
@@ -49,6 +51,7 @@ export function runBot(content: Content, strategy: BotStrategy = 'careful'): Bot
   let maxBoard = 0;
   let maxBox = 0;
   let actions = 0;
+  const counts = { debris: 0, merges: 0, moves: 0, repairs: 0 };
   const log: string[] = [];
 
   const record = () => {
@@ -59,6 +62,8 @@ export function runBot(content: Content, strategy: BotStrategy = 'careful'): Bot
     const r = moveItem(s, content, from, to);
     s = r.state;
     actions++;
+    if (r.events.some((e) => e.type === 'itemsMerged')) counts.merges++;
+    else counts.moves++;
     return r.events.some((e) => e.type === 'itemsMerged' || e.type === 'itemMoved');
   };
   const cellsWith = (chain: ChainId, level: number): CellRef[] => {
@@ -135,6 +140,7 @@ export function runBot(content: Content, strategy: BotStrategy = 'careful'): Bot
         const r = takeDebris(s, content, zone.id, debris.id);
         actions++;
         if (r.events.some((e) => e.type === 'debrisTaken')) {
+          counts.debris++;
           s = r.state;
           progress = true;
           record();
@@ -152,6 +158,7 @@ export function runBot(content: Content, strategy: BotStrategy = 'careful'): Bot
       const r = repair(s, content, goal.object.id);
       actions++;
       if (!r.events.some((e) => e.type === 'repaired')) break;
+      counts.repairs++;
       s = r.state;
       progress = true;
       const finds = r.events.flatMap((e) => (e.type === 'findOpened' ? [` find:${e.findId}`] : []));
@@ -165,12 +172,12 @@ export function runBot(content: Content, strategy: BotStrategy = 'careful'): Bot
       record();
     }
 
-    if (isFinished(s, content)) return { finished: true, maxBoard, maxBox, actions, log, state: s };
+    if (isFinished(s, content)) return { finished: true, maxBoard, maxBox, actions, counts, log, state: s };
     if (!progress) {
       const goal = currentGoal(s, content);
       const stuckAt = goal ? `${goal.object.id} step ${goal.stepIndex + 1}` : 'no goal';
-      return { finished: false, stuckAt, maxBoard, maxBox, actions, log, state: s };
+      return { finished: false, stuckAt, maxBoard, maxBox, actions, counts, log, state: s };
     }
   }
-  return { finished: false, stuckAt: 'round limit', maxBoard, maxBox, actions, log, state: s };
+  return { finished: false, stuckAt: 'round limit', maxBoard, maxBox, actions, counts, log, state: s };
 }
