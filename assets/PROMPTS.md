@@ -4,11 +4,13 @@
 
 Стиль: вариант №1 (тёплый, живописный), перспектива «кукольный домик в разрезе»: задняя стена прямо на зрителя, камера чуть сверху (~30°). Порядок работы: `room_bg` → верстак (сначала `obj_workbench_3`, затем остальные состояния из него) → остальные объекты → кучи и фоны зон → завал → предметы и ресурсы → находки → логотип, иконка, обложка. Готовые удачные картинки используйте как референс стиля для следующих (Midjourney `--sref`, IP-Adapter в Stable Diffusion, «изображение-референс» в других сервисах).
 
+С версии 0.7 в игре две комнаты. Картинки второй комнаты (малярной) помечены «Малярная:» и идут в каждом разделе после мастерской. Делайте их тем же порядком (`room_paint_bg` → объекты → кучи и фоны → завал → краски → находки), а готовую мастерскую берите как референс стиля, чтобы комнаты выглядели одним домом.
+
 Спрайты (объекты, кучи, завал, предметы, ресурсы, логотип) нужны в PNG с прозрачным фоном: генерируйте на белом, затем уберите фон.
 
 Как подключать готовые файлы — в `ART_BRIEF.md`; можно просто прислать мне файлы, названные по ключам.
 
-## 1. Фон комнаты
+## 1. Фоны комнат
 
 ### `room_bg` — Фон мастерской (пустая комната)
 
@@ -19,6 +21,17 @@
 
 ```
 cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, frontal view from slightly above (about 30 degrees), like looking into a dollhouse cutaway, interior of a small old family workshop, the back wall faces the viewer straight on and fills the upper 40 percent of the picture: vertical wooden plank wall with faded sage green trim and posts, plenty of empty wall space; below it a worn wooden plank floor in gentle perspective fills the lower part, mostly empty; side walls visible only as thin slivers at the edges; a simple old wooden door on the far left of the back wall; warm sunlight patches on the floor; the room is completely empty with no furniture, vertical composition, full background
+```
+
+### `room_paint_bg` — Малярная: фон малярной (пустая комната)
+
+- **Размер файла:** 1440×1696 px
+- **Соотношение:** вертикальный 5:6 (генерируйте 4:5, например 1440×1800, и обрежьте по высоте до 1696)
+- **Отрицательный промпт:** N-ROOM + N-COMMON
+- **Важно:** Тот же ракурс и свет, что у `room_bg`: используйте его как референс. Стеллаж, окно, мольберт, стремянку и столы на фоне не рисовать — это объекты, которые чинятся.
+
+```
+cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, frontal view from slightly above (about 30 degrees), like looking into a dollhouse cutaway, interior of a small old family paint shop next to the workshop, the back wall faces the viewer straight on and fills the upper 40 percent of the picture: whitewashed plaster wall with old faint paint splashes and a sage green wooden skirting, plenty of empty wall space; below it a worn wooden plank floor with old dried paint drips in gentle perspective fills the lower part, mostly empty; side walls visible only as thin slivers at the edges; warm sunlight patches on the floor; the room is completely empty with no furniture, vertical composition, full background
 ```
 
 ## 2. Объекты восстановления
@@ -298,6 +311,314 @@ cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden af
 cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, frontal view from slightly above (about 30 degrees), like looking into a dollhouse cutaway, a round vintage wall clock in a wooden case with a pendulum below, seen straight on, fully restored and cared for, clean polished surfaces, warm rich colors, cozy and lived-in, running, the pendulum mid-swing, the clock face clean and bright, one single object only, centered, the whole object visible with a small empty margin around it, plain flat white background, no floor, no shadow on the ground
 ```
 
+### `obj_paint_table_0` — Малярная: Покрасочный стол, шаг 0 из 3 (заброшено)
+
+- **Размер файла:** 912×336 px
+- **Соотношение:** горизонтальный ≈ 3:1 (генерируйте 16:9 и обрежьте пустые края)
+- **Отрицательный промпт:** N-SPRITE + N-COMMON
+- **Важно:** Делайте из восстановленного состояния через img2img (сила 0,3–0,5), чтобы форма и ракурс совпали.
+
+```
+cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, frontal view from slightly above (about 30 degrees), like looking into a dollhouse cutaway, a long old wooden painting table covered with layers of colorful dried paint, a few brushes in a jar on it, abandoned and neglected, covered in thick dust and cobwebs, broken and missing parts, faded desaturated grey-brown colors, one leg broken, the top warped and stained, dried paint cans knocked over, one single object only, centered, the whole object visible with a small empty margin around it, plain flat white background, no floor, no shadow on the ground
+```
+
+### `obj_paint_table_1` — Малярная: Покрасочный стол, шаг 1 из 3 (частично починено)
+
+- **Размер файла:** 912×336 px
+- **Соотношение:** горизонтальный ≈ 3:1 (генерируйте 16:9 и обрежьте пустые края)
+- **Отрицательный промпт:** N-SPRITE + N-COMMON
+- **Важно:** Делайте из восстановленного состояния через img2img (сила 0,3–0,5), чтобы форма и ракурс совпали.
+
+```
+cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, frontal view from slightly above (about 30 degrees), like looking into a dollhouse cutaway, a long old wooden painting table covered with layers of colorful dried paint, a few brushes in a jar on it, partly repaired: cleaned of dust, some parts fixed or replaced, a few signs of wear remain, warmer colors, the leg fixed and the top sanded, still stained, one single object only, centered, the whole object visible with a small empty margin around it, plain flat white background, no floor, no shadow on the ground
+```
+
+### `obj_paint_table_2` — Малярная: Покрасочный стол, шаг 2 из 3 (частично починено)
+
+- **Размер файла:** 912×336 px
+- **Соотношение:** горизонтальный ≈ 3:1 (генерируйте 16:9 и обрежьте пустые края)
+- **Отрицательный промпт:** N-SPRITE + N-COMMON
+- **Важно:** Делайте из восстановленного состояния через img2img (сила 0,3–0,5), чтобы форма и ракурс совпали.
+
+```
+cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, frontal view from slightly above (about 30 degrees), like looking into a dollhouse cutaway, a long old wooden painting table covered with layers of colorful dried paint, a few brushes in a jar on it, partly repaired: cleaned of dust, some parts fixed or replaced, a few signs of wear remain, warmer colors, a fresh drop cloth spread on the top, a few clean paint cans, one single object only, centered, the whole object visible with a small empty margin around it, plain flat white background, no floor, no shadow on the ground
+```
+
+### `obj_paint_table_3` — Малярная: Покрасочный стол, шаг 3 из 3 (восстановлено)
+
+- **Размер файла:** 912×336 px
+- **Соотношение:** горизонтальный ≈ 3:1 (генерируйте 16:9 и обрежьте пустые края)
+- **Отрицательный промпт:** N-SPRITE + N-COMMON
+- **Важно:** Генерируйте это состояние первым, остальные — из него через img2img (сила 0,3–0,5).
+
+```
+cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, frontal view from slightly above (about 30 degrees), like looking into a dollhouse cutaway, a long old wooden painting table covered with layers of colorful dried paint, a few brushes in a jar on it, fully restored and cared for, clean polished surfaces, warm rich colors, cozy and lived-in, neat paint cans, brushes in a jar and a half-painted wooden stool on the top, one single object only, centered, the whole object visible with a small empty margin around it, plain flat white background, no floor, no shadow on the ground
+```
+
+### `obj_drying_rack_0` — Малярная: Сушилка для деталей, шаг 0 из 2 (заброшено)
+
+- **Размер файла:** 448×496 px
+- **Соотношение:** почти квадрат 1:1 (чуть выше, чем шире)
+- **Отрицательный промпт:** N-SPRITE + N-COMMON
+- **Важно:** Делайте из восстановленного состояния через img2img (сила 0,3–0,5), чтобы форма и ракурс совпали.
+
+```
+cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, frontal view from slightly above (about 30 degrees), like looking into a dollhouse cutaway, a tall wooden drying rack with several slatted shelves for freshly painted parts, abandoned and neglected, covered in thick dust and cobwebs, broken and missing parts, faded desaturated grey-brown colors, several slats broken, the frame leaning, cobwebs between shelves, one single object only, centered, the whole object visible with a small empty margin around it, plain flat white background, no floor, no shadow on the ground
+```
+
+### `obj_drying_rack_1` — Малярная: Сушилка для деталей, шаг 1 из 2 (частично починено)
+
+- **Размер файла:** 448×496 px
+- **Соотношение:** почти квадрат 1:1 (чуть выше, чем шире)
+- **Отрицательный промпт:** N-SPRITE + N-COMMON
+- **Важно:** Делайте из восстановленного состояния через img2img (сила 0,3–0,5), чтобы форма и ракурс совпали.
+
+```
+cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, frontal view from slightly above (about 30 degrees), like looking into a dollhouse cutaway, a tall wooden drying rack with several slatted shelves for freshly painted parts, partly repaired: cleaned of dust, some parts fixed or replaced, a few signs of wear remain, warmer colors, new slats, the frame straight, the shelves empty, one single object only, centered, the whole object visible with a small empty margin around it, plain flat white background, no floor, no shadow on the ground
+```
+
+### `obj_drying_rack_2` — Малярная: Сушилка для деталей, шаг 2 из 2 (восстановлено)
+
+- **Размер файла:** 448×496 px
+- **Соотношение:** почти квадрат 1:1 (чуть выше, чем шире)
+- **Отрицательный промпт:** N-SPRITE + N-COMMON
+- **Важно:** Генерируйте это состояние первым, остальные — из него через img2img (сила 0,3–0,5).
+
+```
+cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, frontal view from slightly above (about 30 degrees), like looking into a dollhouse cutaway, a tall wooden drying rack with several slatted shelves for freshly painted parts, fully restored and cared for, clean polished surfaces, warm rich colors, cozy and lived-in, small freshly painted wooden parts drying on the shelves in soft sage, honey and red colors, one single object only, centered, the whole object visible with a small empty margin around it, plain flat white background, no floor, no shadow on the ground
+```
+
+### `obj_paint_rack_0` — Малярная: Стеллаж с красками, шаг 0 из 3 (заброшено)
+
+- **Размер файла:** 448×304 px
+- **Соотношение:** горизонтальный 3:2
+- **Отрицательный промпт:** N-SPRITE + N-COMMON
+- **Важно:** Делайте из восстановленного состояния через img2img (сила 0,3–0,5), чтобы форма и ракурс совпали.
+
+```
+cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, frontal view from slightly above (about 30 degrees), like looking into a dollhouse cutaway, a wide wooden wall rack with rows of paint cans, seen straight on, abandoned and neglected, covered in thick dust and cobwebs, broken and missing parts, faded desaturated grey-brown colors, the rack sagging, cans rusty, dented and tipped over, one single object only, centered, the whole object visible with a small empty margin around it, plain flat white background, no floor, no shadow on the ground
+```
+
+### `obj_paint_rack_1` — Малярная: Стеллаж с красками, шаг 1 из 3 (частично починено)
+
+- **Размер файла:** 448×304 px
+- **Соотношение:** горизонтальный 3:2
+- **Отрицательный промпт:** N-SPRITE + N-COMMON
+- **Важно:** Делайте из восстановленного состояния через img2img (сила 0,3–0,5), чтобы форма и ракурс совпали.
+
+```
+cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, frontal view from slightly above (about 30 degrees), like looking into a dollhouse cutaway, a wide wooden wall rack with rows of paint cans, seen straight on, partly repaired: cleaned of dust, some parts fixed or replaced, a few signs of wear remain, warmer colors, the rack straight and fixed, only a few old cans, one single object only, centered, the whole object visible with a small empty margin around it, plain flat white background, no floor, no shadow on the ground
+```
+
+### `obj_paint_rack_2` — Малярная: Стеллаж с красками, шаг 2 из 3 (частично починено)
+
+- **Размер файла:** 448×304 px
+- **Соотношение:** горизонтальный 3:2
+- **Отрицательный промпт:** N-SPRITE + N-COMMON
+- **Важно:** Делайте из восстановленного состояния через img2img (сила 0,3–0,5), чтобы форма и ракурс совпали.
+
+```
+cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, frontal view from slightly above (about 30 degrees), like looking into a dollhouse cutaway, a wide wooden wall rack with rows of paint cans, seen straight on, partly repaired: cleaned of dust, some parts fixed or replaced, a few signs of wear remain, warmer colors, cans sorted in rows, labels plain without text, one single object only, centered, the whole object visible with a small empty margin around it, plain flat white background, no floor, no shadow on the ground
+```
+
+### `obj_paint_rack_3` — Малярная: Стеллаж с красками, шаг 3 из 3 (восстановлено)
+
+- **Размер файла:** 448×304 px
+- **Соотношение:** горизонтальный 3:2
+- **Отрицательный промпт:** N-SPRITE + N-COMMON
+- **Важно:** Генерируйте это состояние первым, остальные — из него через img2img (сила 0,3–0,5).
+
+```
+cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, frontal view from slightly above (about 30 degrees), like looking into a dollhouse cutaway, a wide wooden wall rack with rows of paint cans, seen straight on, fully restored and cared for, clean polished surfaces, warm rich colors, cozy and lived-in, full rows of clean cans with colorful drips of honey, sage green and warm red, catching the light, one single object only, centered, the whole object visible with a small empty margin around it, plain flat white background, no floor, no shadow on the ground
+```
+
+### `obj_vent_window_0` — Малярная: Окно с вытяжкой, шаг 0 из 2 (заброшено)
+
+- **Размер файла:** 448×304 px
+- **Соотношение:** горизонтальный 3:2
+- **Отрицательный промпт:** N-SPRITE + N-COMMON
+- **Важно:** Делайте из восстановленного состояния через img2img (сила 0,3–0,5), чтобы форма и ракурс совпали.
+
+```
+cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, frontal view from slightly above (about 30 degrees), like looking into a dollhouse cutaway, an old small-paned wooden window with a small round metal ventilation fan built into one pane, seen straight on, as a separate object, abandoned and neglected, covered in thick dust and cobwebs, broken and missing parts, faded desaturated grey-brown colors, paint-splattered cloudy panes, the fan blades bent and dusty, one single object only, centered, the whole object visible with a small empty margin around it, plain flat white background, no floor, no shadow on the ground
+```
+
+### `obj_vent_window_1` — Малярная: Окно с вытяжкой, шаг 1 из 2 (частично починено)
+
+- **Размер файла:** 448×304 px
+- **Соотношение:** горизонтальный 3:2
+- **Отрицательный промпт:** N-SPRITE + N-COMMON
+- **Важно:** Делайте из восстановленного состояния через img2img (сила 0,3–0,5), чтобы форма и ракурс совпали.
+
+```
+cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, frontal view from slightly above (about 30 degrees), like looking into a dollhouse cutaway, an old small-paned wooden window with a small round metal ventilation fan built into one pane, seen straight on, as a separate object, partly repaired: cleaned of dust, some parts fixed or replaced, a few signs of wear remain, warmer colors, the frame repaired and repainted, the fan fixed but still, one single object only, centered, the whole object visible with a small empty margin around it, plain flat white background, no floor, no shadow on the ground
+```
+
+### `obj_vent_window_2` — Малярная: Окно с вытяжкой, шаг 2 из 2 (восстановлено)
+
+- **Размер файла:** 448×304 px
+- **Соотношение:** горизонтальный 3:2
+- **Отрицательный промпт:** N-SPRITE + N-COMMON
+- **Важно:** Генерируйте это состояние первым, остальные — из него через img2img (сила 0,3–0,5).
+
+```
+cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, frontal view from slightly above (about 30 degrees), like looking into a dollhouse cutaway, an old small-paned wooden window with a small round metal ventilation fan built into one pane, seen straight on, as a separate object, fully restored and cared for, clean polished surfaces, warm rich colors, cozy and lived-in, clean panes with warm daylight, the fan spinning gently, fresh air feeling, one single object only, centered, the whole object visible with a small empty margin around it, plain flat white background, no floor, no shadow on the ground
+```
+
+### `obj_easel_0` — Малярная: Мольберт, шаг 0 из 2 (заброшено)
+
+- **Размер файла:** 448×496 px
+- **Соотношение:** почти квадрат 1:1 (чуть выше, чем шире)
+- **Отрицательный промпт:** N-SPRITE + N-COMMON
+- **Важно:** Делайте из восстановленного состояния через img2img (сила 0,3–0,5), чтобы форма и ракурс совпали.
+
+```
+cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, frontal view from slightly above (about 30 degrees), like looking into a dollhouse cutaway, an old wooden studio easel standing on the floor, seen straight on, abandoned and neglected, covered in thick dust and cobwebs, broken and missing parts, faded desaturated grey-brown colors, one leg missing, the easel lying crooked, splattered with dried paint, one single object only, centered, the whole object visible with a small empty margin around it, plain flat white background, no floor, no shadow on the ground
+```
+
+### `obj_easel_1` — Малярная: Мольберт, шаг 1 из 2 (частично починено)
+
+- **Размер файла:** 448×496 px
+- **Соотношение:** почти квадрат 1:1 (чуть выше, чем шире)
+- **Отрицательный промпт:** N-SPRITE + N-COMMON
+- **Важно:** Делайте из восстановленного состояния через img2img (сила 0,3–0,5), чтобы форма и ракурс совпали.
+
+```
+cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, frontal view from slightly above (about 30 degrees), like looking into a dollhouse cutaway, an old wooden studio easel standing on the floor, seen straight on, partly repaired: cleaned of dust, some parts fixed or replaced, a few signs of wear remain, warmer colors, standing straight on new legs, empty, one single object only, centered, the whole object visible with a small empty margin around it, plain flat white background, no floor, no shadow on the ground
+```
+
+### `obj_easel_2` — Малярная: Мольберт, шаг 2 из 2 (восстановлено)
+
+- **Размер файла:** 448×496 px
+- **Соотношение:** почти квадрат 1:1 (чуть выше, чем шире)
+- **Отрицательный промпт:** N-SPRITE + N-COMMON
+- **Важно:** Генерируйте это состояние первым, остальные — из него через img2img (сила 0,3–0,5).
+
+```
+cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, frontal view from slightly above (about 30 degrees), like looking into a dollhouse cutaway, an old wooden studio easel standing on the floor, seen straight on, fully restored and cared for, clean polished surfaces, warm rich colors, cozy and lived-in, holding a small canvas with a simple painting of a cozy house and a tree, one single object only, centered, the whole object visible with a small empty margin around it, plain flat white background, no floor, no shadow on the ground
+```
+
+### `obj_ladder_0` — Малярная: Стремянка, шаг 0 из 2 (заброшено)
+
+- **Размер файла:** 448×256 px
+- **Соотношение:** горизонтальный 16:9 (стремянка в кадре с полями по бокам)
+- **Отрицательный промпт:** N-SPRITE + N-COMMON
+- **Важно:** Делайте из восстановленного состояния через img2img (сила 0,3–0,5), чтобы форма и ракурс совпали.
+
+```
+cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, frontal view from slightly above (about 30 degrees), like looking into a dollhouse cutaway, an old wooden step ladder covered in paint drips, standing open, abandoned and neglected, covered in thick dust and cobwebs, broken and missing parts, faded desaturated grey-brown colors, two steps broken, one leg cracked, the hinge rusty, one single object only, centered, the whole object visible with a small empty margin around it, plain flat white background, no floor, no shadow on the ground
+```
+
+### `obj_ladder_1` — Малярная: Стремянка, шаг 1 из 2 (частично починено)
+
+- **Размер файла:** 448×256 px
+- **Соотношение:** горизонтальный 16:9 (стремянка в кадре с полями по бокам)
+- **Отрицательный промпт:** N-SPRITE + N-COMMON
+- **Важно:** Делайте из восстановленного состояния через img2img (сила 0,3–0,5), чтобы форма и ракурс совпали.
+
+```
+cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, frontal view from slightly above (about 30 degrees), like looking into a dollhouse cutaway, an old wooden step ladder covered in paint drips, standing open, partly repaired: cleaned of dust, some parts fixed or replaced, a few signs of wear remain, warmer colors, new steps, the hinge oiled, still dusty, one single object only, centered, the whole object visible with a small empty margin around it, plain flat white background, no floor, no shadow on the ground
+```
+
+### `obj_ladder_2` — Малярная: Стремянка, шаг 2 из 2 (восстановлено)
+
+- **Размер файла:** 448×256 px
+- **Соотношение:** горизонтальный 16:9 (стремянка в кадре с полями по бокам)
+- **Отрицательный промпт:** N-SPRITE + N-COMMON
+- **Важно:** Генерируйте это состояние первым, остальные — из него через img2img (сила 0,3–0,5).
+
+```
+cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, frontal view from slightly above (about 30 degrees), like looking into a dollhouse cutaway, an old wooden step ladder covered in paint drips, standing open, fully restored and cared for, clean polished surfaces, warm rich colors, cozy and lived-in, sturdy and clean, a small paint can and a brush on its top step, one single object only, centered, the whole object visible with a small empty margin around it, plain flat white background, no floor, no shadow on the ground
+```
+
+### `obj_solvent_cabinet_0` — Малярная: Шкафчик для растворителей, шаг 0 из 3 (заброшено)
+
+- **Размер файла:** 448×336 px
+- **Соотношение:** горизонтальный 4:3
+- **Отрицательный промпт:** N-SPRITE + N-COMMON
+- **Важно:** Делайте из восстановленного состояния через img2img (сила 0,3–0,5), чтобы форма и ракурс совпали.
+
+```
+cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, frontal view from slightly above (about 30 degrees), like looking into a dollhouse cutaway, a small low metal cabinet with two doors for paint solvents, seen straight on, abandoned and neglected, covered in thick dust and cobwebs, broken and missing parts, faded desaturated grey-brown colors, rusty, one door dented and hanging open, empty dusty bottles inside, one single object only, centered, the whole object visible with a small empty margin around it, plain flat white background, no floor, no shadow on the ground
+```
+
+### `obj_solvent_cabinet_1` — Малярная: Шкафчик для растворителей, шаг 1 из 3 (частично починено)
+
+- **Размер файла:** 448×336 px
+- **Соотношение:** горизонтальный 4:3
+- **Отрицательный промпт:** N-SPRITE + N-COMMON
+- **Важно:** Делайте из восстановленного состояния через img2img (сила 0,3–0,5), чтобы форма и ракурс совпали.
+
+```
+cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, frontal view from slightly above (about 30 degrees), like looking into a dollhouse cutaway, a small low metal cabinet with two doors for paint solvents, seen straight on, partly repaired: cleaned of dust, some parts fixed or replaced, a few signs of wear remain, warmer colors, the rust cleaned, the door straightened, one single object only, centered, the whole object visible with a small empty margin around it, plain flat white background, no floor, no shadow on the ground
+```
+
+### `obj_solvent_cabinet_2` — Малярная: Шкафчик для растворителей, шаг 2 из 3 (частично починено)
+
+- **Размер файла:** 448×336 px
+- **Соотношение:** горизонтальный 4:3
+- **Отрицательный промпт:** N-SPRITE + N-COMMON
+- **Важно:** Делайте из восстановленного состояния через img2img (сила 0,3–0,5), чтобы форма и ракурс совпали.
+
+```
+cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, frontal view from slightly above (about 30 degrees), like looking into a dollhouse cutaway, a small low metal cabinet with two doors for paint solvents, seen straight on, partly repaired: cleaned of dust, some parts fixed or replaced, a few signs of wear remain, warmer colors, freshly repainted sage green, new handles, one single object only, centered, the whole object visible with a small empty margin around it, plain flat white background, no floor, no shadow on the ground
+```
+
+### `obj_solvent_cabinet_3` — Малярная: Шкафчик для растворителей, шаг 3 из 3 (восстановлено)
+
+- **Размер файла:** 448×336 px
+- **Соотношение:** горизонтальный 4:3
+- **Отрицательный промпт:** N-SPRITE + N-COMMON
+- **Важно:** Генерируйте это состояние первым, остальные — из него через img2img (сила 0,3–0,5).
+
+```
+cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, frontal view from slightly above (about 30 degrees), like looking into a dollhouse cutaway, a small low metal cabinet with two doors for paint solvents, seen straight on, fully restored and cared for, clean polished surfaces, warm rich colors, cozy and lived-in, the doors closed neatly, plain glass bottles without labels standing on top in a row, one single object only, centered, the whole object visible with a small empty margin around it, plain flat white background, no floor, no shadow on the ground
+```
+
+### `obj_sanding_bench_0` — Малярная: Шлифовальный верстак, шаг 0 из 3 (заброшено)
+
+- **Размер файла:** 448×208 px
+- **Соотношение:** горизонтальный ≈ 2:1
+- **Отрицательный промпт:** N-SPRITE + N-COMMON
+- **Важно:** Делайте из восстановленного состояния через img2img (сила 0,3–0,5), чтобы форма и ракурс совпали.
+
+```
+cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, frontal view from slightly above (about 30 degrees), like looking into a dollhouse cutaway, a low wooden sanding bench with a hand sanding block and sheets of sandpaper, abandoned and neglected, covered in thick dust and cobwebs, broken and missing parts, faded desaturated grey-brown colors, the top cracked, covered in thick dust and wood shavings, one single object only, centered, the whole object visible with a small empty margin around it, plain flat white background, no floor, no shadow on the ground
+```
+
+### `obj_sanding_bench_1` — Малярная: Шлифовальный верстак, шаг 1 из 3 (частично починено)
+
+- **Размер файла:** 448×208 px
+- **Соотношение:** горизонтальный ≈ 2:1
+- **Отрицательный промпт:** N-SPRITE + N-COMMON
+- **Важно:** Делайте из восстановленного состояния через img2img (сила 0,3–0,5), чтобы форма и ракурс совпали.
+
+```
+cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, frontal view from slightly above (about 30 degrees), like looking into a dollhouse cutaway, a low wooden sanding bench with a hand sanding block and sheets of sandpaper, partly repaired: cleaned of dust, some parts fixed or replaced, a few signs of wear remain, warmer colors, a new top, still dusty, one single object only, centered, the whole object visible with a small empty margin around it, plain flat white background, no floor, no shadow on the ground
+```
+
+### `obj_sanding_bench_2` — Малярная: Шлифовальный верстак, шаг 2 из 3 (частично починено)
+
+- **Размер файла:** 448×208 px
+- **Соотношение:** горизонтальный ≈ 2:1
+- **Отрицательный промпт:** N-SPRITE + N-COMMON
+- **Важно:** Делайте из восстановленного состояния через img2img (сила 0,3–0,5), чтобы форма и ракурс совпали.
+
+```
+cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, frontal view from slightly above (about 30 degrees), like looking into a dollhouse cutaway, a low wooden sanding bench with a hand sanding block and sheets of sandpaper, partly repaired: cleaned of dust, some parts fixed or replaced, a few signs of wear remain, warmer colors, clean, sandpaper sheets neatly stacked, one single object only, centered, the whole object visible with a small empty margin around it, plain flat white background, no floor, no shadow on the ground
+```
+
+### `obj_sanding_bench_3` — Малярная: Шлифовальный верстак, шаг 3 из 3 (восстановлено)
+
+- **Размер файла:** 448×208 px
+- **Соотношение:** горизонтальный ≈ 2:1
+- **Отрицательный промпт:** N-SPRITE + N-COMMON
+- **Важно:** Генерируйте это состояние первым, остальные — из него через img2img (сила 0,3–0,5).
+
+```
+cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, frontal view from slightly above (about 30 degrees), like looking into a dollhouse cutaway, a low wooden sanding bench with a hand sanding block and sheets of sandpaper, fully restored and cared for, clean polished surfaces, warm rich colors, cozy and lived-in, a freshly sanded wooden chair leg resting on it, a soft brush beside, warm and tidy, one single object only, centered, the whole object visible with a small empty margin around it, plain flat white background, no floor, no shadow on the ground
+```
+
 ## 3. Кучи завала в комнате
 
 ### `zone_door` — Куча у двери — куча на главном экране
@@ -358,6 +679,76 @@ cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden af
 
 ```
 cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, frontal view from slightly above (about 30 degrees), like looking into a dollhouse cutaway, a few dusty boxes and jars on a high loft shelf seen from below, one single object only, centered, the whole object visible with a small empty margin around it, plain flat white background, no floor, no shadow on the ground
+```
+
+### `zone_cans_entrance` — Малярная: Банки у входа — куча на главном экране
+
+- **Размер файла:** 320×240 px
+- **Соотношение:** горизонтальный 4:3
+- **Отрицательный промпт:** N-SPRITE + N-COMMON
+
+```
+cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, frontal view from slightly above (about 30 degrees), like looking into a dollhouse cutaway, a small messy pile of old dented paint cans, a rolled drop cloth and a bucket, one single object only, centered, the whole object visible with a small empty margin around it, plain flat white background, no floor, no shadow on the ground
+```
+
+### `zone_under_paint_table` — Малярная: Под покрасочным столом — куча на главном экране
+
+- **Размер файла:** 912×208 px
+- **Соотношение:** горизонтальный ≈ 4:1 (генерируйте 21:9 и обрежьте)
+- **Отрицательный промпт:** N-SPRITE + N-COMMON
+
+```
+cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, frontal view from slightly above (about 30 degrees), like looking into a dollhouse cutaway, a low wide row of old paint cans, crumpled drop cloths and a wooden crate lying on the floor, one single object only, centered, the whole object visible with a small empty margin around it, plain flat white background, no floor, no shadow on the ground
+```
+
+### `zone_drying_corner` — Малярная: Угол у сушилки — куча на главном экране
+
+- **Размер файла:** 320×240 px
+- **Соотношение:** горизонтальный 4:3
+- **Отрицательный промпт:** N-SPRITE + N-COMMON
+
+```
+cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, frontal view from slightly above (about 30 degrees), like looking into a dollhouse cutaway, a heap of broken wooden slats, rags and a dusty bucket, one single object only, centered, the whole object visible with a small empty margin around it, plain flat white background, no floor, no shadow on the ground
+```
+
+### `zone_buckets` — Малярная: Вёдра у стены — куча на главном экране
+
+- **Размер файла:** 320×240 px
+- **Соотношение:** горизонтальный 4:3
+- **Отрицательный промпт:** N-SPRITE + N-COMMON
+
+```
+cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, frontal view from slightly above (about 30 degrees), like looking into a dollhouse cutaway, a stack of old metal paint buckets with dried paint drips, one single object only, centered, the whole object visible with a small empty margin around it, plain flat white background, no floor, no shadow on the ground
+```
+
+### `zone_window_sill` — Малярная: Подоконник — куча на главном экране
+
+- **Размер файла:** 448×224 px
+- **Соотношение:** горизонтальный 2:1
+- **Отрицательный промпт:** N-SPRITE + N-COMMON
+
+```
+cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, frontal view from slightly above (about 30 degrees), like looking into a dollhouse cutaway, a few dusty paint jars, brushes stuck in a can and a rag on a wide window sill, one single object only, centered, the whole object visible with a small empty margin around it, plain flat white background, no floor, no shadow on the ground
+```
+
+### `zone_behind_easel` — Малярная: За мольбертом — куча на главном экране
+
+- **Размер файла:** 368×240 px
+- **Соотношение:** горизонтальный ≈ 3:2
+- **Отрицательный промпт:** N-SPRITE + N-COMMON
+
+```
+cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, frontal view from slightly above (about 30 degrees), like looking into a dollhouse cutaway, a few old canvas frames leaning together, a sack and a rag, one single object only, centered, the whole object visible with a small empty margin around it, plain flat white background, no floor, no shadow on the ground
+```
+
+### `zone_high_shelf` — Малярная: Полка под потолком — куча на главном экране
+
+- **Размер файла:** 448×304 px
+- **Соотношение:** горизонтальный 3:2
+- **Отрицательный промпт:** N-SPRITE + N-COMMON
+
+```
+cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, frontal view from slightly above (about 30 degrees), like looking into a dollhouse cutaway, dusty paint cans, a box and rolled papers on a high shelf seen from below, one single object only, centered, the whole object visible with a small empty margin around it, plain flat white background, no floor, no shadow on the ground
 ```
 
 ## 4. Фоны сцен разбора
@@ -428,6 +819,83 @@ cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden af
 cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, frontal view from slightly above (about 30 degrees), like looking into a dollhouse cutaway, close-up of a high wooden loft shelf under a sloped ceiling, seen from below in an old family workshop, the area is mostly empty with free floor and shelf space in the middle for objects to be placed later, soft warm light, vertical composition, full background
 ```
 
+### `scene_cans_entrance` — Малярная: Банки у входа — фон сцены разбора
+
+- **Размер файла:** 1440×1744 px
+- **Соотношение:** вертикальный ≈ 5:6 (генерируйте 4:5, например 1440×1800, и обрежьте по высоте до 1744)
+- **Отрицательный промпт:** N-SCENE + N-COMMON
+- **Важно:** Сами предметы завала (вёдра, банки, тряпки) на фоне не рисовать — это отдельные спрайты поверх.
+
+```
+cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, frontal view from slightly above (about 30 degrees), like looking into a dollhouse cutaway, close-up of the entrance of the paint shop with an old door partly visible at the side in an old family paint shop, the area is mostly empty with free floor and shelf space in the middle for objects to be placed later, soft warm light, vertical composition, full background
+```
+
+### `scene_under_paint_table` — Малярная: Под покрасочным столом — фон сцены разбора
+
+- **Размер файла:** 1440×1744 px
+- **Соотношение:** вертикальный ≈ 5:6 (генерируйте 4:5, например 1440×1800, и обрежьте по высоте до 1744)
+- **Отрицательный промпт:** N-SCENE + N-COMMON
+- **Важно:** Сами предметы завала (вёдра, банки, тряпки) на фоне не рисовать — это отдельные спрайты поверх.
+
+```
+cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, frontal view from slightly above (about 30 degrees), like looking into a dollhouse cutaway, close-up of the dim space under a long paint-stained table, the table legs visible in an old family paint shop, the area is mostly empty with free floor and shelf space in the middle for objects to be placed later, soft warm light, vertical composition, full background
+```
+
+### `scene_drying_corner` — Малярная: Угол у сушилки — фон сцены разбора
+
+- **Размер файла:** 1440×1744 px
+- **Соотношение:** вертикальный ≈ 5:6 (генерируйте 4:5, например 1440×1800, и обрежьте по высоте до 1744)
+- **Отрицательный промпт:** N-SCENE + N-COMMON
+- **Важно:** Сами предметы завала (вёдра, банки, тряпки) на фоне не рисовать — это отдельные спрайты поверх.
+
+```
+cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, frontal view from slightly above (about 30 degrees), like looking into a dollhouse cutaway, close-up of a corner next to a wooden drying rack in an old family paint shop, the area is mostly empty with free floor and shelf space in the middle for objects to be placed later, soft warm light, vertical composition, full background
+```
+
+### `scene_buckets` — Малярная: Вёдра у стены — фон сцены разбора
+
+- **Размер файла:** 1440×1744 px
+- **Соотношение:** вертикальный ≈ 5:6 (генерируйте 4:5, например 1440×1800, и обрежьте по высоте до 1744)
+- **Отрицательный промпт:** N-SCENE + N-COMMON
+- **Важно:** Сами предметы завала (вёдра, банки, тряпки) на фоне не рисовать — это отдельные спрайты поверх.
+
+```
+cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, frontal view from slightly above (about 30 degrees), like looking into a dollhouse cutaway, close-up of a plaster wall with paint splashes and a plank floor in an old family paint shop, the area is mostly empty with free floor and shelf space in the middle for objects to be placed later, soft warm light, vertical composition, full background
+```
+
+### `scene_window_sill` — Малярная: Подоконник — фон сцены разбора
+
+- **Размер файла:** 1440×1744 px
+- **Соотношение:** вертикальный ≈ 5:6 (генерируйте 4:5, например 1440×1800, и обрежьте по высоте до 1744)
+- **Отрицательный промпт:** N-SCENE + N-COMMON
+- **Важно:** Сами предметы завала (вёдра, банки, тряпки) на фоне не рисовать — это отдельные спрайты поверх.
+
+```
+cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, frontal view from slightly above (about 30 degrees), like looking into a dollhouse cutaway, close-up of a wide wooden window sill under a paint-splattered window, soft daylight in an old family paint shop, the area is mostly empty with free floor and shelf space in the middle for objects to be placed later, soft warm light, vertical composition, full background
+```
+
+### `scene_behind_easel` — Малярная: За мольбертом — фон сцены разбора
+
+- **Размер файла:** 1440×1744 px
+- **Соотношение:** вертикальный ≈ 5:6 (генерируйте 4:5, например 1440×1800, и обрежьте по высоте до 1744)
+- **Отрицательный промпт:** N-SCENE + N-COMMON
+- **Важно:** Сами предметы завала (вёдра, банки, тряпки) на фоне не рисовать — это отдельные спрайты поверх.
+
+```
+cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, frontal view from slightly above (about 30 degrees), like looking into a dollhouse cutaway, close-up of the space behind a wooden easel near the wall in an old family paint shop, the area is mostly empty with free floor and shelf space in the middle for objects to be placed later, soft warm light, vertical composition, full background
+```
+
+### `scene_high_shelf` — Малярная: Полка под потолком — фон сцены разбора
+
+- **Размер файла:** 1440×1744 px
+- **Соотношение:** вертикальный ≈ 5:6 (генерируйте 4:5, например 1440×1800, и обрежьте по высоте до 1744)
+- **Отрицательный промпт:** N-SCENE + N-COMMON
+- **Важно:** Сами предметы завала (вёдра, банки, тряпки) на фоне не рисовать — это отдельные спрайты поверх.
+
+```
+cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, frontal view from slightly above (about 30 degrees), like looking into a dollhouse cutaway, close-up of a high wooden shelf near the ceiling, seen from below in an old family paint shop, the area is mostly empty with free floor and shelf space in the middle for objects to be placed later, soft warm light, vertical composition, full background
+```
+
 ## 5. Предметы завала
 
 ### `debris_box` — Коробка
@@ -490,6 +958,16 @@ cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden af
 cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, frontal view from slightly above (about 30 degrees), like looking into a dollhouse cutaway, a small wooden crate with metal corners, one single object only, centered, the whole object visible with a small empty margin around it, plain flat white background, no floor, no shadow on the ground
 ```
 
+### `debris_bucket` — Малярная: Ведро
+
+- **Размер файла:** 384×352 px
+- **Соотношение:** почти квадрат 1:1
+- **Отрицательный промпт:** N-SPRITE + N-COMMON
+
+```
+cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, frontal view from slightly above (about 30 degrees), like looking into a dollhouse cutaway, an old dented metal paint bucket with a wire handle and dried paint drips down the side, one single object only, centered, the whole object visible with a small empty margin around it, plain flat white background, no floor, no shadow on the ground
+```
+
 ## 6. Предметы цепочки
 
 ### `item_fasteners_1` — Ржавая шайба (уровень 1)
@@ -531,6 +1009,48 @@ cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden af
 
 ```
 cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, a beautiful vintage hand brace drill with a polished wooden handle and brass details, game item icon, bold simple silhouette readable at small size, one single object only, centered, the whole object visible with a small empty margin around it, plain flat white background, no floor, no shadow on the ground
+```
+
+### `item_paints_1` — Малярная: Засохший тюбик краски (уровень 1)
+
+- **Размер файла:** 288×288 px
+- **Соотношение:** квадрат 1:1
+- **Отрицательный промпт:** N-SPRITE + N-COMMON
+- **Важно:** Все 4 уровня генерируйте подряд с одним референсом. Цвет цепочки красок должен отличаться от крепежа (тёплые медовые и зелёные тона против серого металла), чтобы на столе их не путали.
+
+```
+cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, a single small squeezed and dried-up metal tube of paint, game item icon, bold simple silhouette readable at small size, one single object only, centered, the whole object visible with a small empty margin around it, plain flat white background, no floor, no shadow on the ground
+```
+
+### `item_paints_2` — Малярная: Банка краски (уровень 2)
+
+- **Размер файла:** 288×288 px
+- **Соотношение:** квадрат 1:1
+- **Отрицательный промпт:** N-SPRITE + N-COMMON
+- **Важно:** Эта же картинка используется на вводной карточке малярной.
+
+```
+cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, a small closed tin can of paint with a sage green drip on the side, game item icon, bold simple silhouette readable at small size, one single object only, centered, the whole object visible with a small empty margin around it, plain flat white background, no floor, no shadow on the ground
+```
+
+### `item_paints_3` — Малярная: Кисти и валики (уровень 3)
+
+- **Размер файла:** 288×288 px
+- **Соотношение:** квадрат 1:1
+- **Отрицательный промпт:** N-SPRITE + N-COMMON
+
+```
+cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, two paintbrushes and a small paint roller tied together with string, game item icon, bold simple silhouette readable at small size, one single object only, centered, the whole object visible with a small empty margin around it, plain flat white background, no floor, no shadow on the ground
+```
+
+### `item_paints_4` — Малярная: Краскопульт (уровень 4)
+
+- **Размер файла:** 288×288 px
+- **Соотношение:** квадрат 1:1
+- **Отрицательный промпт:** N-SPRITE + N-COMMON
+
+```
+cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, a beautiful vintage paint spray gun with a glass jar and polished brass details, game item icon, bold simple silhouette readable at small size, one single object only, centered, the whole object visible with a small empty margin around it, plain flat white background, no floor, no shadow on the ground
 ```
 
 ## 7. Ресурсы
@@ -628,6 +1148,66 @@ cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden af
 cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, a fully restored cozy workshop in the warm evening: the desk lamp glowing, the radio dial lit, the wall clock on the wall, tools neatly in their places, everything warm and alive, horizontal 4:3 composition, full illustration with background
 ```
 
+### `find_f_drawing` — Малярная: Находка: детский рисунок
+
+- **Размер файла:** 1120×840 px
+- **Соотношение:** горизонтальный 4:3
+- **Отрицательный промпт:** N-CARD + N-COMMON
+
+```
+cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, a child's colored pencil drawing lying on a wooden table under a sheet of tracing paper: a house, a sun and a smiling old man with a huge paintbrush, naive childlike style inside the painting, horizontal 4:3 composition, full illustration with background
+```
+
+### `find_f_palette` — Малярная: Находка: палитра
+
+- **Размер файла:** 1120×840 px
+- **Соотношение:** горизонтальный 4:3
+- **Отрицательный промпт:** N-CARD + N-COMMON
+
+```
+cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, an old wooden painter's palette with dried blobs of honey yellow, sage green and warm red paint, a brush resting on it, horizontal 4:3 composition, full illustration with background
+```
+
+### `find_f_sign` — Малярная: Находка: эскиз вывески
+
+- **Размер файла:** 1120×840 px
+- **Соотношение:** горизонтальный 4:3
+- **Отрицательный промпт:** N-CARD + N-COMMON
+
+```
+cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, an old paper sketch of a decorative shop sign with ornate curls and flourishes, the lettering faded and unreadable, pencil and a little paint, horizontal 4:3 composition, full illustration with background
+```
+
+### `find_f_apron` — Малярная: Находка: фартук в краске
+
+- **Размер файла:** 1120×840 px
+- **Соотношение:** горизонтальный 4:3
+- **Отрицательный промпт:** N-CARD + N-COMMON
+
+```
+cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, a canvas work apron covered in splashes of many paint colors hanging on a nail on a plaster wall, horizontal 4:3 composition, full illustration with background
+```
+
+### `find_f_brush` — Малярная: Находка: старая кисть
+
+- **Размер файла:** 1120×840 px
+- **Соотношение:** горизонтальный 4:3
+- **Отрицательный промпт:** N-CARD + N-COMMON
+
+```
+cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, an old wide paintbrush with its wooden handle wrapped in electrical tape, lying on a clean wooden board next to a fresh smooth stroke of paint, horizontal 4:3 composition, full illustration with background
+```
+
+### `final_card_paint` — Малярная: Финальная карточка: обе комнаты ожили
+
+- **Размер файла:** 1120×840 px
+- **Соотношение:** горизонтальный 4:3
+- **Отрицательный промпт:** N-CARD + N-COMMON
+
+```
+cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, a cozy restored paint shop in the warm evening seen through an open doorway from the restored workshop: neat paint cans on a rack, an easel with a small painting, a desk lamp glowing in the workshop in the foreground, everything warm and alive, horizontal 4:3 composition, full illustration with background
+```
+
 ## 9. Логотип и материалы страницы
 
 ### `logo` — Эмблема на экране загрузки
@@ -708,3 +1288,4 @@ military uniform, medals, orders, flags, weapons, religious symbols, famous pers
 screenshot, game interface, buttons, menus, platform logo, Yandex logo, text, title, letters, frame, border, rounded corners, people
 ```
 
+Для `find_f_photo` из N-COMMON уберите слова `photograph` и `photorealistic` не нужно — оставьте их: это рисунок старой фотографии, а не фото.
