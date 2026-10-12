@@ -265,37 +265,37 @@
       }
     },
     "find_f_photo": {
-      "file": null,
+      "file": "images/find_f_photo.jpg",
       "placeholder": {
         "color": "#C8B08A"
       }
     },
     "find_f_screws": {
-      "file": null,
+      "file": "images/find_f_screws.jpg",
       "placeholder": {
         "color": "#C8B08A"
       }
     },
     "find_f_note": {
-      "file": null,
+      "file": "images/find_f_note.jpg",
       "placeholder": {
         "color": "#C8B08A"
       }
     },
     "find_f_radio": {
-      "file": null,
+      "file": "images/find_f_radio.jpg",
       "placeholder": {
         "color": "#C8B08A"
       }
     },
     "find_f_clock": {
-      "file": null,
+      "file": "images/find_f_clock.jpg",
       "placeholder": {
         "color": "#C8B08A"
       }
     },
     "final_card": {
-      "file": null,
+      "file": "images/final_card.jpg",
       "placeholder": {
         "color": "#E0B872"
       }
@@ -307,7 +307,7 @@
       }
     },
     "logo": {
-      "file": null,
+      "file": "images/logo.png",
       "placeholder": {
         "color": "#8B5E3C"
       }

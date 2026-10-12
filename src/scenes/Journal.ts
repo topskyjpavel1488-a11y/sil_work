@@ -12,6 +12,7 @@ import { onTap } from '../ui/tap';
 import { fadeIn, goTo } from '../ui/transition';
 
 const SECTION = 'journal';
+const CAPTION_H = 80; // two lines of 32 px text under each picture
 
 export class JournalScene extends Phaser.Scene {
   private cardOpen = false;
@@ -30,18 +31,24 @@ export class JournalScene extends Phaser.Scene {
     this.store.content.finds.forEach((find, i) => {
       const r = rect(SECTION, `slot.${i}`);
       const open = this.store.state.finds.includes(find.id);
-      const box = open ? addAsset(this, find.image, r) : this.add.container(r.x + r.w / 2, r.y + r.h / 2).setSize(r.w, r.h);
-      if (!open) {
+      // The picture takes the top of the slot and the caption sits below it, never over the art.
+      const picture = { x: r.x, y: r.y, w: r.w, h: r.h - CAPTION_H };
+      const box = this.add.container(r.x + r.w / 2, r.y + r.h / 2).setSize(r.w, r.h);
+      if (open) {
+        const art = addAsset(this, find.image, picture);
+        art.setPosition(0, -CAPTION_H / 2);
+        box.add(art);
+      } else {
         const g = this.add.graphics();
         g.fillStyle(PALETTE.metal, 0.25);
-        g.fillRoundedRect(-r.w / 2, -r.h / 2, r.w, r.h, 20);
-        box.add([g, this.add.text(0, -24, '?', textStyle(72, COLORS.text)).setOrigin(0.5).setAlpha(0.5)]);
+        g.fillRoundedRect(-r.w / 2, -r.h / 2, r.w, picture.h, 20);
+        box.add([g, this.add.text(0, -CAPTION_H / 2, '?', textStyle(72, COLORS.text)).setOrigin(0.5).setAlpha(0.5)]);
       }
       const caption = open ? t(find.titleKey) : t('ui.journal.locked');
       box.add(
         this.add
-          .text(0, r.h / 2 - 16, caption, textStyle(32, COLORS.text, { align: 'center', wordWrap: { width: r.w - 24 } }))
-          .setOrigin(0.5, 1)
+          .text(0, r.h / 2 - CAPTION_H + 8, caption, textStyle(32, COLORS.text, { align: 'center', wordWrap: { width: r.w - 16 } }))
+          .setOrigin(0.5, 0)
           .setAlpha(open ? 1 : 0.6),
       );
       if (!open) return;

@@ -14,7 +14,8 @@
     "simulate": "tsx tools/simulate.ts",
     "layout": "vite --config tools/layout-editor/vite.config.ts",
     "build:release": "tsc --noEmit && vite build --mode release && tsx tools/check-dist.ts",
-    "package": "npm run build:release && tsx tools/package.ts"
+    "package": "npm run build:release && tsx tools/package.ts",
+    "images": "tsx tools/optimize-images.ts"
   },
   "dependencies": {
     "phaser": "3.90.0"
@@ -23,6 +24,7 @@
     "@eslint/js": "10.0.1",
     "@types/node": "26.6.5",
     "eslint": "10.12.0",
+    "sharp": "0.35.5",
     "tsx": "4.23.15",
     "typescript": "5.9.3",
     "typescript-eslint": "8.71.1",
