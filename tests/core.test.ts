@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { content } from '../src/data/index';
+import { fixture as content } from './fixture';
 import { moveItem } from '../src/core/merge';
 import { currentGoal, isZoneCleared } from '../src/core/progress';
 import { checkRepair, repair } from '../src/core/repair';
@@ -20,15 +20,15 @@ describe('scavenge', () => {
     s = takeDebris(s, content, 'door', 'door_1').state;
     expect(s.resources.wood).toBe(2);
     s.board[0] = item(3);
-    const r = takeDebris(s, content, 'door', 'door_3');
+    const r = takeDebris(s, content, 'door', 'door_2');
     expect(r.state.board.slice(0, 3)).toEqual([item(3), item(1), item(1)]);
-    expect(r.state.zones.door?.taken).toEqual(['door_1', 'door_3']);
+    expect(r.state.zones.door?.taken).toEqual(['door_1', 'door_2']);
   });
 
   it('spills into the box when the board is full', () => {
     const s = fresh();
     fill(s.board);
-    const r = takeDebris(s, content, 'door', 'door_3');
+    const r = takeDebris(s, content, 'door', 'door_2');
     expect(r.state.box.slice(0, 2)).toEqual([item(1), item(1)]);
   });
 
@@ -37,7 +37,7 @@ describe('scavenge', () => {
     fill(s.board);
     fill(s.box);
     s.box[5] = null;
-    const r = takeDebris(s, content, 'door', 'door_3');
+    const r = takeDebris(s, content, 'door', 'door_2');
     expect(r.state).toBe(s);
     expect(types(r.events)).toEqual(['noSpace']);
   });
@@ -51,7 +51,7 @@ describe('scavenge', () => {
 
   it('rejects locked zones and repeated taking', () => {
     const s = fresh();
-    expect(types(takeDebris(s, content, 'under_workbench', 'under_workbench_1').events)).toEqual(['rejected']);
+    expect(types(takeDebris(s, content, 'under_workbench', 'under_1').events)).toEqual(['rejected']);
     const once = takeDebris(s, content, 'door', 'door_1').state;
     expect(takeDebris(once, content, 'door', 'door_1').state).toBe(once);
   });
@@ -289,5 +289,41 @@ describe('rewards', () => {
     fill(s.box);
     expect(canGrantWasher(s)).toBe(false);
     expect(grantReward(s, 'washer').state).toBe(s);
+  });
+});
+
+describe('rooms', () => {
+  const restoreWorkshop = (s: GameState) => {
+    for (const o of content.objects.filter((x) => x.room === 'workshop')) s.objects[o.id] = { step: o.steps.length };
+  };
+
+  it('keeps the second room closed until the first is restored', () => {
+    const s = fresh();
+    s.resources.wood = 5;
+    s.board[0] = { chain: 'paints', level: 2 };
+    expect(checkRepair(s, content, 'easel').reason).toBe('objectLocked');
+    expect(types(takeDebris(s, content, 'buckets', 'buckets_1').events)).toEqual(['rejected']);
+    restoreWorkshop(s);
+    expect(checkRepair(s, content, 'easel').ok).toBe(true);
+    expect(types(takeDebris(s, content, 'buckets', 'buckets_1').events)).toEqual(['debrisTaken', 'zoneCleared']);
+  });
+
+  it('reports a restored room and, after the last room, the end', () => {
+    const s = fresh();
+    s.objects = { ...s.objects, workbench: { step: 3 }, fastener_box: { step: 1 }, cabinet: { step: 1 } };
+    s.resources.metal = 3;
+    s.board[0] = item(2);
+    s.board[1] = item(2);
+    expect(types(repair(s, content, 'cabinet').events)).toEqual(['repaired', 'objectRestored', 'roomRestored']);
+
+    const last = fresh();
+    restoreWorkshop(last);
+    last.resources.wood = 1;
+    last.board[0] = { chain: 'paints', level: 2 };
+    expect(types(repair(last, content, 'easel').events)).toEqual(['repaired', 'objectRestored', 'roomRestored', 'finished']);
+  });
+
+  it('starts in the first room', () => {
+    expect(fresh().room).toBe('workshop');
   });
 });

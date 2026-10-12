@@ -5,7 +5,8 @@ import type { Content } from './content';
 export type Resource = 'wood' | 'metal' | 'parts';
 export const RESOURCES: readonly Resource[] = ['wood', 'metal', 'parts'];
 
-export type ChainId = 'fasteners';
+export type ChainId = 'fasteners' | 'paints';
+export const CHAINS: readonly ChainId[] = ['fasteners', 'paints'];
 
 export interface ItemRef {
   chain: ChainId;
@@ -13,7 +14,9 @@ export interface ItemRef {
 }
 
 export interface GameState {
-  version: 1;
+  version: 2;
+  // The room the main screen shows (spec v0.7: two rooms).
+  room: string;
   resources: Record<Resource, number>;
   board: (ItemRef | null)[];
   box: (ItemRef | null)[];
@@ -21,6 +24,8 @@ export interface GameState {
   zones: Record<string, { taken: string[] }>;
   finds: string[];
   tutorial: { done: boolean; step: number };
+  // One-time hints already shown, such as the new chain in the second room.
+  hints: string[];
   settings: { music: boolean; sfx: boolean };
   savedAt: number;
 }
@@ -48,6 +53,7 @@ export type GameEvent =
   | { type: 'repaired'; objectId: string; step: number }
   | { type: 'objectRestored'; objectId: string }
   | { type: 'findOpened'; findId: string }
+  | { type: 'roomRestored'; roomId: string }
   | { type: 'finished' }
   | { type: 'tutorial' }
   | { type: 'settings' }
@@ -80,7 +86,8 @@ export const reject = (state: GameState, reason: RejectReason): ActionResult => 
 
 export function createInitialState(content: Content): GameState {
   return {
-    version: 1,
+    version: 2,
+    room: content.rooms[0]?.id ?? '',
     resources: { wood: 0, metal: 0, parts: 0 },
     board: Array.from({ length: BOARD_SIZE }, () => null),
     box: Array.from({ length: config.boxSize }, () => null),
@@ -88,6 +95,7 @@ export function createInitialState(content: Content): GameState {
     zones: Object.fromEntries(content.zones.map((z) => [z.id, { taken: [] }])),
     finds: [],
     tutorial: { done: false, step: 0 },
+    hints: [],
     settings: { music: true, sfx: true },
     savedAt: 0,
   };

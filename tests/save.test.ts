@@ -27,8 +27,8 @@ describe('save', () => {
   it('flags broken JSON and wrong shapes as corrupted', () => {
     expect(parseSave('{"version":1,')).toEqual({ kind: 'corrupted' });
     expect(parseSave('[]')).toEqual({ kind: 'corrupted' });
-    const wrongBoard = { ...sample(), board: [] };
-    expect(parseSave(JSON.stringify(wrongBoard))).toEqual({ kind: 'corrupted' });
+    const wrongItem = { ...sample(), board: sample().board.map((c, i) => (i === 0 ? { chain: 'nails', level: 1 } : c)) };
+    expect(parseSave(JSON.stringify(wrongItem))).toEqual({ kind: 'corrupted' });
     const negative = { ...sample(), resources: { wood: -1, metal: 0, parts: 0 } };
     expect(parseSave(JSON.stringify(negative))).toEqual({ kind: 'corrupted' });
     expect(parseSave(JSON.stringify({ ...sample(), version: 99 }))).toEqual({ kind: 'corrupted' });
@@ -44,9 +44,19 @@ describe('save', () => {
     expect(pickNewest(null, null)).toBeNull();
   });
 
-  it('migrate passes version 1 through unchanged', () => {
+  it('migrate passes the current version through unchanged', () => {
     const s = sample();
     expect(migrate(s)).toBe(s);
     expect(migrate({ version: 0 })).toBeNull();
+  });
+
+  it('upgrades a version 1 save: workshop room, no hints, a bigger table', () => {
+    const v1: Record<string, unknown> = { ...sample(), version: 1, board: sample().board.slice(0, 20) };
+    delete v1.room;
+    delete v1.hints;
+    const upgraded = migrate(v1);
+    expect(upgraded).toMatchObject({ version: 2, room: 'workshop', hints: [] });
+    expect(upgraded?.board).toHaveLength(sample().board.length);
+    expect(upgraded?.board[3]).toEqual({ chain: 'fasteners', level: 2 });
   });
 });

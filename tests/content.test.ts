@@ -28,7 +28,7 @@ describe('content', () => {
   it('reports a shortage of supply', () => {
     const broken = structuredClone(content);
     broken.zones = broken.zones.map((z) => ({ ...z, debris: z.debris.map((d) => ({ ...d, drop: { resources: { wood: 1 } } })) }));
-    expect(check(broken).some((e) => e.startsWith('balance:'))).toBe(true);
+    expect(check(broken).some((e) => e.startsWith('balance'))).toBe(true);
   });
 
   it('reports broken references', () => {

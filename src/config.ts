@@ -16,7 +16,7 @@ export const PALETTE = {
 export const BUILD: 'test' | 'release' = import.meta.env?.VITE_BUILD === 'release' ? 'release' : 'test';
 
 export const config = {
-  boardCols: 4,
+  boardCols: 5,
   boardRows: 5,
   boxSize: 6,
   saveDebounceMs: 1000,
@@ -31,18 +31,19 @@ export const config = {
   // Content invariants checked by `npm run validate` (spec 5.5).
   balanceMargin: 1.25,
   zoneCount: { min: 5, max: 7 },
-  zoneDebris: { min: 8, max: 10 },
+  zoneDebris: { min: 8, max: 15 },
   debrisDropUnits: { min: 1, max: 3 },
   firstZone: { minWood: 4, minLevel1Items: 2 },
-  simMaxBoardCells: 18,
+  simMaxBoardCells: 23,
   simMaxBoxCells: 3,
+  // Yandex Games rule 2.9: the main content takes more than 10 minutes (estimated fast playthrough).
+  minPlaytimeMinutes: 10,
 } as const;
 
 export const BOARD_SIZE = config.boardCols * config.boardRows;
 
 // Interface images by manifest key.
 export const UI_IMAGES = {
-  room: 'room_bg',
   logo: 'logo',
 } as const;
 

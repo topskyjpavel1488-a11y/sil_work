@@ -1,0 +1,34 @@
+{
+  "rooms": [
+    {
+      "id": "workshop",
+      "nameKey": "room.workshop",
+      "image": "room_bg",
+      "layout": "workshop",
+      "final": {
+        "titleKey": "final.title",
+        "textKey": "final.text",
+        "image": "final_card"
+      },
+      "finalNoteKey": "ui.final.nextRoom"
+    },
+    {
+      "id": "paint",
+      "nameKey": "room.paint",
+      "image": "room_paint_bg",
+      "layout": "paint",
+      "unlockAfter": "workshop",
+      "final": {
+        "titleKey": "final.paint.title",
+        "textKey": "final.paint.text",
+        "image": "final_card_paint"
+      },
+      "finalNoteKey": "ui.final.note",
+      "intro": {
+        "titleKey": "intro.paint.title",
+        "textKey": "intro.paint.text",
+        "image": "item_paints_2"
+      }
+    }
+  ]
+}

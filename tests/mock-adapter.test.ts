@@ -3,7 +3,9 @@ import { MockAdapter } from '../src/platform/mock';
 import type { SaveData } from '../src/core/state';
 
 const save: SaveData = {
-  version: 1,
+  version: 2,
+  room: 'workshop',
+  hints: [],
   resources: { wood: 1, metal: 2, parts: 3 },
   board: [null, { chain: 'fasteners', level: 1 }],
   box: [null],

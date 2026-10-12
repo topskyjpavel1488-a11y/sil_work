@@ -347,6 +347,330 @@
       "placeholder": {
         "color": "#A39A8C"
       }
+    },
+    "room_paint_bg": {
+      "file": null,
+      "placeholder": {
+        "color": "#DCE3D6"
+      }
+    },
+    "obj_paint_table_0": {
+      "file": null,
+      "placeholder": {
+        "color": "#C9C2B5"
+      }
+    },
+    "obj_paint_table_1": {
+      "file": null,
+      "placeholder": {
+        "color": "#B0B5A1"
+      }
+    },
+    "obj_paint_table_2": {
+      "file": null,
+      "placeholder": {
+        "color": "#96A78C"
+      }
+    },
+    "obj_paint_table_3": {
+      "file": null,
+      "placeholder": {
+        "color": "#7D9A78"
+      }
+    },
+    "obj_drying_rack_0": {
+      "file": null,
+      "placeholder": {
+        "color": "#C9C2B5"
+      }
+    },
+    "obj_drying_rack_1": {
+      "file": null,
+      "placeholder": {
+        "color": "#A3AE97"
+      }
+    },
+    "obj_drying_rack_2": {
+      "file": null,
+      "placeholder": {
+        "color": "#7D9A78"
+      }
+    },
+    "obj_paint_rack_0": {
+      "file": null,
+      "placeholder": {
+        "color": "#C9C2B5"
+      }
+    },
+    "obj_paint_rack_1": {
+      "file": null,
+      "placeholder": {
+        "color": "#B0B5A1"
+      }
+    },
+    "obj_paint_rack_2": {
+      "file": null,
+      "placeholder": {
+        "color": "#96A78C"
+      }
+    },
+    "obj_paint_rack_3": {
+      "file": null,
+      "placeholder": {
+        "color": "#7D9A78"
+      }
+    },
+    "obj_vent_window_0": {
+      "file": null,
+      "placeholder": {
+        "color": "#C9C2B5"
+      }
+    },
+    "obj_vent_window_1": {
+      "file": null,
+      "placeholder": {
+        "color": "#A3AE97"
+      }
+    },
+    "obj_vent_window_2": {
+      "file": null,
+      "placeholder": {
+        "color": "#7D9A78"
+      }
+    },
+    "obj_easel_0": {
+      "file": null,
+      "placeholder": {
+        "color": "#C9C2B5"
+      }
+    },
+    "obj_easel_1": {
+      "file": null,
+      "placeholder": {
+        "color": "#A3AE97"
+      }
+    },
+    "obj_easel_2": {
+      "file": null,
+      "placeholder": {
+        "color": "#7D9A78"
+      }
+    },
+    "obj_ladder_0": {
+      "file": null,
+      "placeholder": {
+        "color": "#C9C2B5"
+      }
+    },
+    "obj_ladder_1": {
+      "file": null,
+      "placeholder": {
+        "color": "#A3AE97"
+      }
+    },
+    "obj_ladder_2": {
+      "file": null,
+      "placeholder": {
+        "color": "#7D9A78"
+      }
+    },
+    "obj_solvent_cabinet_0": {
+      "file": null,
+      "placeholder": {
+        "color": "#C9C2B5"
+      }
+    },
+    "obj_solvent_cabinet_1": {
+      "file": null,
+      "placeholder": {
+        "color": "#B0B5A1"
+      }
+    },
+    "obj_solvent_cabinet_2": {
+      "file": null,
+      "placeholder": {
+        "color": "#96A78C"
+      }
+    },
+    "obj_solvent_cabinet_3": {
+      "file": null,
+      "placeholder": {
+        "color": "#7D9A78"
+      }
+    },
+    "obj_sanding_bench_0": {
+      "file": null,
+      "placeholder": {
+        "color": "#C9C2B5"
+      }
+    },
+    "obj_sanding_bench_1": {
+      "file": null,
+      "placeholder": {
+        "color": "#B0B5A1"
+      }
+    },
+    "obj_sanding_bench_2": {
+      "file": null,
+      "placeholder": {
+        "color": "#96A78C"
+      }
+    },
+    "obj_sanding_bench_3": {
+      "file": null,
+      "placeholder": {
+        "color": "#7D9A78"
+      }
+    },
+    "zone_cans_entrance": {
+      "file": null,
+      "placeholder": {
+        "color": "#A39A8C"
+      }
+    },
+    "scene_cans_entrance": {
+      "file": null,
+      "placeholder": {
+        "color": "#A39A8C"
+      }
+    },
+    "zone_under_paint_table": {
+      "file": null,
+      "placeholder": {
+        "color": "#A39A8C"
+      }
+    },
+    "scene_under_paint_table": {
+      "file": null,
+      "placeholder": {
+        "color": "#A39A8C"
+      }
+    },
+    "zone_drying_corner": {
+      "file": null,
+      "placeholder": {
+        "color": "#A39A8C"
+      }
+    },
+    "scene_drying_corner": {
+      "file": null,
+      "placeholder": {
+        "color": "#A39A8C"
+      }
+    },
+    "zone_buckets": {
+      "file": null,
+      "placeholder": {
+        "color": "#A39A8C"
+      }
+    },
+    "scene_buckets": {
+      "file": null,
+      "placeholder": {
+        "color": "#A39A8C"
+      }
+    },
+    "zone_window_sill": {
+      "file": null,
+      "placeholder": {
+        "color": "#A39A8C"
+      }
+    },
+    "scene_window_sill": {
+      "file": null,
+      "placeholder": {
+        "color": "#A39A8C"
+      }
+    },
+    "zone_behind_easel": {
+      "file": null,
+      "placeholder": {
+        "color": "#A39A8C"
+      }
+    },
+    "scene_behind_easel": {
+      "file": null,
+      "placeholder": {
+        "color": "#A39A8C"
+      }
+    },
+    "zone_high_shelf": {
+      "file": null,
+      "placeholder": {
+        "color": "#A39A8C"
+      }
+    },
+    "scene_high_shelf": {
+      "file": null,
+      "placeholder": {
+        "color": "#A39A8C"
+      }
+    },
+    "debris_bucket": {
+      "file": null,
+      "placeholder": {
+        "color": "#8FA3B0"
+      }
+    },
+    "item_paints_1": {
+      "file": null,
+      "placeholder": {
+        "color": "#B8B0C8"
+      }
+    },
+    "item_paints_2": {
+      "file": null,
+      "placeholder": {
+        "color": "#6E8FB3"
+      }
+    },
+    "item_paints_3": {
+      "file": null,
+      "placeholder": {
+        "color": "#C77D6B"
+      }
+    },
+    "item_paints_4": {
+      "file": null,
+      "placeholder": {
+        "color": "#5E7D59"
+      }
+    },
+    "find_f_drawing": {
+      "file": null,
+      "placeholder": {
+        "color": "#C8B08A"
+      }
+    },
+    "find_f_palette": {
+      "file": null,
+      "placeholder": {
+        "color": "#C8B08A"
+      }
+    },
+    "find_f_sign": {
+      "file": null,
+      "placeholder": {
+        "color": "#C8B08A"
+      }
+    },
+    "find_f_apron": {
+      "file": null,
+      "placeholder": {
+        "color": "#C8B08A"
+      }
+    },
+    "find_f_brush": {
+      "file": null,
+      "placeholder": {
+        "color": "#C8B08A"
+      }
+    },
+    "final_card_paint": {
+      "file": null,
+      "placeholder": {
+        "color": "#E0B872"
+      }
     }
   },
   "sounds": {
@@ -444,6 +768,14 @@
         "freq": 440,
         "ms": 90,
         "wave": "sine"
+      }
+    },
+    "sfx_debris_bucket": {
+      "file": null,
+      "synth": {
+        "freq": 240,
+        "ms": 110,
+        "wave": "triangle"
       }
     }
   }

@@ -3,7 +3,7 @@
 import type { Bundle, Content } from '../src/core/content';
 import { maxLevel } from '../src/core/content';
 import { moveItem } from '../src/core/merge';
-import { currentGoal, isFinished, isZoneUnlocked } from '../src/core/progress';
+import { currentGoal, isFinished, isObjectAvailable, isZoneUnlocked } from '../src/core/progress';
 import { repair } from '../src/core/repair';
 import { takeDebris } from '../src/core/scavenge';
 import { countItems, createInitialState, type CellRef, type ChainId, type GameState } from '../src/core/state';
@@ -21,7 +21,7 @@ export function goalSequence(content: Content): GoalStep[] {
   const steps: GoalStep[] = [];
   for (let goal = currentGoal(state, content); goal; goal = currentGoal(state, content)) {
     const cost = goal.object.steps[goal.stepIndex]?.cost ?? {};
-    const openZones = content.zones.filter((z) => isZoneUnlocked(state, z)).map((z) => z.id);
+    const openZones = content.zones.filter((z) => isZoneUnlocked(state, content, z)).map((z) => z.id);
     steps.push({ objectId: goal.object.id, step: goal.stepIndex + 1, cost, openZones });
     state.objects[goal.object.id] = { step: goal.stepIndex + 1 };
   }
@@ -97,16 +97,14 @@ export function runBot(content: Content, strategy: BotStrategy = 'careful'): Bot
     return move(source, target);
   };
 
-  // Items still needed by unfinished repair steps, per chain and level.
+  // Items the next step of every open object asks for, per chain and level. The bot keeps only
+  // those back; anything else merges up, since a repair can take a higher item apart (v0.6).
   const remainingDemand = (chain: ChainId, level: number) =>
-    content.objects.reduce(
-      (sum, o) =>
-        sum +
-        o.steps
-          .slice(s.objects[o.id]?.step ?? 0)
-          .reduce((n, st) => n + (st.cost.items ?? []).filter((i) => i.chain === chain && i.level === level).reduce((k, i) => k + i.count, 0), 0),
-      0,
-    );
+    content.objects.reduce((sum, o) => {
+      if (!isObjectAvailable(s, content, o)) return sum;
+      const step = o.steps[s.objects[o.id]?.step ?? 0];
+      return sum + (step?.cost.items ?? []).filter((i) => i.chain === chain && i.level === level).reduce((k, i) => k + i.count, 0);
+    }, 0);
 
   // Merge pairs that are surplus to the remaining demand at their level.
   const mergeSurplus = () => {
@@ -132,7 +130,7 @@ export function runBot(content: Content, strategy: BotStrategy = 'careful'): Bot
     let progress = false;
 
     for (const zone of content.zones) {
-      if (!isZoneUnlocked(s, zone)) continue;
+      if (!isZoneUnlocked(s, content, zone)) continue;
       for (const debris of zone.debris) {
         if (s.zones[zone.id]?.taken.includes(debris.id)) continue;
         tidy();

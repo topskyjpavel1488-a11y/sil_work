@@ -1,10 +1,14 @@
 {
   "finds": [
-    { "id": "f_photo", "titleKey": "find.f_photo.title", "textKey": "find.f_photo.text", "image": "find_f_photo" },
-    { "id": "f_screws", "titleKey": "find.f_screws.title", "textKey": "find.f_screws.text", "image": "find_f_screws" },
-    { "id": "f_note", "titleKey": "find.f_note.title", "textKey": "find.f_note.text", "image": "find_f_note" },
-    { "id": "f_radio", "titleKey": "find.f_radio.title", "textKey": "find.f_radio.text", "image": "find_f_radio", "sound": "sfx_radio_melody" },
-    { "id": "f_clock", "titleKey": "find.f_clock.title", "textKey": "find.f_clock.text", "image": "find_f_clock" }
-  ],
-  "final": { "titleKey": "final.title", "textKey": "final.text", "image": "final_card" }
+    { "id": "f_photo", "room": "workshop", "titleKey": "find.f_photo.title", "textKey": "find.f_photo.text", "image": "find_f_photo" },
+    { "id": "f_screws", "room": "workshop", "titleKey": "find.f_screws.title", "textKey": "find.f_screws.text", "image": "find_f_screws" },
+    { "id": "f_note", "room": "workshop", "titleKey": "find.f_note.title", "textKey": "find.f_note.text", "image": "find_f_note" },
+    { "id": "f_radio", "room": "workshop", "titleKey": "find.f_radio.title", "textKey": "find.f_radio.text", "image": "find_f_radio", "sound": "sfx_radio_melody" },
+    { "id": "f_clock", "room": "workshop", "titleKey": "find.f_clock.title", "textKey": "find.f_clock.text", "image": "find_f_clock" },
+    { "id": "f_drawing", "room": "paint", "titleKey": "find.f_drawing.title", "textKey": "find.f_drawing.text", "image": "find_f_drawing" },
+    { "id": "f_palette", "room": "paint", "titleKey": "find.f_palette.title", "textKey": "find.f_palette.text", "image": "find_f_palette" },
+    { "id": "f_sign", "room": "paint", "titleKey": "find.f_sign.title", "textKey": "find.f_sign.text", "image": "find_f_sign" },
+    { "id": "f_apron", "room": "paint", "titleKey": "find.f_apron.title", "textKey": "find.f_apron.text", "image": "find_f_apron" },
+    { "id": "f_brush", "room": "paint", "titleKey": "find.f_brush.title", "textKey": "find.f_brush.text", "image": "find_f_brush" }
+  ]
 }

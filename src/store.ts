@@ -63,6 +63,21 @@ export class Store {
     this.commit({ state: next, events: [{ type: 'tutorial' }] });
   }
 
+  // Which room the main screen shows (spec v0.7).
+  setRoom(roomId: string): void {
+    if (this.current.room === roomId) return;
+    const next = structuredClone(this.current);
+    next.room = roomId;
+    this.commit({ state: next, events: [] });
+  }
+
+  markHint(hint: string): void {
+    if (this.current.hints.includes(hint)) return;
+    const next = structuredClone(this.current);
+    next.hints.push(hint);
+    this.commit({ state: next, events: [] });
+  }
+
   setSettings(settings: Partial<GameState['settings']>): void {
     const next = structuredClone(this.current);
     next.settings = { ...next.settings, ...settings };

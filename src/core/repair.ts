@@ -1,6 +1,6 @@
 // Repair steps (spec 4.4) and finds (spec 4.5).
 import { findObject, type Content, type ItemAmount } from './content';
-import { isFinished, isObjectAvailable, isObjectRestored } from './progress';
+import { isFinished, isObjectAvailable, isObjectRestored, isRoomRestored } from './progress';
 import {
   cloneState,
   countItems,
@@ -96,7 +96,7 @@ const freeCount = (state: GameState) => [...state.board, ...state.box].filter((c
 export function checkRepair(state: GameState, content: Content, objectId: string): RepairCheck {
   const object = findObject(content, objectId);
   if (!object) return { ok: false, reason: 'unknownObject', requirements: [], splits: [] };
-  if (!isObjectAvailable(state, object)) return { ok: false, reason: 'objectLocked', requirements: [], splits: [] };
+  if (!isObjectAvailable(state, content, object)) return { ok: false, reason: 'objectLocked', requirements: [], splits: [] };
   if (isObjectRestored(state, object)) return { ok: false, reason: 'objectRestored', requirements: [], splits: [] };
 
   const cost = object.steps[stepOf(state, objectId)]?.cost ?? {};
@@ -152,6 +152,7 @@ export function repair(state: GameState, content: Content, objectId: string): Ac
     next.finds.push(step.find);
     events.push({ type: 'findOpened', findId: step.find });
   }
+  if (isRoomRestored(next, content, object.room)) events.push({ type: 'roomRestored', roomId: object.room });
   if (isFinished(next, content)) events.push({ type: 'finished' });
   return { state: next, events };
 }

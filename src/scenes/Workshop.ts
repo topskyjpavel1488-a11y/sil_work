@@ -1,10 +1,11 @@
-// Main screen: the room with object and zone hotspots, goal banner, resources, navigation (spec 6.2).
+// Main screen: the current room with object and zone hotspots, goal banner, resources, navigation
+// (spec 6.2; two rooms since v0.7). The room shown is state.room.
 import Phaser from 'phaser';
 import { addAsset, setAsset } from '../assets';
 import { audio } from '../audio';
-import { FEEDBACK, PALETTE, UI_IMAGES, UI_SOUNDS } from '../config';
-import type { ObjectDef, ZoneDef } from '../core/content';
-import { currentGoal, isObjectAvailable, isObjectRestored, isZoneCleared, isZoneUnlocked } from '../core/progress';
+import { FEEDBACK, PALETTE, UI_SOUNDS } from '../config';
+import { findRoom, objectsIn, zonesIn, type ObjectDef, type RoomDef, type ZoneDef } from '../core/content';
+import { currentGoal, isObjectAvailable, isObjectRestored, isRoomUnlocked, isZoneCleared, isZoneUnlocked } from '../core/progress';
 import { checkRepair } from '../core/repair';
 import { currentTutorialStep } from '../core/tutorial';
 import { stepOf, type GameEvent, type GameState } from '../core/state';
@@ -24,8 +25,6 @@ import { COLORS, textStyle } from '../ui/style';
 import { fadeIn, goTo } from '../ui/transition';
 import { onTap } from '../ui/tap';
 
-const SECTION = 'workshop';
-
 interface Hotspot {
   box: Phaser.GameObjects.Container;
   label: Phaser.GameObjects.Text;
@@ -42,6 +41,8 @@ export class WorkshopScene extends Phaser.Scene {
   private navRects: Rect[] = [];
   private tutorial!: TutorialOverlay;
   private readyReported = false;
+  private room!: RoomDef;
+  private section = '';
 
   constructor(
     private readonly store: Store,
@@ -51,18 +52,24 @@ export class WorkshopScene extends Phaser.Scene {
     super('Workshop');
   }
 
-  create(): void {
+  // data.repair: open this object's repair window right away (the goal banner pointed to another room).
+  create(data: { repair?: string } = {}): void {
+    const { content } = this.store;
+    this.room = findRoom(content, this.store.state.room) ?? (content.rooms[0] as RoomDef);
+    this.section = this.room.layout;
     this.objects.clear();
     this.zones.clear();
     this.modalOpen = false;
     this.navRects = [];
     fadeIn(this);
     this.add.rectangle(0, 0, this.scale.width, this.scale.height, PALETTE.cream).setOrigin(0);
-    const room = rect(SECTION, 'room');
-    addAsset(this, UI_IMAGES.room, room);
-    for (const zone of this.store.content.zones) this.zones.set(zone.id, this.addHotspot(zone.image, rect(SECTION, `zone.${zone.id}`), zone.nameKey, () => this.onZone(zone)));
-    for (const object of this.store.content.objects) {
-      this.objects.set(object.id, this.addHotspot(object.stateImages[0] ?? '', rect(SECTION, `object.${object.id}`), object.nameKey, () => this.onObject(object)));
+    const room = rect(this.section, 'room');
+    addAsset(this, this.room.image, room);
+    for (const zone of zonesIn(content, this.room.id)) {
+      this.zones.set(zone.id, this.addHotspot(zone.image, rect(this.section, `zone.${zone.id}`), zone.nameKey, () => this.onZone(zone)));
+    }
+    for (const object of objectsIn(content, this.room.id)) {
+      this.objects.set(object.id, this.addHotspot(object.stateImages[0] ?? '', rect(this.section, `object.${object.id}`), object.nameKey, () => this.onObject(object)));
     }
     this.warmLight = this.add.rectangle(room.x, room.y, room.w, room.h, PALETTE.copper, 0.14).setOrigin(0).setVisible(false);
 
@@ -73,8 +80,10 @@ export class WorkshopScene extends Phaser.Scene {
 
     const unsubscribe = this.store.subscribe((events, state) => this.onChange(events, state));
     this.events.once(Phaser.Scenes.Events.SHUTDOWN, unsubscribe);
-    this.tutorial = new TutorialOverlay(this, this.store, rect(SECTION, 'ui.tutorial'));
+    this.tutorial = new TutorialOverlay(this, this.store, rect(this.section, 'ui.tutorial'));
     this.refresh(this.store.state);
+    if (data.repair) this.openRepair(data.repair);
+    else this.showRoomIntro();
 
     if (!this.readyReported) {
       this.readyReported = true;
@@ -99,8 +108,8 @@ export class WorkshopScene extends Phaser.Scene {
   }
 
   private createResourceBar(): void {
-    this.resources = new ResourceBar(this, this.store.content, rect(SECTION, 'ui.resources'));
-    const s = rect(SECTION, 'ui.settings');
+    this.resources = new ResourceBar(this, this.store.content, rect(this.section, 'ui.resources'));
+    const s = rect(this.section, 'ui.settings');
     new Button(this, {
       ...s,
       label: '⚙',
@@ -116,7 +125,7 @@ export class WorkshopScene extends Phaser.Scene {
   }
 
   private createGoalBanner(): void {
-    const r = rect(SECTION, 'ui.goal');
+    const r = rect(this.section, 'ui.goal');
     const bg = this.add.graphics();
     bg.fillStyle(PALETTE.cream, 1);
     bg.fillRoundedRect(r.x, r.y, r.w, r.h, 24);
@@ -128,28 +137,36 @@ export class WorkshopScene extends Phaser.Scene {
     const hit = this.add.zone(r.x, r.y, r.w, r.h).setOrigin(0).setInteractive({ useHandCursor: true });
     onTap(hit, () => {
       const goal = currentGoal(this.store.state, this.store.content);
-      if (goal && !this.modalOpen) {
-        audio.play(UI_SOUNDS.tap);
-        this.openRepair(goal.object.id);
-      }
+      if (!goal || this.modalOpen) return;
+      audio.play(UI_SOUNDS.tap);
+      if (goal.object.room === this.room.id) this.openRepair(goal.object.id);
+      else this.switchRoom(goal.object.room, goal.object.id);
     });
   }
 
   private createNav(): void {
-    const r = rect(SECTION, 'ui.nav');
+    const r = rect(this.section, 'ui.nav');
     this.add.rectangle(r.x, r.y, r.w, r.h, PALETTE.wood).setOrigin(0);
-    const keys = ['ui.nav.workshop', 'ui.nav.table', 'ui.nav.journal'];
-    const w = (r.w - 16 * 4) / keys.length;
+    // The first button names the room; once another room is open it leads there.
+    const other = this.otherRoom();
+    const labels = [other ? `→ ${t(other.nameKey)}` : t(this.room.nameKey), t('ui.nav.table'), t('ui.nav.journal')];
+    // The room button is wider: a room name with an arrow is longer than "Table" or "Journal".
+    const weights = [1.4, 0.8, 0.8];
+    const unit = (r.w - 16 * 4) / weights.reduce((a, b) => a + b, 0);
     const scenes = [null, 'MergeTable', 'Journal'];
-    keys.forEach((key, i) => {
-      const button = { x: r.x + 16 + i * (w + 16), y: r.y + 16, w, h: r.h - 32 };
+    let x = r.x + 16;
+    labels.forEach((label, i) => {
+      const w = Math.round(unit * (weights[i] ?? 1));
+      const button = { x, y: r.y + 16, w, h: r.h - 32 };
+      x += w + 16;
       this.navRects.push(button);
       new Button(this, {
         ...button,
-        label: t(key),
+        label,
         fill: i === 0 ? PALETTE.copper : PALETTE.metal,
         fontSize: 32,
         onTap: () => {
+          if (i === 0 && other && !this.modalOpen && !this.ads.busy) this.switchRoom(other.id);
           const scene = scenes[i];
           if (!scene || this.modalOpen || this.ads.busy) return;
           // Opening the table from the main screen is an ad moment (spec 8.3).
@@ -162,9 +179,29 @@ export class WorkshopScene extends Phaser.Scene {
     });
   }
 
+  // The other open room, if any (two rooms since v0.7).
+  private otherRoom(): RoomDef | undefined {
+    return this.store.content.rooms.find((r) => r.id !== this.room.id && isRoomUnlocked(this.store.state, this.store.content, r));
+  }
+
+  private switchRoom(roomId: string, repair?: string): void {
+    this.store.setRoom(roomId);
+    goTo(this, 'Workshop', repair ? { repair } : undefined);
+  }
+
+  // The first visit to a room may explain what is new there, once.
+  private showRoomIntro(): void {
+    const intro = this.room.intro;
+    const hint = `intro_${this.room.id}`;
+    if (!intro || this.store.state.hints.includes(hint)) return;
+    this.modalOpen = true;
+    this.store.markHint(hint);
+    showFindCard(this, intro, () => (this.modalOpen = false));
+  }
+
   private onObject(object: ObjectDef): void {
     const state = this.store.state;
-    if (!isObjectAvailable(state, object)) return;
+    if (!isObjectAvailable(state, this.store.content, object)) return;
     const hotspot = this.objects.get(object.id);
     if (isObjectRestored(state, object)) {
       if (hotspot) this.tweens.add({ targets: hotspot.box, scale: 1.06, duration: FEEDBACK.tapMs, yoyo: true });
@@ -175,7 +212,7 @@ export class WorkshopScene extends Phaser.Scene {
 
   private onZone(zone: ZoneDef): void {
     const state = this.store.state;
-    if (!isZoneUnlocked(state, zone) || isZoneCleared(state, zone)) return;
+    if (!isZoneUnlocked(state, this.store.content, zone) || isZoneCleared(state, zone)) return;
     goTo(this, 'Scavenge', { zoneId: zone.id });
   }
 
@@ -196,13 +233,14 @@ export class WorkshopScene extends Phaser.Scene {
     for (const e of events) {
       if (e.type === 'repaired') this.playRepair(e.objectId);
     }
-    // After the repair animation: the find card, then the finale once everything is restored.
+    // After the repair animation: the find card, then the room's finale once the room is restored.
     const find = events.find((e) => e.type === 'findOpened');
-    const finished = events.some((e) => e.type === 'finished');
-    if (!find && !finished) return;
+    const restored = events.find((e) => e.type === 'roomRestored');
+    if (!find && !restored) return;
     this.modalOpen = true;
     this.time.delayedCall(FEEDBACK.repairFlashMs + 200, () => {
-      const toFinale = () => (finished ? goTo(this, 'Finale') : (this.modalOpen = false));
+      const toFinale = () =>
+        restored?.type === 'roomRestored' ? goTo(this, 'Finale', { roomId: restored.roomId }) : (this.modalOpen = false);
       const def = find?.type === 'findOpened' ? this.store.content.finds.find((f) => f.id === find.findId) : undefined;
       // Closing a find card is the natural pause for an ad (spec 4.5, 8.3).
       if (def) showFindCard(this, def, () => void this.ads.interstitial().then(toFinale));
@@ -212,11 +250,12 @@ export class WorkshopScene extends Phaser.Scene {
 
   private updateTutorial(state: GameState): void {
     const step = currentTutorialStep(state, this.store.content.tutorial);
-    if (!step) return this.tutorial.show(null, []);
+    // The tutorial lives in the first room.
+    if (!step || this.room.id !== this.store.content.rooms[0]?.id) return this.tutorial.show(null, []);
     const { type, id } = step.target;
     const targets: Rect[] = [];
-    if (type === 'zone' || type === 'debris') targets.push(rect(SECTION, `zone.${id}`));
-    if (type === 'object') targets.push(rect(SECTION, `object.${id}`));
+    if (type === 'zone' || type === 'debris') targets.push(rect(this.section, `zone.${id}`));
+    if (type === 'object') targets.push(rect(this.section, `object.${id}`));
     const table = this.navRects[1];
     if ((type === 'nav' || type === 'mergePair') && table) targets.push(table);
     this.tutorial.show(step, targets);
@@ -235,7 +274,7 @@ export class WorkshopScene extends Phaser.Scene {
 
   private refresh(state: GameState): void {
     const { content } = this.store;
-    for (const object of content.objects) {
+    for (const object of objectsIn(content, this.room.id)) {
       const hotspot = this.objects.get(object.id);
       if (!hotspot) continue;
       const step = stepOf(state, object.id);
@@ -243,15 +282,15 @@ export class WorkshopScene extends Phaser.Scene {
       setAsset(this, hotspot.box, key);
       // Names are written only on placeholders; real art speaks for itself.
       hotspot.label.setVisible(!this.textures.exists(key));
-      const unlocked = isObjectAvailable(state, object);
+      const unlocked = isObjectAvailable(state, content, object);
       hotspot.box.setAlpha(unlocked ? 1 : 0.4);
       hotspot.label.setAlpha(unlocked ? 1 : 0.5);
       if (hotspot.box.input) hotspot.box.input.enabled = unlocked;
     }
-    for (const zone of content.zones) {
+    for (const zone of zonesIn(content, this.room.id)) {
       const hotspot = this.zones.get(zone.id);
       if (!hotspot) continue;
-      const open = isZoneUnlocked(state, zone);
+      const open = isZoneUnlocked(state, content, zone);
       const cleared = isZoneCleared(state, zone);
       hotspot.box.setAlpha(!open ? 0.3 : cleared ? 0.45 : 1);
       hotspot.label.setAlpha(open ? 1 : 0.4);
@@ -259,7 +298,7 @@ export class WorkshopScene extends Phaser.Scene {
       hotspot.label.setText(cleared ? `${name} ✓`.trim() : name);
       if (hotspot.box.input) hotspot.box.input.enabled = open && !cleared;
     }
-    const warm = content.objects.some((o) => o.steps.some((s, i) => s.effect === 'warmLight' && stepOf(state, o.id) > i));
+    const warm = objectsIn(content, this.room.id).some((o) => o.steps.some((s, i) => s.effect === 'warmLight' && stepOf(state, o.id) > i));
     this.warmLight.setVisible(warm);
 
     this.resources.update(state);

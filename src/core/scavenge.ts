@@ -16,7 +16,7 @@ import {
 export function takeDebris(state: GameState, content: Content, zoneId: string, debrisId: string): ActionResult {
   const zone = findZone(content, zoneId);
   if (!zone) return reject(state, 'unknownZone');
-  if (!isZoneUnlocked(state, zone)) return reject(state, 'zoneLocked');
+  if (!isZoneUnlocked(state, content, zone)) return reject(state, 'zoneLocked');
   const debris = zone.debris.find((d) => d.id === debrisId);
   if (!debris) return reject(state, 'unknownDebris');
   if (state.zones[zoneId]?.taken.includes(debrisId)) return reject(state, 'debrisTaken');

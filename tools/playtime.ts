@@ -31,7 +31,8 @@ export function speedrunMinutes(content: Content, bot: BotResult): { minutes: nu
     finds: content.finds.length * t.find,
     zones: content.zones.length * t.zoneVisit,
     table: tableVisits * t.tableVisit,
-    finale: t.finale,
+    finale: content.rooms.length * t.finale,
+    intros: content.rooms.filter((r) => r.intro).length * t.find,
   };
   const seconds = Object.values(parts).reduce((a, b) => a + b, 0);
   return { minutes: seconds / 60, parts };

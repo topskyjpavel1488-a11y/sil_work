@@ -1,15 +1,15 @@
 // Save format logic (spec 7). Storage I/O lives outside core.
 import { BOARD_SIZE, config } from '../config';
-import { RESOURCES, type GameState, type ItemRef, type SaveData } from './state';
+import { CHAINS, RESOURCES, type ChainId, type GameState, type ItemRef, type SaveData } from './state';
 
-export const SAVE_VERSION = 1;
+export const SAVE_VERSION = 2;
 
 const isObject = (v: unknown): v is Record<string, unknown> => typeof v === 'object' && v !== null && !Array.isArray(v);
 const isCount = (v: unknown): v is number => typeof v === 'number' && Number.isInteger(v) && v >= 0;
 
 function isItemOrNull(v: unknown): v is ItemRef | null {
   if (v === null) return true;
-  return isObject(v) && v.chain === 'fasteners' && [1, 2, 3, 4].includes(v.level as number);
+  return isObject(v) && CHAINS.includes(v.chain as ChainId) && [1, 2, 3, 4].includes(v.level as number);
 }
 
 const isCells = (v: unknown, length: number) => Array.isArray(v) && v.length === length && v.every(isItemOrNull);
@@ -18,6 +18,9 @@ export function isSaveData(v: unknown): v is SaveData {
   if (!isObject(v) || v.version !== SAVE_VERSION) return false;
   const { resources, objects, zones, tutorial, settings } = v;
   return (
+    typeof v.room === 'string' &&
+    Array.isArray(v.hints) &&
+    v.hints.every((h) => typeof h === 'string') &&
     isObject(resources) &&
     RESOURCES.every((r) => isCount(resources[r])) &&
     isCells(v.board, BOARD_SIZE) &&
@@ -38,9 +41,16 @@ export function isSaveData(v: unknown): v is SaveData {
   );
 }
 
-// Version 1 has nothing to migrate; later versions upgrade older saves here.
+// Older saves are upgraded step by step. v1 → v2 (spec v0.7): one room, so the player is in the
+// workshop and has seen no hints yet.
 export function migrate(save: unknown): SaveData | null {
-  return isSaveData(save) ? save : null;
+  let data = save;
+  if (isObject(data) && data.version === 1) data = { ...data, version: 2, room: 'workshop', hints: [] };
+  // A bigger table (v0.7: 5×5) gets empty cells at the end.
+  if (isObject(data) && Array.isArray(data.board) && data.board.length < BOARD_SIZE) {
+    data = { ...data, board: [...data.board, ...Array.from({ length: BOARD_SIZE - data.board.length }, () => null)] };
+  }
+  return isSaveData(data) ? data : null;
 }
 
 export function serializeSave(state: GameState, now: number): string {

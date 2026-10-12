@@ -1,82 +1,181 @@
 [
   {
     "id": "workbench",
+    "room": "workshop",
     "nameKey": "object.workbench",
     "stateImages": ["obj_workbench_0", "obj_workbench_1", "obj_workbench_2", "obj_workbench_3"],
     "steps": [
       { "cost": { "resources": { "wood": 4 } } },
       { "cost": { "resources": { "wood": 3 }, "items": [{ "chain": "fasteners", "level": 2, "count": 1 }] }, "find": "f_photo" },
-      { "cost": { "resources": { "parts": 3 }, "items": [{ "chain": "fasteners", "level": 3, "count": 1 }] } }
+      { "cost": { "resources": { "parts": 3 }, "items": [{ "chain": "fasteners", "level": 3, "count": 1 },{ "chain": "fasteners", "level": 2, "count": 1 }] } }
     ]
   },
   {
     "id": "fastener_box",
+    "room": "workshop",
     "nameKey": "object.fastener_box",
     "requires": { "object": "workbench", "step": 1 },
     "stateImages": ["obj_fastener_box_0", "obj_fastener_box_1"],
     "steps": [
-      { "cost": { "resources": { "metal": 3 }, "items": [{ "chain": "fasteners", "level": 2, "count": 1 }] }, "find": "f_screws" }
+      { "cost": { "resources": { "metal": 3 }, "items": [{ "chain": "fasteners", "level": 3, "count": 1 },{ "chain": "fasteners", "level": 2, "count": 1 }] }, "find": "f_screws" }
     ]
   },
   {
     "id": "lamp",
+    "room": "workshop",
     "nameKey": "object.lamp",
     "requires": { "object": "workbench", "step": 2 },
     "stateImages": ["obj_lamp_0", "obj_lamp_1", "obj_lamp_2"],
     "steps": [
-      { "cost": { "resources": { "parts": 2 }, "items": [{ "chain": "fasteners", "level": 2, "count": 1 }] } },
-      { "cost": { "resources": { "parts": 3 }, "items": [{ "chain": "fasteners", "level": 3, "count": 1 }] }, "effect": "warmLight" }
+      { "cost": { "resources": { "parts": 2 }, "items": [{ "chain": "fasteners", "level": 3, "count": 1 }] } },
+      { "cost": { "resources": { "parts": 3 }, "items": [{ "chain": "fasteners", "level": 4, "count": 1 }] }, "effect": "warmLight" }
     ]
   },
   {
     "id": "window",
+    "room": "workshop",
     "nameKey": "object.window",
     "requires": { "object": "lamp", "step": 1 },
     "stateImages": ["obj_window_0", "obj_window_1", "obj_window_2"],
     "steps": [
-      { "cost": { "resources": { "wood": 2, "metal": 2 } } },
-      { "cost": { "resources": { "parts": 2 }, "items": [{ "chain": "fasteners", "level": 2, "count": 1 }] } }
+      { "cost": { "resources": { "wood": 2, "metal": 2 }, "items": [{ "chain": "fasteners", "level": 2, "count": 1 }] } },
+      { "cost": { "resources": { "parts": 2 }, "items": [{ "chain": "fasteners", "level": 3, "count": 2 }] } }
     ]
   },
   {
     "id": "cabinet",
+    "room": "workshop",
     "nameKey": "object.cabinet",
     "requires": { "object": "window", "step": 2 },
     "stateImages": ["obj_cabinet_0", "obj_cabinet_1", "obj_cabinet_2", "obj_cabinet_3"],
     "steps": [
-      { "cost": { "resources": { "wood": 3, "metal": 2 } } },
-      { "cost": { "resources": { "metal": 3 }, "items": [{ "chain": "fasteners", "level": 2, "count": 2 }] }, "find": "f_note" },
-      { "cost": { "resources": { "parts": 3 }, "items": [{ "chain": "fasteners", "level": 3, "count": 1 }] } }
+      { "cost": { "resources": { "wood": 3, "metal": 2 }, "items": [{ "chain": "fasteners", "level": 3, "count": 1 }] } },
+      { "cost": { "resources": { "metal": 3 }, "items": [{ "chain": "fasteners", "level": 4, "count": 1 }] }, "find": "f_note" },
+      { "cost": { "resources": { "parts": 3 }, "items": [{ "chain": "fasteners", "level": 4, "count": 1 },{ "chain": "fasteners", "level": 3, "count": 1 }] } }
     ]
   },
   {
     "id": "shelf",
+    "room": "workshop",
     "nameKey": "object.shelf",
     "requires": { "object": "cabinet", "step": 1 },
     "stateImages": ["obj_shelf_0", "obj_shelf_1", "obj_shelf_2"],
     "steps": [
-      { "cost": { "resources": { "wood": 3 } } },
-      { "cost": { "resources": { "metal": 2 }, "items": [{ "chain": "fasteners", "level": 2, "count": 1 }] } }
+      { "cost": { "resources": { "wood": 3 }, "items": [{ "chain": "fasteners", "level": 2, "count": 2 }] } },
+      { "cost": { "resources": { "metal": 2 }, "items": [{ "chain": "fasteners", "level": 4, "count": 1 }] } }
     ]
   },
   {
     "id": "radio",
+    "room": "workshop",
     "nameKey": "object.radio",
     "requires": { "object": "cabinet", "step": 2 },
     "stateImages": ["obj_radio_0", "obj_radio_1", "obj_radio_2"],
     "steps": [
-      { "cost": { "resources": { "parts": 3 }, "items": [{ "chain": "fasteners", "level": 2, "count": 1 }] } },
-      { "cost": { "resources": { "parts": 4 }, "items": [{ "chain": "fasteners", "level": 4, "count": 1 }] }, "find": "f_radio" }
+      { "cost": { "resources": { "parts": 3 }, "items": [{ "chain": "fasteners", "level": 3, "count": 2 }] } },
+      { "cost": { "resources": { "parts": 4 }, "items": [{ "chain": "fasteners", "level": 4, "count": 2 }] }, "find": "f_radio" }
     ]
   },
   {
     "id": "wall_clock",
+    "room": "workshop",
     "nameKey": "object.wall_clock",
     "requires": { "object": "radio", "step": 1 },
     "stateImages": ["obj_wall_clock_0", "obj_wall_clock_1", "obj_wall_clock_2"],
     "steps": [
-      { "cost": { "resources": { "parts": 3 }, "items": [{ "chain": "fasteners", "level": 3, "count": 1 }] } },
-      { "cost": { "resources": { "parts": 3 }, "items": [{ "chain": "fasteners", "level": 3, "count": 1 }] }, "find": "f_clock" }
+      { "cost": { "resources": { "parts": 3 }, "items": [{ "chain": "fasteners", "level": 4, "count": 1 },{ "chain": "fasteners", "level": 3, "count": 1 }] } },
+      { "cost": { "resources": { "parts": 3 }, "items": [{ "chain": "fasteners", "level": 4, "count": 2 }] }, "find": "f_clock" }
+    ]
+  },
+  {
+    "id": "paint_table",
+    "room": "paint",
+    "nameKey": "object.paint_table",
+    "stateImages": ["obj_paint_table_0", "obj_paint_table_1", "obj_paint_table_2", "obj_paint_table_3"],
+    "steps": [
+      { "cost": { "resources": { "wood": 3 }, "items": [{ "chain": "paints", "level": 2, "count": 1 }] } },
+      { "cost": { "resources": { "metal": 2 }, "items": [{ "chain": "paints", "level": 3, "count": 1 }] }, "find": "f_drawing" },
+      { "cost": { "resources": { "parts": 3 }, "items": [{ "chain": "paints", "level": 3, "count": 1 },{ "chain": "fasteners", "level": 2, "count": 1 }] } }
+    ]
+  },
+  {
+    "id": "drying_rack",
+    "room": "paint",
+    "nameKey": "object.drying_rack",
+    "requires": { "object": "paint_table", "step": 1 },
+    "stateImages": ["obj_drying_rack_0", "obj_drying_rack_1", "obj_drying_rack_2"],
+    "steps": [
+      { "cost": { "resources": { "wood": 3, "metal": 2 }, "items": [{ "chain": "paints", "level": 2, "count": 2 }] } },
+      { "cost": { "resources": { "parts": 2 }, "items": [{ "chain": "paints", "level": 4, "count": 1 }] } }
+    ]
+  },
+  {
+    "id": "paint_rack",
+    "room": "paint",
+    "nameKey": "object.paint_rack",
+    "requires": { "object": "paint_table", "step": 2 },
+    "stateImages": ["obj_paint_rack_0", "obj_paint_rack_1", "obj_paint_rack_2", "obj_paint_rack_3"],
+    "steps": [
+      { "cost": { "resources": { "wood": 3 }, "items": [{ "chain": "paints", "level": 3, "count": 1 }] } },
+      { "cost": { "resources": { "metal": 3 }, "items": [{ "chain": "paints", "level": 3, "count": 2 }] } },
+      { "cost": { "resources": { "parts": 3 }, "items": [{ "chain": "paints", "level": 4, "count": 1 },{ "chain": "fasteners", "level": 3, "count": 1 }] }, "find": "f_palette" }
+    ]
+  },
+  {
+    "id": "vent_window",
+    "room": "paint",
+    "nameKey": "object.vent_window",
+    "requires": { "object": "drying_rack", "step": 1 },
+    "stateImages": ["obj_vent_window_0", "obj_vent_window_1", "obj_vent_window_2"],
+    "steps": [
+      { "cost": { "resources": { "wood": 2, "metal": 2 }, "items": [{ "chain": "fasteners", "level": 3, "count": 1 }] } },
+      { "cost": { "resources": { "parts": 2 }, "items": [{ "chain": "paints", "level": 4, "count": 1 }] } }
+    ]
+  },
+  {
+    "id": "easel",
+    "room": "paint",
+    "nameKey": "object.easel",
+    "requires": { "object": "paint_rack", "step": 1 },
+    "stateImages": ["obj_easel_0", "obj_easel_1", "obj_easel_2"],
+    "steps": [
+      { "cost": { "resources": { "wood": 3 }, "items": [{ "chain": "paints", "level": 3, "count": 1 }] } },
+      { "cost": { "resources": { "parts": 3 }, "items": [{ "chain": "paints", "level": 4, "count": 1 },{ "chain": "paints", "level": 2, "count": 1 }] }, "find": "f_sign" }
+    ]
+  },
+  {
+    "id": "ladder",
+    "room": "paint",
+    "nameKey": "object.ladder",
+    "requires": { "object": "vent_window", "step": 2 },
+    "stateImages": ["obj_ladder_0", "obj_ladder_1", "obj_ladder_2"],
+    "steps": [
+      { "cost": { "resources": { "wood": 3, "metal": 2 }, "items": [{ "chain": "fasteners", "level": 2, "count": 2 }] } },
+      { "cost": { "resources": { "metal": 2 }, "items": [{ "chain": "paints", "level": 4, "count": 1 }] }, "find": "f_apron" }
+    ]
+  },
+  {
+    "id": "solvent_cabinet",
+    "room": "paint",
+    "nameKey": "object.solvent_cabinet",
+    "requires": { "object": "easel", "step": 2 },
+    "stateImages": ["obj_solvent_cabinet_0", "obj_solvent_cabinet_1", "obj_solvent_cabinet_2", "obj_solvent_cabinet_3"],
+    "steps": [
+      { "cost": { "resources": { "metal": 3 }, "items": [{ "chain": "paints", "level": 3, "count": 2 }] } },
+      { "cost": { "resources": { "parts": 3 }, "items": [{ "chain": "paints", "level": 4, "count": 1 }] } },
+      { "cost": { "resources": { "parts": 3 }, "items": [{ "chain": "paints", "level": 4, "count": 1 },{ "chain": "fasteners", "level": 4, "count": 1 }] } }
+    ]
+  },
+  {
+    "id": "sanding_bench",
+    "room": "paint",
+    "nameKey": "object.sanding_bench",
+    "requires": { "object": "solvent_cabinet", "step": 1 },
+    "stateImages": ["obj_sanding_bench_0", "obj_sanding_bench_1", "obj_sanding_bench_2", "obj_sanding_bench_3"],
+    "steps": [
+      { "cost": { "resources": { "wood": 4, "metal": 2 }, "items": [{ "chain": "paints", "level": 4, "count": 1 }] } },
+      { "cost": { "resources": { "parts": 3 }, "items": [{ "chain": "paints", "level": 4, "count": 1 },{ "chain": "paints", "level": 3, "count": 1 }] } },
+      { "cost": { "resources": { "parts": 4 }, "items": [{ "chain": "paints", "level": 4, "count": 2 },{ "chain": "fasteners", "level": 3, "count": 1 }] }, "find": "f_brush" }
     ]
   }
 ]

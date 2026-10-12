@@ -2,6 +2,7 @@
 import Phaser from 'phaser';
 import { addAsset } from '../assets';
 import { DESIGN_HEIGHT, DESIGN_WIDTH, PALETTE } from '../config';
+import { findRoom, findsIn, type RoomDef } from '../core/content';
 import { t } from '../i18n';
 import { rect } from '../layout';
 import type { Store } from '../store';
@@ -25,10 +26,13 @@ export class JournalScene extends Phaser.Scene {
     this.cardOpen = false;
     fadeIn(this);
     this.add.rectangle(0, 0, DESIGN_WIDTH, DESIGN_HEIGHT, PALETTE.cream).setOrigin(0);
+    // The journal shows the finds of the room the player is in (two rooms since v0.7).
+    const { content } = this.store;
+    const room = findRoom(content, this.store.state.room) ?? (content.rooms[0] as RoomDef);
     const title = rect(SECTION, 'ui.title');
-    this.add.text(title.x + title.w / 2, title.y + title.h / 2, t('ui.journal.title'), textStyle(48, COLORS.text, { fontStyle: 'bold' })).setOrigin(0.5);
+    this.add.text(title.x + title.w / 2, title.y + title.h / 2, t('ui.journal.title', { room: t(room.nameKey) }), textStyle(44, COLORS.text, { fontStyle: 'bold' })).setOrigin(0.5);
 
-    this.store.content.finds.forEach((find, i) => {
+    findsIn(content, room.id).forEach((find, i) => {
       const r = rect(SECTION, `slot.${i}`);
       const open = this.store.state.finds.includes(find.id);
       // The picture takes the top of the slot and the caption sits below it, never over the art.
