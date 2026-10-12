@@ -15,7 +15,8 @@
     "layout": "vite --config tools/layout-editor/vite.config.ts",
     "build:release": "tsc --noEmit && vite build --mode release && tsx tools/check-dist.ts",
     "package": "npm run build:release && tsx tools/package.ts",
-    "images": "tsx tools/optimize-images.ts"
+    "images": "tsx tools/optimize-images.ts",
+    "sounds": "tsx tools/synth-sounds.ts"
   },
   "dependencies": {
     "phaser": "3.90.0"
