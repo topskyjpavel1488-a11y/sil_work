@@ -61,7 +61,7 @@
       }
     },
     "obj_workbench_3": {
-      "file": null,
+      "file": "images/obj_workbench_3.png",
       "placeholder": {
         "color": "#B87333"
       }
@@ -301,7 +301,7 @@
       }
     },
     "room_bg": {
-      "file": null,
+      "file": "images/room_bg.jpg",
       "placeholder": {
         "color": "#E4DACA"
       }
