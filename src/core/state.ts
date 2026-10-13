@@ -50,6 +50,7 @@ export type GameEvent =
   | { type: 'itemMoved'; from: CellRef; to: CellRef }
   | { type: 'itemsSwapped'; a: CellRef; b: CellRef }
   | { type: 'itemsMerged'; from: CellRef; to: CellRef; level: number }
+  | { type: 'tableSorted' }
   | { type: 'repaired'; objectId: string; step: number }
   | { type: 'objectRestored'; objectId: string }
   | { type: 'findOpened'; findId: string }

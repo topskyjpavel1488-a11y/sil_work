@@ -1,6 +1,6 @@
 // Holds the current state, applies core actions and notifies scenes (spec 3.3).
 import type { Content } from './core/content';
-import { moveItem } from './core/merge';
+import { moveItem, sortTable, stashItem } from './core/merge';
 import { repair } from './core/repair';
 import { grantReward } from './core/rewards';
 import { takeDebris } from './core/scavenge';
@@ -35,6 +35,14 @@ export class Store {
     // A repair is saved immediately (spec 7).
     if (events.some((e) => e.type === 'repaired')) this.saver.saveNow();
     return events;
+  }
+
+  stashItem(from: CellRef): GameEvent[] {
+    return this.commit(stashItem(this.current, from));
+  }
+
+  sortTable(): GameEvent[] {
+    return this.commit(sortTable(this.current));
   }
 
   moveItem(from: CellRef, to: CellRef): GameEvent[] {

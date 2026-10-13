@@ -51,7 +51,7 @@
   "ui.back": "Назад",
   "ui.zone.cleared": "Завал разобран!",
   "ui.zone.toWorkshop": "В мастерскую",
-  "ui.table.box": "Короб — здесь детали только хранятся",
+  "ui.table.box": "Короб · дважды нажмите на деталь",
   "tutorial.openZone": "Разберём завал",
   "tutorial.clearZone": "Нажимай на вещи — в них есть полезное",
   "tutorial.openTable": "Одинаковые детали можно объединить",
@@ -135,5 +135,6 @@
   "ui.compare.hint": "Проведите по картинке",
   "ui.compare.before": "Было",
   "ui.compare.after": "Стало",
-  "ui.settings.shortcut": "Ярлык на рабочий стол"
+  "ui.settings.shortcut": "Ярлык на рабочий стол",
+  "ui.table.sort": "Разложить по порядку"
 }

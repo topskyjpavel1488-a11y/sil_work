@@ -21,6 +21,7 @@ import { onTap } from '../ui/tap';
 
 const SECTION = 'table';
 const DRAG_THRESHOLD = 12;
+const DOUBLE_TAP_MS = 350;
 
 const key = (c: CellRef) => `${c.area}.${c.index}`;
 const same = (a: CellRef | null, b: CellRef | null) => !!a && !!b && a.area === b.area && a.index === b.index;
@@ -33,6 +34,7 @@ export class MergeTableScene extends Phaser.Scene {
   private selected: CellRef | null = null;
   private reward: Button | null = null;
   private tutorial!: TutorialOverlay;
+  private lastTap: { ref: CellRef; at: number } | null = null;
 
   constructor(
     private readonly store: Store,
@@ -45,6 +47,7 @@ export class MergeTableScene extends Phaser.Scene {
     this.cells = [];
     this.items.clear();
     this.selected = null;
+    this.lastTap = null;
     fadeIn(this);
     this.input.dragDistanceThreshold = DRAG_THRESHOLD;
     this.add.rectangle(0, 0, DESIGN_WIDTH, DESIGN_HEIGHT, PALETTE.cream).setOrigin(0);
@@ -72,6 +75,15 @@ export class MergeTableScene extends Phaser.Scene {
     addCells('box', state.box.length, 0xd6cbb8);
 
     this.highlight = this.add.graphics().setDepth(5);
+    new Button(this, {
+      ...rect(SECTION, 'ui.sort'),
+      label: t('ui.table.sort'),
+      fill: PALETTE.green,
+      onTap: () => {
+        this.select(null);
+        this.store.sortTable();
+      },
+    });
     // R2 sits next to a narrower Back button in the release build (spec 8.4).
     this.reward = null;
     const back = rect(SECTION, this.ads.enabled ? 'ui.backWithReward' : 'ui.back');
@@ -139,6 +151,16 @@ export class MergeTableScene extends Phaser.Scene {
 
   private onCellTap(ref: CellRef): void {
     const hasItem = !!this.store.state[ref.area][ref.index];
+    // Double tap on an item: to the box, or from the box back to the table.
+    const now = this.time.now;
+    if (hasItem && this.lastTap && same(this.lastTap.ref, ref) && now - this.lastTap.at < DOUBLE_TAP_MS) {
+      this.lastTap = null;
+      this.select(null);
+      const events = this.store.stashItem(ref);
+      audio.play(events.some((e) => e.type === 'rejected') ? UI_SOUNDS.soft : UI_SOUNDS.tap);
+      return;
+    }
+    this.lastTap = hasItem ? { ref, at: now } : null;
     if (!this.selected) {
       if (hasItem) {
         audio.play(UI_SOUNDS.tap);
@@ -218,6 +240,13 @@ export class MergeTableScene extends Phaser.Scene {
     this.renderItems(state);
     this.updateTutorial(state);
     for (const e of events) {
+      if (e.type === 'tableSorted') {
+        audio.play(UI_SOUNDS.open);
+        for (const view of this.items.values()) {
+          view.setScale(0.6).setAlpha(0);
+          this.tweens.add({ targets: view, scale: 1, alpha: 1, duration: FEEDBACK.tapMs * 2, ease: 'Back.easeOut' });
+        }
+      }
       if (e.type === 'itemsMerged') {
         audio.play(UI_SOUNDS.merge);
         const view = this.items.get(key(e.to));

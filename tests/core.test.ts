@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { fixture as content } from './fixture';
-import { moveItem } from '../src/core/merge';
+import { moveItem, sortTable, stashItem } from '../src/core/merge';
 import { currentGoal, isZoneCleared } from '../src/core/progress';
 import { checkRepair, repair } from '../src/core/repair';
 import { canGrantWasher, grantReward } from '../src/core/rewards';
@@ -131,6 +131,50 @@ describe('merge', () => {
     expect(moveItem(s, content, board(1), board(2)).state).toBe(s);
     expect(moveItem(s, content, board(0), board(99)).state).toBe(s);
     expect(moveItem(s, content, board(0), board(0)).state).toBe(s);
+  });
+});
+
+describe('table conveniences', () => {
+  it('double tap sends an item to the box and back to the first free board cell', () => {
+    const s = fresh();
+    s.board[3] = item(2);
+    const down = stashItem(s, board(3)).state;
+    expect(down.board[3]).toBeNull();
+    expect(down.box[0]).toEqual(item(2));
+    const up = stashItem(down, box(0)).state;
+    expect(up.board[0]).toEqual(item(2));
+    expect(up.box[0]).toBeNull();
+  });
+
+  it('does nothing when the other side is full or the cell is empty', () => {
+    const s = fresh();
+    fill(s.box);
+    s.board[0] = item(1);
+    expect(types(stashItem(s, board(0)).events)).toEqual(['rejected']);
+    expect(types(stashItem(fresh(), board(0)).events)).toEqual(['rejected']);
+  });
+
+  it('sorts the board, keeps equal items together and lifts items from the box', () => {
+    const s = fresh();
+    s.board[4] = item(1);
+    s.board[9] = item(3);
+    s.board[12] = item(1);
+    s.box[2] = item(2);
+    const r = sortTable(s);
+    expect(r.state.board.slice(0, 5)).toEqual([item(3), item(2), item(1), item(1), null]);
+    expect(r.state.box.every((c) => c === null)).toBe(true);
+    expect(types(r.events)).toEqual(['tableSorted']);
+  });
+
+  it('leaves the rest in the box when the board fills up', () => {
+    const s = fresh();
+    fill(s.board);
+    s.board[0] = null;
+    s.box[0] = item(1);
+    s.box[1] = item(2);
+    const r = sortTable(s);
+    expect(r.state.board.filter(Boolean)).toHaveLength(s.board.length);
+    expect(r.state.box.filter(Boolean)).toHaveLength(1);
   });
 });
 

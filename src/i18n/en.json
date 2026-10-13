@@ -51,7 +51,7 @@
   "ui.back": "Back",
   "ui.zone.cleared": "All cleared!",
   "ui.zone.toWorkshop": "To the workshop",
-  "ui.table.box": "Storage box — for keeping items only",
+  "ui.table.box": "Box · double-tap a part to store it",
   "tutorial.openZone": "Let's clear the clutter",
   "tutorial.clearZone": "Tap the junk — there's something useful in it",
   "tutorial.openTable": "Matching parts can be combined",
@@ -135,5 +135,6 @@
   "ui.compare.hint": "Swipe across the picture",
   "ui.compare.before": "Before",
   "ui.compare.after": "After",
-  "ui.settings.shortcut": "Add a desktop shortcut"
+  "ui.settings.shortcut": "Add a desktop shortcut",
+  "ui.table.sort": "Tidy up the table"
 }
