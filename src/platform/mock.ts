@@ -55,6 +55,19 @@ export class MockAdapter implements PlatformAdapter {
     return this.lang;
   }
 
+  // Outside Yandex Games there is no review popup and no shortcut.
+  async requestReview(): Promise<'sent' | 'closed' | 'unavailable'> {
+    return 'unavailable';
+  }
+
+  async canShowShortcut(): Promise<boolean> {
+    return false;
+  }
+
+  async showShortcut(): Promise<boolean> {
+    return false;
+  }
+
   async loadCloud(): Promise<SaveData | null> {
     return this.cloud ? structuredClone(this.cloud) : null;
   }

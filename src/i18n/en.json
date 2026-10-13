@@ -134,5 +134,6 @@
   "ui.final.compare": "Before and after",
   "ui.compare.hint": "Swipe across the picture",
   "ui.compare.before": "Before",
-  "ui.compare.after": "After"
+  "ui.compare.after": "After",
+  "ui.settings.shortcut": "Add a desktop shortcut"
 }

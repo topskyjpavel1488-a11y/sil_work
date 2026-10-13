@@ -29,6 +29,14 @@ interface YSDK {
     showFullscreenAdv(opts: { callbacks: AdCallbacks }): void;
     showRewardedVideo(opts: { callbacks: AdCallbacks }): void;
   };
+  feedback?: {
+    canReview(): Promise<{ value: boolean; reason?: string }>;
+    requestReview(): Promise<{ feedbackSent: boolean }>;
+  };
+  shortcut?: {
+    canShowPrompt(): Promise<{ canShow: boolean }>;
+    showPrompt(): Promise<{ outcome?: string }>;
+  };
   on(event: 'game_api_pause' | 'game_api_resume', cb: () => void): void;
 }
 
@@ -105,6 +113,37 @@ export class YandexAdapter implements PlatformAdapter {
     }
     await this.refreshPlayer();
     return this.isAuthorized();
+  }
+
+  // https://yandex.ru/dev/games/doc/ru/sdk/sdk-review (checked 2026-10-13): canReview first, once per session.
+  async requestReview(): Promise<'sent' | 'closed' | 'unavailable'> {
+    try {
+      const feedback = this.ysdk.feedback;
+      // A silent SDK must not hold the game on the finale screen.
+      const timeout = new Promise<{ value: false }>((resolve) => setTimeout(() => resolve({ value: false }), 5000));
+      if (!feedback || !(await Promise.race([feedback.canReview(), timeout])).value) return 'unavailable';
+      const { feedbackSent } = await feedback.requestReview();
+      return feedbackSent ? 'sent' : 'closed';
+    } catch {
+      return 'unavailable';
+    }
+  }
+
+  // https://yandex.ru/dev/games/doc/ru/sdk/sdk-shortcut (checked 2026-10-13).
+  async canShowShortcut(): Promise<boolean> {
+    try {
+      return (await this.ysdk.shortcut?.canShowPrompt())?.canShow ?? false;
+    } catch {
+      return false;
+    }
+  }
+
+  async showShortcut(): Promise<boolean> {
+    try {
+      return (await this.ysdk.shortcut?.showPrompt())?.outcome === 'accepted';
+    } catch {
+      return false;
+    }
   }
 
   showInterstitial(): Promise<void> {

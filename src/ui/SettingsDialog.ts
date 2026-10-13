@@ -11,7 +11,7 @@ import { COLORS, textStyle } from './style';
 
 export function showSettings(scene: Phaser.Scene, store: Store, platform: PlatformAdapter, onClose: () => void): void {
   const w = 640;
-  const h = 920;
+  const h = 1060;
   const modal = new Modal(scene, w, h, () => modal.close(onClose));
   const { px, py } = modal;
   modal.add(scene.add.text(px + 40, py + 40, t('ui.settings.title'), textStyle(44, COLORS.text, { fontStyle: 'bold' })));
@@ -66,6 +66,18 @@ export function showSettings(scene: Phaser.Scene, store: Store, platform: Platfo
     login.setVisible(!authorized);
   };
   paintAuth();
+
+  const shortcut = new Button(scene, {
+    x: px + 40,
+    y: py + 688,
+    w: w - 80,
+    h: 112,
+    label: t('ui.settings.shortcut'),
+    fill: PALETTE.green,
+    onTap: () => void platform.showShortcut().then((added) => added && modal.scene && shortcut.setVisible(false)),
+  }).setVisible(false);
+  modal.add(shortcut);
+  void platform.canShowShortcut().then((can) => modal.scene && shortcut.setVisible(can));
 
   modal.add(
     new Button(scene, {

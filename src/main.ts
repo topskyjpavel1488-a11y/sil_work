@@ -70,7 +70,7 @@ async function start(): Promise<void> {
       new ScavengeScene(store, ads),
       new MergeTableScene(store, ads),
       new JournalScene(store),
-      new FinaleScene(store),
+      new FinaleScene(store, platform),
     ],
   });
 

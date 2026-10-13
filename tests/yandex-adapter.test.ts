@@ -3,7 +3,7 @@ import { YandexAdapter } from '../src/platform/yandex';
 
 type Cb = Record<string, ((arg?: unknown) => void) | undefined>;
 
-function fakeSdk(opts: { lang?: string; authorized?: boolean } = {}) {
+function fakeSdk(opts: { lang?: string; authorized?: boolean; canReview?: boolean; canShortcut?: boolean } = {}) {
   const handlers: Record<string, () => void> = {};
   let authorized = opts.authorized ?? false;
   const store: Record<string, unknown> = {};
@@ -28,6 +28,17 @@ function fakeSdk(opts: { lang?: string; authorized?: boolean } = {}) {
       showFullscreenAdv: ({ callbacks }: { callbacks: Cb }) => (sdk.lastAd = callbacks),
       showRewardedVideo: ({ callbacks }: { callbacks: Cb }) => (sdk.lastAd = callbacks),
     },
+    feedback: {
+      canReview: async () => ({ value: opts.canReview ?? false, reason: opts.canReview ? undefined : 'NO_AUTH' }),
+      requestReview: async () => {
+        sdk.calls.push('review');
+        return { feedbackSent: true };
+      },
+    },
+    shortcut: {
+      canShowPrompt: async () => ({ canShow: opts.canShortcut ?? false }),
+      showPrompt: async () => ({ outcome: 'accepted' }),
+    },
     on: (event: string, cb: () => void) => (handlers[event] = cb),
     emit: (event: string) => handlers[event]?.(),
   };
@@ -50,6 +61,21 @@ describe('YandexAdapter', () => {
     expect((await adapterWith({ lang: 'kk' })).adapter.getLanguage()).toBe('ru');
     expect((await adapterWith({ lang: 'en' })).adapter.getLanguage()).toBe('en');
     expect((await adapterWith({ lang: 'tr' })).adapter.getLanguage()).toBe('en');
+  });
+
+  it('asks for a review only when the platform allows it', async () => {
+    const guest = await adapterWith();
+    expect(await guest.adapter.requestReview()).toBe('unavailable');
+    expect(guest.sdk.calls).not.toContain('review');
+    const player = await adapterWith({ canReview: true });
+    expect(await player.adapter.requestReview()).toBe('sent');
+  });
+
+  it('offers a desktop shortcut only where it can be added', async () => {
+    expect(await (await adapterWith()).adapter.canShowShortcut()).toBe(false);
+    const { adapter } = await adapterWith({ canShortcut: true });
+    expect(await adapter.canShowShortcut()).toBe(true);
+    expect(await adapter.showShortcut()).toBe(true);
   });
 
   it('reports ready once', async () => {

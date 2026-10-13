@@ -4,13 +4,19 @@ import Phaser from 'phaser';
 import { DESIGN_HEIGHT, DESIGN_WIDTH, PALETTE } from '../config';
 import { findRoom } from '../core/content';
 import { t } from '../i18n';
+import type { PlatformAdapter } from '../platform/adapter';
 import type { Store } from '../store';
 import { showBeforeAfter } from '../ui/BeforeAfter';
 import { showFindCard } from '../ui/FindCard';
 import { fadeIn, goTo } from '../ui/transition';
 
+const REVIEW_HINT = 'review';
+
 export class FinaleScene extends Phaser.Scene {
-  constructor(private readonly store: Store) {
+  constructor(
+    private readonly store: Store,
+    private readonly platform: PlatformAdapter,
+  ) {
     super('Finale');
   }
 
@@ -34,9 +40,17 @@ export class FinaleScene extends Phaser.Scene {
         },
         () => {
           if (next) this.store.setRoom(next.id);
-          goTo(this, 'Workshop');
+          void this.askForReview().then(() => goTo(this, 'Workshop'));
         },
       );
     card();
+  }
+
+  // The platform's rating popup, right after a room comes alive (spec 15.9). Asked until it was
+  // actually shown once; a guest or a player who already rated simply gets nothing.
+  private async askForReview(): Promise<void> {
+    if (this.store.state.hints.includes(REVIEW_HINT)) return;
+    const result = await this.platform.requestReview();
+    if (result !== 'unavailable') this.store.markHint(REVIEW_HINT);
   }
 }

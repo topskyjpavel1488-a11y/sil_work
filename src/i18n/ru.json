@@ -134,5 +134,6 @@
   "ui.final.compare": "Было — стало",
   "ui.compare.hint": "Проведите по картинке",
   "ui.compare.before": "Было",
-  "ui.compare.after": "Стало"
+  "ui.compare.after": "Стало",
+  "ui.settings.shortcut": "Ярлык на рабочий стол"
 }
