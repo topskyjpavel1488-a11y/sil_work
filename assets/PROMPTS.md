@@ -1287,5 +1287,3 @@ military uniform, medals, orders, flags, weapons, religious symbols, famous pers
 ```
 screenshot, game interface, buttons, menus, platform logo, Yandex logo, text, title, letters, frame, border, rounded corners, people
 ```
-
-Для `find_f_photo` из N-COMMON уберите слова `photograph` и `photorealistic` не нужно — оставьте их: это рисунок старой фотографии, а не фото.
