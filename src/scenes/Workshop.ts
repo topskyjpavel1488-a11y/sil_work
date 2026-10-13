@@ -25,7 +25,7 @@ import { TutorialOverlay } from '../ui/TutorialOverlay';
 import { ResourceBar } from '../ui/ResourceBar';
 import { COLORS, textStyle } from '../ui/style';
 import { fadeIn, goTo } from '../ui/transition';
-import { drawZonePile } from '../ui/ZoneArt';
+import { drawShelf, drawZonePile, wallShelfRects } from '../ui/ZoneArt';
 import { addGlow, ambientDust, dustPuff, sparkBurst } from '../ui/fx';
 
 // Restored objects that give off light: a soft pulsing glow over them (spec 6.3, v0.8).
@@ -83,6 +83,7 @@ export class WorkshopScene extends Phaser.Scene {
     this.add.rectangle(0, 0, this.scale.width, this.scale.height, PALETTE.cream).setOrigin(0);
     const room = rect(this.section, 'room');
     addAsset(this, this.room.image, room);
+    for (const spot of wallShelfRects(content, this.room)) drawShelf(this, spot);
     for (const zone of zonesIn(content, this.room.id)) {
       this.zones.set(zone.id, this.addHotspot(zone.image, rect(this.section, `zone.${zone.id}`), zone.nameKey, () => this.onZone(zone)));
     }

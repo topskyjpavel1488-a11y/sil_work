@@ -8,12 +8,13 @@ import { t } from '../i18n';
 import { rect } from '../layout';
 import { Button } from './Button';
 import { COLORS, textStyle } from './style';
-import { drawZonePile } from './ZoneArt';
+import { drawShelf, drawZonePile, wallShelfRects } from './ZoneArt';
 
 function drawRoom(scene: Phaser.Scene, content: Content, room: RoomDef, before: boolean): Phaser.GameObjects.Container {
   const layer = scene.add.container(0, 0);
   const r = rect(room.layout, 'room');
   layer.add(addAsset(scene, room.image, r));
+  for (const spot of wallShelfRects(content, room)) layer.add(drawShelf(scene, spot));
   if (before) {
     for (const zone of zonesIn(content, room.id)) {
       const z = rect(room.layout, `zone.${zone.id}`);

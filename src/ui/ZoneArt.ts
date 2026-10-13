@@ -5,10 +5,40 @@
 import Phaser from 'phaser';
 import { setAsset } from '../assets';
 import { PALETTE } from '../config';
-import type { Content, ZoneDef } from '../core/content';
-import type { Rect } from '../layout';
+import { objectsIn, zonesIn, type Content, type RoomDef, type ZoneDef } from '../core/content';
+import { rect, type Rect } from '../layout';
 
 const PILE_MAX = 5;
+
+// Objects that stand on something rather than hang on the wall; in the upper half they get a shelf too.
+const SHELF_OBJECTS = new Set(['radio']);
+
+// Spots in the upper (wall) half of the room that need a shelf under them so nothing floats (spec 15.6):
+// every zone there and the objects listed above.
+export function wallShelfRects(content: Content, room: RoomDef): Rect[] {
+  const r = rect(room.layout, 'room');
+  const floor = r.y + r.h / 2;
+  const zones = zonesIn(content, room.id).map((z) => rect(room.layout, `zone.${z.id}`));
+  const objects = objectsIn(content, room.id).filter((o) => SHELF_OBJECTS.has(o.id)).map((o) => rect(room.layout, `object.${o.id}`));
+  return [...zones, ...objects].filter((s) => s.y + s.h <= floor);
+}
+
+// A simple wooden shelf with two brackets along the bottom edge of a spot, drawn behind it.
+export function drawShelf(scene: Phaser.Scene, s: Rect): Phaser.GameObjects.Graphics {
+  const g = scene.add.graphics();
+  const w = s.w * 0.88;
+  const x = s.x + (s.w - w) / 2;
+  const y = s.y + s.h - 12;
+  // Brackets.
+  g.fillStyle(0x5e3d25, 1);
+  for (const bx of [x + w * 0.14, x + w * 0.86 - 12]) g.fillTriangle(bx, y + 16, bx + 12, y + 16, bx, y + 40);
+  // Soft shadow on the wall, the board, its front edge and a light top line.
+  g.fillStyle(0x000000, 0.18).fillRoundedRect(x + 4, y + 10, w, 16, 4);
+  g.fillStyle(PALETTE.wood, 1).fillRoundedRect(x, y, w, 16, 4);
+  g.fillStyle(0x6b4529, 1).fillRect(x, y + 11, w, 5);
+  g.fillStyle(0xb98a5e, 1).fillRect(x + 4, y + 1, w - 8, 3);
+  return g;
+}
 
 // Picks up to PILE_MAX remaining debris, alternating kinds so the pile looks varied.
 function pileKinds(content: Content, zone: ZoneDef, taken: string[]): string[] {
