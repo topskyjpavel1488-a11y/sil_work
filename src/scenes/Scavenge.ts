@@ -3,7 +3,7 @@ import Phaser from 'phaser';
 import { addAsset } from '../assets';
 import { audio } from '../audio';
 import { DESIGN_HEIGHT, DESIGN_WIDTH, FEEDBACK, PALETTE, UI_SOUNDS } from '../config';
-import { findZone, type DebrisDef, type ZoneDef } from '../core/content';
+import { findRoom, findZone, type DebrisDef, type ZoneDef } from '../core/content';
 import { isZoneCleared } from '../core/progress';
 import { currentTutorialStep } from '../core/tutorial';
 import { RESOURCES, type GameEvent } from '../core/state';
@@ -18,6 +18,7 @@ import { COLORS, textStyle } from '../ui/style';
 import { showToast } from '../ui/Toast';
 import { TutorialOverlay } from '../ui/TutorialOverlay';
 import { fadeIn, goTo } from '../ui/transition';
+import { drawZoneScene } from '../ui/ZoneArt';
 import { onTap } from '../ui/tap';
 
 const SECTION = 'scavenge';
@@ -47,7 +48,10 @@ export class ScavengeScene extends Phaser.Scene {
   create(): void {
     fadeIn(this);
     this.add.rectangle(0, 0, DESIGN_WIDTH, DESIGN_HEIGHT, PALETTE.cream).setOrigin(0);
-    addAsset(this, this.zone.sceneImage, rect(SECTION, 'area'));
+    // The zone has no picture of its own: a close-up of the room around it (spec 15.6).
+    const room = findRoom(this.store.content, this.zone.room);
+    const roomLayout = room?.layout ?? 'workshop';
+    drawZoneScene(this, rect(SECTION, 'area'), room?.image ?? '', rect(roomLayout, 'room'), rect(roomLayout, `zone.${this.zone.id}`), this.zone.sceneImage);
 
     this.resources = new ResourceBar(this, this.store.content, rect(SECTION, 'ui.resources'));
     this.resources.update(this.store.state);

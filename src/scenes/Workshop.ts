@@ -24,6 +24,7 @@ import { TutorialOverlay } from '../ui/TutorialOverlay';
 import { ResourceBar } from '../ui/ResourceBar';
 import { COLORS, textStyle } from '../ui/style';
 import { fadeIn, goTo } from '../ui/transition';
+import { drawZonePile } from '../ui/ZoneArt';
 import { onTap } from '../ui/tap';
 
 const STORY_HINT = 'story';
@@ -332,8 +333,10 @@ export class WorkshopScene extends Phaser.Scene {
       const open = isZoneUnlocked(state, content, zone);
       // A cleared pile is gone from the room: nothing is left to tap there (spec 4.2, v0.8).
       const cleared = isZoneCleared(state, zone);
-      hotspot.box.setVisible(!cleared).setAlpha(open ? 1 : 0.3);
-      hotspot.label.setVisible(!cleared && !this.textures.exists(zone.image)).setAlpha(open ? 1 : 0.4);
+      // The pile is stacked from the debris still lying there, so it shrinks as the zone is cleared.
+      const art = cleared ? true : drawZonePile(this, hotspot.box, content, zone, state.zones[zone.id]?.taken ?? []);
+      hotspot.box.setVisible(!cleared).setAlpha(open ? 1 : 0.45);
+      hotspot.label.setVisible(!cleared && !art).setAlpha(open ? 1 : 0.4);
       if (hotspot.box.input) hotspot.box.input.enabled = open && !cleared;
     }
     const warm = objectsIn(content, this.room.id).some((o) => o.steps.some((s, i) => s.effect === 'warmLight' && stepOf(state, o.id) > i));
