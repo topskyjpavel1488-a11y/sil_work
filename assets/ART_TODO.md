@@ -93,14 +93,14 @@ cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden af
 
 ## 1.4. Фоны комнат — `room_bg` и `room_paint_bg` — ✅ готово 13.10.2026
 
-Новые фоны подключены. Плинтус у них был на 60–61% высоты: я срезал сверху полосу потолка и немного боковых стен, чтобы он встал ровно посередине (оригиналы — в `assets/source/raw/`). Если будете перегенерировать — делайте сразу по подсказке композиции.
+Новые фоны подключены. Плинтус у них на 60–61% высоты; я подрезал снизу и с боков, чтобы он встал на 65% (оригиналы — в `assets/source/raw/`). Почему 65%, а не 50%: верстак, шкаф и столы стоят у стены, их **задние ножки** должны упираться в плинтус, а у таких вещей задние ножки оказываются примерно на 65% высоты комнаты.. Если будете перегенерировать — делайте сразу по подсказке композиции.
 
-**Что не так:** игра расставляет объекты по сетке: всё настенное (полки, окна, часы, антресоль, радио, стеллаж) стоит в **верхней половине** комнаты, всё напольное (верстак, шкаф, столы, кучи завала) — в **нижней**. Нынешние фоны нарисованы с глубокой перспективой: двускатная крыша, большие боковые стены, пол начинается ниже середины. Поэтому напольные вещи «залезают» на стены.
+**Что не так:** игра расставляет объекты по сетке: всё настенное (полки, окна, часы, антресоль, радио, стеллаж) висит на стене, а мебель стоит у стены задними ножками на плинтусе — **на 65% высоты** комнаты. Нынешние фоны нарисованы с глубокой перспективой: двускатная крыша, большие боковые стены, пол начинается ниже середины. Поэтому напольные вещи «залезают» на стены.
 
 Нужен фон как сцена театра или кукольный домик без передней стены:
-- задняя стена смотрит прямо на зрителя и занимает **ровно верхнюю половину** картинки;
-- плинтус — прямая горизонтальная линия **ровно посередине высоты**;
-- нижняя половина — пол с очень мягкой перспективой;
+- задняя стена смотрит прямо на зрителя и занимает **верхние две трети** картинки;
+- плинтус — прямая горизонтальная линия **на 65% высоты** сверху;
+- нижняя треть — пол с очень мягкой перспективой;
 - без боковых стен, потолка, балок и углов.
 
 **Как добиться в Leonardo:**
@@ -118,7 +118,7 @@ cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden af
 - **Важно:** никаких предметов — окно, полка, часы, верстак и шкаф будут отдельными спрайтами поверх фона.
 
 ```
-cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, flat frontal view straight at the back wall of a small room, like a theatre stage or a dollhouse with the front wall removed, the back wall faces the viewer squarely and fills exactly the upper half of the picture, a straight horizontal wooden baseboard runs across the whole width exactly at the middle height of the picture, the lower half of the picture is a wooden plank floor seen from slightly above with very gentle perspective, the planks run towards the wall, no side walls, no ceiling, no roof beams, no corners, symmetrical composition, the interior of an old family workshop: the back wall is made of vertical cream-painted wooden planks with a faded sage green wainscot panel along its lower part above the baseboard, the floor is worn warm brown wooden planks with a few scuffs, warm golden sunlight patches on the floor and the wall, the room is completely empty with no furniture and no objects, plenty of empty wall space, vertical composition, full background
+cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, flat frontal view straight at the back wall of a small room, like a theatre stage or a dollhouse with the front wall removed, the back wall faces the viewer squarely and fills the upper two thirds of the picture, a straight horizontal wooden baseboard runs across the whole width at about two thirds of the height (65% from the top), the lower third of the picture is a wooden plank floor seen from slightly above with very gentle perspective, the planks run towards the wall, no side walls, no ceiling, no roof beams, no corners, symmetrical composition, the interior of an old family workshop: the back wall is made of vertical cream-painted wooden planks with a faded sage green wainscot panel along its lower part above the baseboard, the floor is worn warm brown wooden planks with a few scuffs, warm golden sunlight patches on the floor and the wall, the room is completely empty with no furniture and no objects, plenty of empty wall space, vertical composition, full background
 ```
 
 ### `room_paint_bg` — Фон малярной (пустая комната)
@@ -130,7 +130,7 @@ cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden af
 - **Важно:** тот же ракурс и линия пола, что у мастерской: комнаты должны выглядеть соседними в одном доме. Стеллаж, окно, мольберт, стремянку и столы не рисовать.
 
 ```
-cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, flat frontal view straight at the back wall of a small room, like a theatre stage or a dollhouse with the front wall removed, the back wall faces the viewer squarely and fills exactly the upper half of the picture, a straight horizontal wooden baseboard runs across the whole width exactly at the middle height of the picture, the lower half of the picture is a wooden plank floor seen from slightly above with very gentle perspective, the planks run towards the wall, no side walls, no ceiling, no roof beams, no corners, symmetrical composition, the interior of an old family paint shop: the back wall is whitewashed plaster with old faint splashes of honey, sage green and warm red paint and a sage green wooden wainscot panel along its lower part above the baseboard, the floor is worn light wooden planks with old dried paint drips, warm golden sunlight patches on the floor and the wall, the room is completely empty with no furniture and no objects, plenty of empty wall space, vertical composition, full background
+cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, flat frontal view straight at the back wall of a small room, like a theatre stage or a dollhouse with the front wall removed, the back wall faces the viewer squarely and fills the upper two thirds of the picture, a straight horizontal wooden baseboard runs across the whole width at about two thirds of the height (65% from the top), the lower third of the picture is a wooden plank floor seen from slightly above with very gentle perspective, the planks run towards the wall, no side walls, no ceiling, no roof beams, no corners, symmetrical composition, the interior of an old family paint shop: the back wall is whitewashed plaster with old faint splashes of honey, sage green and warm red paint and a sage green wooden wainscot panel along its lower part above the baseboard, the floor is worn light wooden planks with old dried paint drips, warm golden sunlight patches on the floor and the wall, the room is completely empty with no furniture and no objects, plenty of empty wall space, vertical composition, full background
 ```
 
 ## 1.5. Окно — `obj_window_0`, `_1`, `_2` — ✅ готово 13.10.2026 (новая серия без мазков)
@@ -241,14 +241,10 @@ Clearly abandoned for many years: the tabletop boards are cracked, warped and st
 Same cozy hand-painted 2D style, original design, lighting, white background and framing. No redesign, no new or missing parts, no text or numbers.
 ```
 
-## 1.7. Малярная: поправить после партии 13.10.2026
+## 1.7. Стеллаж с красками: убрать стену
 
 **Что не так:**
 - **Стеллаж с красками** (`obj_paint_rack_0…3`) нарисован на стене с плинтусом и полом, а не на белом фоне — вырезать его автоматически чисто нельзя, поэтому в игре пока заглушка. Нужно убрать фон правкой каждой из четырёх картинок (текст один и тот же).
-- **Шкафчик для растворителей `_3`** — деревянный бежевый, а `_0`–`_2` — зелёный металлический: при последнем ремонте шкафчик «превратится» в другой.
-- **Шлифовальный верстак `_3`** — другой формы, чем `_0`–`_2`.
-
-Для двух последних проще всего сделать `_3` **правкой картинки `_2`** («почти готово» → «восстановлено»), тогда форма совпадёт.
 
 ### `obj_paint_rack_0` — Стеллаж с красками, шаг 0 из 3 — убрать стену
 
@@ -284,32 +280,6 @@ Edit this exact image: keep the paint rack with its cans exactly as it is — sa
 
 ```
 Edit this exact image: keep the paint rack with its cans exactly as it is — same shape, colors, details and camera angle. Remove the wall, the baseboard and the floor around and under it, and the shadow on the wall: replace everything around the paint rack with its cans with a plain flat pure white background. No redesign, no new or missing parts, no text or numbers.
-```
-
-### `obj_solvent_cabinet_3` — Шкафчик для растворителей, шаг 3 из 3 (восстановлено) — сделать из _2
-
-- **Как делать:** правка картинки `obj_solvent_cabinet_2`: откройте её карточку и вставьте текст.
-- **Отрицательный промпт:** не нужен — это правка готовой картинки
-
-```
-Edit this exact metal cabinet, preserving its silhouette, proportions, doors, handles, body and camera angle.
-
-Fully restored and cared for: the whole body is freshly and evenly painted sage green with no bare spots or scuffs, the doors are closed neatly, the handles are polished brass, and three plain glass bottles without labels stand in a row on top.
-
-Same cozy hand-painted 2D style, original design, lighting, white background and framing. No redesign, no text or numbers.
-```
-
-### `obj_sanding_bench_3` — Шлифовальный верстак, шаг 3 из 3 (восстановлено) — сделать из _2
-
-- **Как делать:** правка картинки `obj_sanding_bench_2`: откройте её карточку и вставьте текст.
-- **Отрицательный промпт:** не нужен — это правка готовой картинки
-
-```
-Edit this exact sanding bench, preserving its silhouette, proportions, top, legs, sanding block and camera angle.
-
-Fully restored and cared for: clean, warm, freshly finished wood on the top and the legs, no dust, no cracks; sandpaper sheets neatly stacked, and a freshly sanded wooden chair leg with a soft brush resting on the top.
-
-Same cozy hand-painted 2D style, original design, lighting, white background and framing. No redesign, no text or numbers.
 ```
 
 ---

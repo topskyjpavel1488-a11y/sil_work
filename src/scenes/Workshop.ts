@@ -11,7 +11,7 @@ import { checkRepair } from '../core/repair';
 import { currentTutorialStep } from '../core/tutorial';
 import { stepOf, type GameEvent, type GameState } from '../core/state';
 import { t } from '../i18n';
-import { rect, type Rect } from '../layout';
+import { depthKey, rect, type Rect } from '../layout';
 import type { Ads } from '../ads';
 import type { PlatformAdapter } from '../platform/adapter';
 import type { Store } from '../store';
@@ -85,12 +85,12 @@ export class WorkshopScene extends Phaser.Scene {
     const room = rect(this.section, 'room');
     addAsset(this, this.room.image, room);
     for (const spot of wallShelfRects(content, this.room)) drawShelf(this, spot);
-    for (const zone of zonesIn(content, this.room.id)) {
-      this.zones.set(zone.id, this.addHotspot(zone.image, rect(this.section, `zone.${zone.id}`), zone.nameKey, () => this.onZone(zone)));
-    }
-    for (const object of objectsIn(content, this.room.id)) {
-      this.objects.set(object.id, this.addHotspot(object.stateImages[0] ?? '', rect(this.section, `object.${object.id}`), object.nameKey, () => this.onObject(object)));
-    }
+    // Zones and objects are created back to front (byDepth), so nearer things cover farther ones.
+    const things = [
+      ...zonesIn(content, this.room.id).map((zone) => ({ name: `zone.${zone.id}`, r: rect(this.section, `zone.${zone.id}`), add: (r: Rect) => this.zones.set(zone.id, this.addHotspot(zone.image, r, zone.nameKey, () => this.onZone(zone))) })),
+      ...objectsIn(content, this.room.id).map((object) => ({ name: `object.${object.id}`, r: rect(this.section, `object.${object.id}`), add: (r: Rect) => this.objects.set(object.id, this.addHotspot(object.stateImages[0] ?? '', r, object.nameKey, () => this.onObject(object))) })),
+    ];
+    for (const thing of things.sort((a, b) => depthKey(a.name, a.r) - depthKey(b.name, b.r))) thing.add(thing.r);
     this.warmLight = this.add.rectangle(room.x, room.y, room.w, room.h, PALETTE.copper, 0.14).setOrigin(0).setVisible(false);
     ambientDust(this, room);
     // Badges go above every object and the warm light, so none of them is hidden by a neighbour.

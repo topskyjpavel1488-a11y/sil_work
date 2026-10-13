@@ -5,7 +5,7 @@ import { addAsset } from '../assets';
 import { DEPTH, DESIGN_HEIGHT, DESIGN_WIDTH, PALETTE } from '../config';
 import { objectsIn, zonesIn, type Content, type RoomDef } from '../core/content';
 import { t } from '../i18n';
-import { rect } from '../layout';
+import { depthKey, rect, type Rect } from '../layout';
 import { Button } from './Button';
 import { COLORS, textStyle } from './style';
 import { drawShelf, drawZonePile, wallShelfRects } from './ZoneArt';
@@ -15,18 +15,26 @@ function drawRoom(scene: Phaser.Scene, content: Content, room: RoomDef, before: 
   const r = rect(room.layout, 'room');
   layer.add(addAsset(scene, room.image, r));
   for (const spot of wallShelfRects(content, room)) layer.add(drawShelf(scene, spot));
+  // Back to front, as on the main screen.
+  const things: { name: string; r: Rect; draw: (r: Rect) => Phaser.GameObjects.GameObject }[] = [];
   if (before) {
     for (const zone of zonesIn(content, room.id)) {
-      const z = rect(room.layout, `zone.${zone.id}`);
-      const box = scene.add.container(z.x + z.w / 2, z.y + z.h / 2).setSize(z.w, z.h);
-      drawZonePile(scene, box, content, zone, []);
-      layer.add(box);
+      things.push({
+        name: `zone.${zone.id}`,
+        r: rect(room.layout, `zone.${zone.id}`),
+        draw: (z) => {
+          const box = scene.add.container(z.x + z.w / 2, z.y + z.h / 2).setSize(z.w, z.h);
+          drawZonePile(scene, box, content, zone, []);
+          return box;
+        },
+      });
     }
   }
   for (const object of objectsIn(content, room.id)) {
     const key = before ? object.stateImages[0] : object.stateImages[object.stateImages.length - 1];
-    layer.add(addAsset(scene, key ?? '', rect(room.layout, `object.${object.id}`)));
+    things.push({ name: `object.${object.id}`, r: rect(room.layout, `object.${object.id}`), draw: (o) => addAsset(scene, key ?? '', o) });
   }
+  for (const thing of things.sort((p, q) => depthKey(p.name, p.r) - depthKey(q.name, q.r))) layer.add(thing.draw(thing.r));
   // Before: a dusty, dimmer veil over everything.
   if (before) layer.add(scene.add.rectangle(r.x, r.y, r.w, r.h, 0x5a4a3a, 0.3).setOrigin(0));
   return layer;
