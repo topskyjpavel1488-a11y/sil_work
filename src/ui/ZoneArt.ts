@@ -10,6 +10,26 @@ import { rect, type Rect } from '../layout';
 
 const PILE_MAX = 5;
 
+// Heap layouts for 1…5 pieces: [x offset, lift above the floor, scale], all in item sizes, back to front.
+const PILE_SLOTS: [number, number, number][][] = [
+  [[0, 0, 1]],
+  [[0.18, 0.22, 0.85], [-0.15, 0, 1]],
+  [[0.05, 0.36, 0.82], [-0.27, 0, 1], [0.28, 0.02, 0.9]],
+  [[0.1, 0.4, 0.8], [-0.38, 0.14, 0.86], [-0.12, 0, 1], [0.32, 0, 0.9]],
+  [[-0.04, 0.44, 0.8], [-0.42, 0.18, 0.84], [0.4, 0.14, 0.86], [-0.2, 0, 1], [0.22, 0, 0.92]],
+];
+
+// A small repeatable random generator, so a zone keeps the same heap between redraws.
+function seeded(text: string): () => number {
+  let x = [...text].reduce((acc, c) => (acc * 31 + c.charCodeAt(0)) >>> 0, 2166136261) || 1;
+  return () => {
+    x ^= x << 13;
+    x ^= x >>> 17;
+    x ^= x << 5;
+    return (x >>> 0) / 4294967296;
+  };
+}
+
 // Objects that stand on something rather than hang on the wall; in the upper half they get a shelf too.
 const SHELF_OBJECTS = new Set(['radio']);
 
@@ -68,19 +88,20 @@ export function drawZonePile(scene: Phaser.Scene, box: Phaser.GameObjects.Contai
   }
   box.removeAll(true);
   const { width: w, height: h } = box;
-  // A tight cluster: a smaller back row tucked behind the front row, everything resting on the bottom edge.
-  const back = images.slice(0, Math.floor(images.length / 2));
-  const front = images.slice(back.length);
-  const size = Math.min(h * 0.92, (w * 0.85) / Math.max(front.length * 0.75, 1));
-  const place = (keys: string[], y: number, s: number, spread: number) =>
-    keys.forEach((key, i) => {
-      const x = keys.length === 1 ? 0 : (i / (keys.length - 1) - 0.5) * spread;
-      const img = scene.add.image(x, y, key);
-      img.setScale(s / Math.max(img.width, img.height));
-      box.add(img);
-    });
-  place(back, h / 2 - size * 0.78, size * 0.82, Math.min(w - size, size * 0.9 * back.length));
-  place(front, h / 2 - size / 2, size, Math.min(w - size, size * 0.75 * front.length));
+  // A heap rather than a row: pieces overlap, lean and rest on each other, the back ones higher up.
+  // Slots are [x, lift, scale] in item sizes, drawn back to front; small jitter per zone keeps heaps different.
+  const slots = PILE_SLOTS[Math.min(images.length, PILE_SLOTS.length) - 1] ?? [];
+  const size = Math.min((w * 0.92) / 1.7, (h * 1.15) / 1.25);
+  const bottom = h / 2 - 4;
+  const rand = seeded(zone.id);
+  images.forEach((key, i) => {
+    const [sx, lift, sc] = slots[i] ?? [0, 0, 1];
+    const img = scene.add.image((sx + (rand() - 0.5) * 0.12) * size, bottom - (lift + rand() * 0.04) * size, key).setOrigin(0.5, 1);
+    img.setScale((size * sc * (0.94 + rand() * 0.12)) / Math.max(img.width, img.height));
+    img.setRotation((i % 2 ? 1 : -1) * (0.06 + rand() * 0.2));
+    img.setFlipX(rand() < 0.5);
+    box.add(img);
+  });
   return true;
 }
 

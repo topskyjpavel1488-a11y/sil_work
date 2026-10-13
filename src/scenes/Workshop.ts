@@ -5,7 +5,7 @@ import { addAsset, setAsset } from '../assets';
 import { audio } from '../audio';
 import { config, DEPTH, FEEDBACK, PALETTE, UI_SOUNDS } from '../config';
 import { findRoom, objectsIn, zonesIn, type ObjectDef, type RoomDef, type ZoneDef } from '../core/content';
-import { currentGoal, isObjectAvailable, isObjectRestored, isRoomUnlocked, isZoneCleared, isZoneUnlocked } from '../core/progress';
+import { currentGoal, isObjectAvailable, isObjectRestored, isRoomRestored, isRoomUnlocked, isZoneCleared, isZoneUnlocked } from '../core/progress';
 import { missingSources, type Source } from '../core/hints';
 import { checkRepair } from '../core/repair';
 import { currentTutorialStep } from '../core/tutorial';
@@ -17,6 +17,7 @@ import type { PlatformAdapter } from '../platform/adapter';
 import type { Store } from '../store';
 import { Button } from '../ui/Button';
 import { available, requirementName } from '../ui/labels';
+import { showBeforeAfter } from '../ui/BeforeAfter';
 import { showFindCard } from '../ui/FindCard';
 import { RepairBadge } from '../ui/RepairBadge';
 import { RepairDialog } from '../ui/RepairDialog';
@@ -180,9 +181,12 @@ export class WorkshopScene extends Phaser.Scene {
     this.add.rectangle(r.x, r.y, r.w, r.h, PALETTE.wood).setOrigin(0);
     // The first button names the room; once another room is open it leads there.
     const other = this.otherRoom();
+    // A restored room keeps a "before / after" button, so the comparison is not a one-time chance (spec v0.8).
+    const compare = isRoomRestored(this.store.state, this.store.content, this.room.id);
     const labels = [other ? `→ ${t(other.nameKey)}` : t(this.room.nameKey), t('ui.nav.table'), t('ui.nav.journal')];
+    if (compare) labels.push(t('ui.final.compare'));
     // The room button is wider: a room name with an arrow is longer than "Table" or "Journal".
-    const weights = [1.4, 0.8, 0.8];
+    const weights = compare ? [1.25, 0.7, 0.75, 0.8] : [1.4, 0.8, 0.8];
     const unit = (r.w - 16 * 4) / weights.reduce((a, b) => a + b, 0);
     const scenes = [null, 'MergeTable', 'Journal'];
     let x = r.x + 16;
@@ -194,10 +198,14 @@ export class WorkshopScene extends Phaser.Scene {
       new Button(this, {
         ...button,
         label,
-        fill: i === 0 ? PALETTE.copper : PALETTE.metal,
+        fill: i === 0 ? PALETTE.copper : i === 3 ? PALETTE.green : PALETTE.metal,
         fontSize: 32,
         onTap: () => {
           if (i === 0 && other && !this.modalOpen && !this.ads.busy) this.switchRoom(other.id);
+          if (i === 3 && !this.modalOpen && !this.ads.busy) {
+            this.modalOpen = true;
+            showBeforeAfter(this, this.store.content, this.room, () => (this.modalOpen = false));
+          }
           const scene = scenes[i];
           if (!scene || this.modalOpen || this.ads.busy) return;
           // Opening the table from the main screen is an ad moment (spec 8.3).

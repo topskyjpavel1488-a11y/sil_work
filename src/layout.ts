@@ -22,8 +22,9 @@ export function rect(section: string, name: string): Rect {
 // and is drawn later, so a table in front of a rack covers the rack, not the other way round.
 export const byDepth = (a: Rect, b: Rect) => a.y + a.h - (b.y + b.h);
 
-// Things that stand on top of other furniture (the lamp and the box on the workbench) are drawn after it.
-export const ON_TOP = new Set(['object.lamp', 'object.fastener_box']);
+// Drawn after all furniture: things that stand on it (the lamp and the box on the workbench) and piles lying
+// inside a piece of furniture's rect (under the paint table), which would otherwise be covered and untappable.
+export const ON_TOP = new Set(['object.lamp', 'object.fastener_box', 'zone.under_paint_table']);
 export const depthKey = (name: string, r: Rect) => (ON_TOP.has(name) ? 1e6 : 0) + r.y + r.h;
 
 export const center = (r: Rect) => ({ x: r.x + r.w / 2, y: r.y + r.h / 2 });
