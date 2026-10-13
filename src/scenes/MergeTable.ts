@@ -15,6 +15,7 @@ import { addItemView } from '../ui/ItemView';
 import { ResourceBar } from '../ui/ResourceBar';
 import { TutorialOverlay } from '../ui/TutorialOverlay';
 import { COLORS, textStyle } from '../ui/style';
+import { sparkBurst } from '../ui/fx';
 import { fadeIn, goTo } from '../ui/transition';
 import { onTap } from '../ui/tap';
 
@@ -222,6 +223,7 @@ export class MergeTableScene extends Phaser.Scene {
         const view = this.items.get(key(e.to));
         if (view) {
           this.tweens.add({ targets: view, scale: 1.2, duration: FEEDBACK.mergeBounceMs / 2, yoyo: true, ease: 'Sine.easeOut' });
+          sparkBurst(this, view.x, view.y);
         }
       }
     }

@@ -26,6 +26,10 @@ import { ResourceBar } from '../ui/ResourceBar';
 import { COLORS, textStyle } from '../ui/style';
 import { fadeIn, goTo } from '../ui/transition';
 import { drawZonePile } from '../ui/ZoneArt';
+import { addGlow, ambientDust, dustPuff, sparkBurst } from '../ui/fx';
+
+// Restored objects that give off light: a soft pulsing glow over them (spec 6.3, v0.8).
+const GLOWS: Record<string, number> = { lamp: 0xffc870, radio: 0xffb050, vent_window: 0xfff0c8 };
 import { onTap } from '../ui/tap';
 
 const STORY_HINT = 'story';
@@ -39,6 +43,8 @@ export class WorkshopScene extends Phaser.Scene {
   private objects = new Map<string, Hotspot>();
   private zones = new Map<string, Hotspot>();
   private badges = new Map<string, RepairBadge>();
+  private glows = new Map<string, Phaser.GameObjects.Image>();
+  private previousKeys = new Map<string, string>();
   private resources!: ResourceBar;
   private goalTitle!: Phaser.GameObjects.Text;
   private goalCost!: Phaser.GameObjects.Text;
@@ -69,6 +75,8 @@ export class WorkshopScene extends Phaser.Scene {
     this.objects.clear();
     this.zones.clear();
     this.badges.clear();
+    this.glows.clear();
+    this.previousKeys.clear();
     this.modalOpen = false;
     this.navRects = [];
     fadeIn(this);
@@ -82,6 +90,7 @@ export class WorkshopScene extends Phaser.Scene {
       this.objects.set(object.id, this.addHotspot(object.stateImages[0] ?? '', rect(this.section, `object.${object.id}`), object.nameKey, () => this.onObject(object)));
     }
     this.warmLight = this.add.rectangle(room.x, room.y, room.w, room.h, PALETTE.copper, 0.14).setOrigin(0).setVisible(false);
+    ambientDust(this, room);
     // Badges go above every object and the warm light, so none of them is hidden by a neighbour.
     for (const object of objectsIn(content, this.room.id)) {
       this.badges.set(object.id, new RepairBadge(this, rect(this.section, `object.${object.id}`)));
@@ -361,9 +370,20 @@ export class WorkshopScene extends Phaser.Scene {
     if (!hotspot) return;
     audio.play(UI_SOUNDS.repair);
     const { box } = hotspot;
-    const flash = this.add.rectangle(0, 0, box.width, box.height, 0xffffff, 0.8);
-    box.add(flash);
-    this.tweens.add({ targets: flash, alpha: 0, duration: FEEDBACK.repairFlashMs, onComplete: () => flash.destroy() });
+    const old = this.previousKeys.get(objectId) ?? '';
+    if (this.textures.exists(old)) {
+      // The old look fades away over the new one.
+      const before = this.add.image(0, 0, old);
+      before.setScale(Math.min(box.width / before.width, box.height / before.height));
+      box.add(before);
+      this.tweens.add({ targets: before, alpha: 0, duration: FEEDBACK.repairFlashMs * 1.6, ease: 'Sine.easeIn', onComplete: () => before.destroy() });
+    } else {
+      const flash = this.add.rectangle(0, 0, box.width, box.height, 0xffffff, 0.8);
+      box.add(flash);
+      this.tweens.add({ targets: flash, alpha: 0, duration: FEEDBACK.repairFlashMs, onComplete: () => flash.destroy() });
+    }
+    dustPuff(this, box.x, box.y + box.height / 2 - 8, box.width);
+    sparkBurst(this, box.x, box.y - box.height / 4);
     this.tweens.add({ targets: box, scale: 1.08, duration: FEEDBACK.repairFlashMs / 2, yoyo: true, ease: 'Sine.easeOut' });
   }
 
@@ -374,7 +394,17 @@ export class WorkshopScene extends Phaser.Scene {
       if (!hotspot) continue;
       const step = stepOf(state, object.id);
       const key = object.stateImages[step] ?? object.stateImages[0] ?? '';
-      setAsset(this, hotspot.box, key);
+      // Remember what was shown so a repair can fade from the old look to the new one.
+      if (hotspot.box.getData('key') !== key) {
+        this.previousKeys.set(object.id, hotspot.box.getData('key') ?? '');
+        setAsset(this, hotspot.box, key);
+        hotspot.box.setData('key', key);
+      }
+      const glowColor = GLOWS[object.id];
+      if (glowColor !== undefined && isObjectRestored(state, object) && !this.glows.has(object.id)) {
+        const r = rect(this.section, `object.${object.id}`);
+        this.glows.set(object.id, addGlow(this, r.x + r.w / 2, r.y + r.h / 2, Math.max(r.w, r.h) * 0.45, glowColor));
+      }
       // Names are written only on placeholders; real art speaks for itself.
       hotspot.label.setVisible(!this.textures.exists(key));
       const unlocked = isObjectAvailable(state, content, object);

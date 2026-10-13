@@ -17,6 +17,7 @@ import { ResourceBar } from '../ui/ResourceBar';
 import { COLORS, textStyle } from '../ui/style';
 import { showToast } from '../ui/Toast';
 import { TutorialOverlay } from '../ui/TutorialOverlay';
+import { dustPuff, flyIcons } from '../ui/fx';
 import { fadeIn, goTo } from '../ui/transition';
 import { drawZoneScene } from '../ui/ZoneArt';
 import { onTap } from '../ui/tap';
@@ -117,6 +118,17 @@ export class ScavengeScene extends Phaser.Scene {
     box.disableInteractive();
     audio.play(this.store.content.debrisKinds[d.kind]?.sound ?? UI_SOUNDS.tap);
     this.tweens.add({ targets: box, scale: 1.15, alpha: 0, duration: FEEDBACK.transitionMs, ease: 'Sine.easeOut', onComplete: () => box.destroy() });
+    dustPuff(this, box.x, box.y + box.height / 3, box.width * 0.8);
+    const { content } = this.store;
+    for (const res of RESOURCES) {
+      const n = d.drop.resources?.[res] ?? 0;
+      const image = content.resources.find((r) => r.id === res)?.image ?? '';
+      if (n > 0) flyIcons(this, image, { x: box.x, y: box.y }, this.resources.anchor(res), Math.min(n, 3));
+    }
+    for (const item of d.drop.items ?? []) {
+      const image = content.chains.find((c) => c.id === item.chain)?.levels[item.level - 1]?.image ?? '';
+      flyIcons(this, image, { x: box.x, y: box.y }, { x: box.x, y: box.y - 220 }, Math.min(item.count, 3));
+    }
 
     // Each gain floats up from the debris; resources drift towards their counter.
     const lines: { text: string; target?: { x: number; y: number } }[] = [];
