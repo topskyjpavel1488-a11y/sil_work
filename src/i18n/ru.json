@@ -125,5 +125,14 @@
   "story.arrival.title": "Приезд",
   "story.arrival.text": "Дверь скрипит. Внутри пыль, коробки и запах старого дерева. Здесь всё нужно начинать заново — с кучи хлама у порога.",
   "ui.next": "Далее",
-  "ui.start": "Начать"
+  "ui.start": "Начать",
+  "ui.hint.zone": "→ {zone}",
+  "ui.hint.merge": "→ объединить на столе",
+  "ui.hint.none": "→ откроется дальше",
+  "ui.hint.goalZone": "Где взять: {what} — {zone}",
+  "ui.hint.goalMerge": "Объедините детали на столе",
+  "ui.final.compare": "Было — стало",
+  "ui.compare.hint": "Проведите по картинке",
+  "ui.compare.before": "Было",
+  "ui.compare.after": "Стало"
 }

@@ -3,17 +3,19 @@ import Phaser from 'phaser';
 import { addAsset } from '../assets';
 import { DEPTH, DESIGN_HEIGHT, DESIGN_WIDTH, FEEDBACK, PALETTE } from '../config';
 import { findObject } from '../core/content';
-import { checkRepair } from '../core/repair';
+import { missingSources, type Source } from '../core/hints';
+import { checkRepair, type Requirement } from '../core/repair';
 import { t } from '../i18n';
 import type { Store } from '../store';
 import { Button } from './Button';
 import { addItemView } from './ItemView';
-import { available, itemName, requirementImage, requirementName } from './labels';
+import { available, itemName, requirementImage, requirementName, sourceLabel } from './labels';
 import { COLORS, textStyle } from './style';
 import { onTap } from './tap';
 
 const PANEL_W = 640;
 const ROW_H = 96;
+const HINT_ROW_H = 132; // a missing requirement gets a second line: where to get it
 
 export class RepairDialog extends Phaser.GameObjects.Container {
   constructor(
@@ -21,6 +23,8 @@ export class RepairDialog extends Phaser.GameObjects.Container {
     store: Store,
     objectId: string,
     private readonly onClose: () => void,
+    // Tapping a "where to get it" line closes the dialog and leads there.
+    onSource?: (source: Source) => void,
   ) {
     super(scene, 0, 0);
     const object = findObject(store.content, objectId);
@@ -32,11 +36,15 @@ export class RepairDialog extends Phaser.GameObjects.Container {
     onTap(shade, () => this.close());
     this.add(shade);
 
-    const rows = check.requirements.length;
+    const sources = missingSources(store.state, store.content, objectId, store.state.room);
+    const sameReq = (a: Requirement, b: Requirement | undefined) =>
+      !!b && (a.kind === 'resource' ? b.kind === 'resource' && a.resource === b.resource : b.kind === 'item' && a.chain === b.chain && a.level === b.level);
+    const sourceOf = (i: number) => sources.find((s) => sameReq(s.req, check.requirements[i]))?.source;
+    const rowsH = check.requirements.reduce((h, _r, i) => h + (sourceOf(i) ? HINT_ROW_H : ROW_H), 0);
     // One extra line explains a split, or why the repair waits for room on the table.
     const note = check.reason === 'noSpace' ? t('ui.noSpace') : check.splits.length ? t('ui.repair.split', { items: check.splits.map((i) => itemName(store.content, i.chain, i.level)).join(', ') }) : '';
     const noteH = note ? 72 : 0;
-    const panelH = 120 + 64 + rows * ROW_H + noteH + 176;
+    const panelH = 120 + 64 + rowsH + noteH + 176;
     const px = (DESIGN_WIDTH - PANEL_W) / 2;
     const py = (DESIGN_HEIGHT - panelH) / 2;
     const panel = scene.add.graphics();
@@ -56,20 +64,35 @@ export class RepairDialog extends Phaser.GameObjects.Container {
     );
 
     let y = py + 184;
-    for (const req of check.requirements) {
+    check.requirements.forEach((req, i) => {
       const enough = available(req) >= req.need;
+      const source = sourceOf(i);
+      const nameY = source ? y + 30 : y + 44;
       const icon = { x: px + 40, y: y + 8, w: 72, h: 72 };
       this.add(req.kind === 'item' ? addItemView(scene, store.content, req.chain, req.level, icon) : addAsset(scene, requirementImage(store.content, req), icon));
       this.add(
-        scene.add.text(px + 136, y + 44, requirementName(store.content, req), textStyle(34, COLORS.text, { wordWrap: { width: 300 } })).setOrigin(0, 0.5),
+        scene.add.text(px + 136, nameY, requirementName(store.content, req), textStyle(34, COLORS.text, { wordWrap: { width: 300 } })).setOrigin(0, 0.5),
       );
+      if (source) {
+        const link = scene.add
+          .text(px + 136, y + 86, sourceLabel(source), textStyle(32, COLORS.missing, { fontStyle: 'bold', wordWrap: { width: PANEL_W - 176 } }))
+          .setOrigin(0, 0.5);
+        this.add(link);
+        if (source.kind !== 'none' && onSource) {
+          link.setInteractive({ useHandCursor: true });
+          onTap(link, () => {
+            this.close();
+            onSource(source);
+          });
+        }
+      }
       this.add(
         scene.add
-          .text(px + PANEL_W - 40, y + 44, `${Math.min(available(req), req.need)}/${req.need}`, textStyle(38, enough ? COLORS.ok : COLORS.missing, { fontStyle: 'bold' }))
+          .text(px + PANEL_W - 40, nameY, `${Math.min(available(req), req.need)}/${req.need}`, textStyle(38, enough ? COLORS.ok : COLORS.missing, { fontStyle: 'bold' }))
           .setOrigin(1, 0.5),
       );
-      y += ROW_H;
-    }
+      y += source ? HINT_ROW_H : ROW_H;
+    });
     if (note) {
       this.add(scene.add.text(px + 40, y + 16, note, textStyle(32, check.ok ? COLORS.text : COLORS.missing, { wordWrap: { width: PANEL_W - 80 } })));
       y += noteH;

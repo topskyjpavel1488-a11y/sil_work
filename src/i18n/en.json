@@ -125,5 +125,14 @@
   "story.arrival.title": "Arrival",
   "story.arrival.text": "The door creaks. Inside: dust, boxes and the smell of old wood. Everything starts over here — with the pile of junk by the door.",
   "ui.next": "Next",
-  "ui.start": "Start"
+  "ui.start": "Start",
+  "ui.hint.zone": "→ {zone}",
+  "ui.hint.merge": "→ combine on the table",
+  "ui.hint.none": "→ opens later",
+  "ui.hint.goalZone": "Where to find {what}: {zone}",
+  "ui.hint.goalMerge": "Combine parts on the table",
+  "ui.final.compare": "Before and after",
+  "ui.compare.hint": "Swipe across the picture",
+  "ui.compare.before": "Before",
+  "ui.compare.after": "After"
 }

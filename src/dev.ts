@@ -7,6 +7,8 @@ import { Button } from './ui/Button';
 
 // Grants resources and a level 2 item so repairs can be tried before scavenging exists.
 export function addDevButton(scene: Phaser.Scene, store: Store): void {
+  // Console helper for checking scenes by hand: __tm.start('Finale', { roomId: 'workshop' }).
+  (window as unknown as { __tm: unknown }).__tm = { start: (key: string, data?: object) => scene.scene.start(key, data), store, game: scene.game };
   const goal = rect('workshop', 'ui.goal');
   new Button(scene, {
     x: goal.x + goal.w - 128,

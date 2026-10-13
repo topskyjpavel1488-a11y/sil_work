@@ -3,9 +3,10 @@
 import Phaser from 'phaser';
 import { addAsset, setAsset } from '../assets';
 import { audio } from '../audio';
-import { FEEDBACK, PALETTE, UI_SOUNDS } from '../config';
+import { config, DEPTH, FEEDBACK, PALETTE, UI_SOUNDS } from '../config';
 import { findRoom, objectsIn, zonesIn, type ObjectDef, type RoomDef, type ZoneDef } from '../core/content';
 import { currentGoal, isObjectAvailable, isObjectRestored, isRoomUnlocked, isZoneCleared, isZoneUnlocked } from '../core/progress';
+import { missingSources, type Source } from '../core/hints';
 import { checkRepair } from '../core/repair';
 import { currentTutorialStep } from '../core/tutorial';
 import { stepOf, type GameEvent, type GameState } from '../core/state';
@@ -41,6 +42,7 @@ export class WorkshopScene extends Phaser.Scene {
   private resources!: ResourceBar;
   private goalTitle!: Phaser.GameObjects.Text;
   private goalCost!: Phaser.GameObjects.Text;
+  private goalHint!: Phaser.GameObjects.Text;
   private warmLight!: Phaser.GameObjects.Rectangle;
   private modalOpen = false;
   private navRects: Rect[] = [];
@@ -48,6 +50,8 @@ export class WorkshopScene extends Phaser.Scene {
   private readyReported = false;
   private room!: RoomDef;
   private section = '';
+  private idleSince = 0;
+  private idleFrame: Phaser.GameObjects.Graphics | null = null;
 
   constructor(
     private readonly store: Store,
@@ -92,6 +96,10 @@ export class WorkshopScene extends Phaser.Scene {
     this.events.once(Phaser.Scenes.Events.SHUTDOWN, unsubscribe);
     this.tutorial = new TutorialOverlay(this, this.store, rect(this.section, 'ui.tutorial'));
     this.refresh(this.store.state);
+    this.idleFrame = null;
+    this.idleSince = this.time.now;
+    this.input.on('pointerdown', () => this.resetIdle());
+    this.time.addEvent({ delay: 1000, loop: true, callback: () => this.checkIdle() });
     if (data.repair) this.openRepair(data.repair);
     else if (!this.showStory()) this.showRoomIntro();
 
@@ -144,6 +152,8 @@ export class WorkshopScene extends Phaser.Scene {
     this.goalTitle = this.add.text(r.x + 28, r.y + 12, '', textStyle(38, COLORS.text, { fontStyle: 'bold' }));
     // The cost may take two lines when it lists several requirements.
     this.goalCost = this.add.text(r.x + 28, r.y + 62, '', textStyle(32, COLORS.text, { wordWrap: { width: r.w - 56 }, lineSpacing: -4 }));
+    // Where to get the first missing thing, when the cost fits on one line (spec 6.2, v0.8).
+    this.goalHint = this.add.text(r.x + 28, r.y + 100, '', textStyle(32, COLORS.missing, { fontStyle: 'bold' }));
     const hit = this.add.zone(r.x, r.y, r.w, r.h).setOrigin(0).setInteractive({ useHandCursor: true });
     onTap(hit, () => {
       const goal = currentGoal(this.store.state, this.store.content);
@@ -253,9 +263,26 @@ export class WorkshopScene extends Phaser.Scene {
   private openRepair(objectId: string): void {
     audio.play(UI_SOUNDS.open);
     this.modalOpen = true;
-    new RepairDialog(this, this.store, objectId, () => {
-      this.modalOpen = false;
-    });
+    new RepairDialog(
+      this,
+      this.store,
+      objectId,
+      () => {
+        this.modalOpen = false;
+      },
+      (source) => this.goToSource(source),
+    );
+  }
+
+  // Leads to where a missing thing can be found: the zone itself, the table, or the zone's room.
+  private goToSource(source: Source): void {
+    if (source.kind === 'merge') {
+      this.input.enabled = false;
+      void this.ads.interstitial().then(() => goTo(this, 'MergeTable'));
+    } else if (source.kind === 'zone') {
+      if (source.zone.room === this.room.id) goTo(this, 'Scavenge', { zoneId: source.zone.id });
+      else this.switchRoom(source.zone.room);
+    }
   }
 
   private onChange(events: GameEvent[], state: GameState): void {
@@ -293,6 +320,40 @@ export class WorkshopScene extends Phaser.Scene {
     const table = this.navRects[1];
     if ((type === 'nav' || type === 'mergePair') && table) targets.push(table);
     this.tutorial.show(step, targets);
+  }
+
+  private resetIdle(): void {
+    this.idleSince = this.time.now;
+    this.idleFrame?.destroy();
+    this.idleFrame = null;
+  }
+
+  // After a pause, frame what helps next: a repair that can be done, else where the goal's missing part is.
+  private checkIdle(): void {
+    if (this.idleFrame || this.modalOpen || this.ads.busy || this.time.now - this.idleSince < config.idleHintMs) return;
+    const { state, content } = this.store;
+    if (currentTutorialStep(state, content.tutorial)) return;
+    const target = this.idleTarget();
+    if (!target) return;
+    const pad = 6;
+    const frame = this.add.graphics().setDepth(DEPTH.tutorial - 10);
+    frame.lineStyle(6, PALETTE.green, 1);
+    frame.strokeRoundedRect(target.x - pad, target.y - pad, target.w + pad * 2, target.h + pad * 2, 20);
+    this.tweens.add({ targets: frame, alpha: 0.25, duration: 700, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' });
+    this.idleFrame = frame;
+  }
+
+  private idleTarget(): Rect | null {
+    const { state, content } = this.store;
+    const ready = objectsIn(content, this.room.id).find((o) => checkRepair(state, content, o.id).ok);
+    if (ready) return rect(this.section, `object.${ready.id}`);
+    const goal = currentGoal(state, content);
+    if (!goal) return null;
+    if (goal.object.room !== this.room.id) return this.navRects[0] ?? null;
+    const source = missingSources(state, content, goal.object.id, this.room.id)[0]?.source;
+    if (source?.kind === 'merge') return this.navRects[1] ?? null;
+    if (source?.kind === 'zone') return source.zone.room === this.room.id ? rect(this.section, `zone.${source.zone.id}`) : (this.navRects[0] ?? null);
+    return rect(this.section, `object.${goal.object.id}`);
   }
 
   private playRepair(objectId: string): void {
@@ -349,10 +410,23 @@ export class WorkshopScene extends Phaser.Scene {
     if (!goal) {
       this.goalTitle.setText(t('ui.goal.done'));
       this.goalCost.setText('');
+      this.goalHint.setText('');
       return;
     }
     this.goalTitle.setText(t('ui.goal.title', { name: t(goal.object.nameKey) }));
     const check = checkRepair(state, content, goal.object.id);
     this.goalCost.setText(check.requirements.map((r) => `${requirementName(content, r)} ${Math.min(available(r), r.need)}/${r.need}`).join(' · '));
+    const first = missingSources(state, content, goal.object.id, this.room.id)[0];
+    const oneLine = this.goalCost.height < 50;
+    let hint = '';
+    if (first && oneLine && first.source.kind === 'zone') hint = t('ui.hint.goalZone', { what: requirementName(content, first.req), zone: t(first.source.zone.nameKey) });
+    if (first && oneLine && first.source.kind === 'merge') hint = t('ui.hint.goalMerge');
+    this.goalHint.setText(hint);
+    // Long hints are shortened rather than spilling out of the banner.
+    const maxW = rect(this.section, 'ui.goal').w - 56;
+    while (this.goalHint.width > maxW && hint.length > 4) {
+      hint = hint.slice(0, -2);
+      this.goalHint.setText(`${hint.trimEnd()}…`);
+    }
   }
 }

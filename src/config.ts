@@ -38,6 +38,8 @@ export const config = {
   simMaxBoxCells: 3,
   // Yandex Games rule 2.9: the main content takes more than 10 minutes (estimated fast playthrough).
   minPlaytimeMinutes: 10,
+  // Without a tap for this long, the main screen gently frames the next useful thing (spec 6.3, v0.8).
+  idleHintMs: 20000,
 } as const;
 
 export const BOARD_SIZE = config.boardCols * config.boardRows;
