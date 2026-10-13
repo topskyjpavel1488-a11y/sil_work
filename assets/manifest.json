@@ -43,13 +43,13 @@
       }
     },
     "obj_workbench_0": {
-      "file": null,
+      "file": "images/obj_workbench_0.png",
       "placeholder": {
         "color": "#C9C2B5"
       }
     },
     "obj_workbench_1": {
-      "file": null,
+      "file": "images/obj_workbench_1.png",
       "placeholder": {
         "color": "#C3A88A"
       }
@@ -79,13 +79,13 @@
       }
     },
     "obj_lamp_0": {
-      "file": null,
+      "file": "images/obj_lamp_0.png",
       "placeholder": {
         "color": "#C9C2B5"
       }
     },
     "obj_lamp_1": {
-      "file": null,
+      "file": "images/obj_lamp_1.png",
       "placeholder": {
         "color": "#C19B74"
       }
@@ -355,43 +355,43 @@
       }
     },
     "obj_paint_table_0": {
-      "file": null,
+      "file": "images/obj_paint_table_0.png",
       "placeholder": {
         "color": "#C9C2B5"
       }
     },
     "obj_paint_table_1": {
-      "file": null,
+      "file": "images/obj_paint_table_1.png",
       "placeholder": {
         "color": "#B0B5A1"
       }
     },
     "obj_paint_table_2": {
-      "file": null,
+      "file": "images/obj_paint_table_2.png",
       "placeholder": {
         "color": "#96A78C"
       }
     },
     "obj_paint_table_3": {
-      "file": null,
+      "file": "images/obj_paint_table_3.png",
       "placeholder": {
         "color": "#7D9A78"
       }
     },
     "obj_drying_rack_0": {
-      "file": null,
+      "file": "images/obj_drying_rack_0.png",
       "placeholder": {
         "color": "#C9C2B5"
       }
     },
     "obj_drying_rack_1": {
-      "file": null,
+      "file": "images/obj_drying_rack_1.png",
       "placeholder": {
         "color": "#A3AE97"
       }
     },
     "obj_drying_rack_2": {
-      "file": null,
+      "file": "images/obj_drying_rack_2.png",
       "placeholder": {
         "color": "#7D9A78"
       }
@@ -421,103 +421,103 @@
       }
     },
     "obj_vent_window_0": {
-      "file": null,
+      "file": "images/obj_vent_window_0.png",
       "placeholder": {
         "color": "#C9C2B5"
       }
     },
     "obj_vent_window_1": {
-      "file": null,
+      "file": "images/obj_vent_window_1.png",
       "placeholder": {
         "color": "#A3AE97"
       }
     },
     "obj_vent_window_2": {
-      "file": null,
+      "file": "images/obj_vent_window_2.png",
       "placeholder": {
         "color": "#7D9A78"
       }
     },
     "obj_easel_0": {
-      "file": null,
+      "file": "images/obj_easel_0.png",
       "placeholder": {
         "color": "#C9C2B5"
       }
     },
     "obj_easel_1": {
-      "file": null,
+      "file": "images/obj_easel_1.png",
       "placeholder": {
         "color": "#A3AE97"
       }
     },
     "obj_easel_2": {
-      "file": null,
+      "file": "images/obj_easel_2.png",
       "placeholder": {
         "color": "#7D9A78"
       }
     },
     "obj_ladder_0": {
-      "file": null,
+      "file": "images/obj_ladder_0.png",
       "placeholder": {
         "color": "#C9C2B5"
       }
     },
     "obj_ladder_1": {
-      "file": null,
+      "file": "images/obj_ladder_1.png",
       "placeholder": {
         "color": "#A3AE97"
       }
     },
     "obj_ladder_2": {
-      "file": null,
+      "file": "images/obj_ladder_2.png",
       "placeholder": {
         "color": "#7D9A78"
       }
     },
     "obj_solvent_cabinet_0": {
-      "file": null,
+      "file": "images/obj_solvent_cabinet_0.png",
       "placeholder": {
         "color": "#C9C2B5"
       }
     },
     "obj_solvent_cabinet_1": {
-      "file": null,
+      "file": "images/obj_solvent_cabinet_1.png",
       "placeholder": {
         "color": "#B0B5A1"
       }
     },
     "obj_solvent_cabinet_2": {
-      "file": null,
+      "file": "images/obj_solvent_cabinet_2.png",
       "placeholder": {
         "color": "#96A78C"
       }
     },
     "obj_solvent_cabinet_3": {
-      "file": null,
+      "file": "images/obj_solvent_cabinet_3.png",
       "placeholder": {
         "color": "#7D9A78"
       }
     },
     "obj_sanding_bench_0": {
-      "file": null,
+      "file": "images/obj_sanding_bench_0.png",
       "placeholder": {
         "color": "#C9C2B5"
       }
     },
     "obj_sanding_bench_1": {
-      "file": null,
+      "file": "images/obj_sanding_bench_1.png",
       "placeholder": {
         "color": "#B0B5A1"
       }
     },
     "obj_sanding_bench_2": {
-      "file": null,
+      "file": "images/obj_sanding_bench_2.png",
       "placeholder": {
         "color": "#96A78C"
       }
     },
     "obj_sanding_bench_3": {
-      "file": null,
+      "file": "images/obj_sanding_bench_3.png",
       "placeholder": {
         "color": "#7D9A78"
       }
@@ -673,25 +673,25 @@
       }
     },
     "story_city": {
-      "file": null,
+      "file": "images/story_city.jpg",
       "placeholder": {
         "color": "#9FA8B0"
       }
     },
     "story_key": {
-      "file": null,
+      "file": "images/story_key.jpg",
       "placeholder": {
         "color": "#C9A36A"
       }
     },
     "story_road": {
-      "file": null,
+      "file": "images/story_road.jpg",
       "placeholder": {
         "color": "#B9C49A"
       }
     },
     "story_arrival": {
-      "file": null,
+      "file": "images/story_arrival.jpg",
       "placeholder": {
         "color": "#A8825C"
       }

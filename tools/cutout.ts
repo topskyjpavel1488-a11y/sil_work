@@ -155,5 +155,41 @@ export function removeBackground(px: Pixels, { shadows = true } = {}): Pixels {
     }
     out[i + 3] = Math.round(a * 255);
   }
+  dropSpecks(out, width, height);
   return { data: out, width, height };
+}
+
+// Small pieces cut off from the object (bits of a floor line at the edge of the picture) are removed.
+const SPECK_MAX_SHARE = 0.004;
+
+function dropSpecks(rgba: Uint8Array, width: number, height: number): void {
+  const n = width * height;
+  const label = new Int32Array(n).fill(-1);
+  const sizes: number[] = [];
+  for (let p = 0; p < n; p++) {
+    if (label[p] !== -1 || at(rgba, p * 4 + 3) < 24) continue;
+    const id = sizes.length;
+    let size = 0;
+    const stack = [p];
+    label[p] = id;
+    for (let q = stack.pop(); q !== undefined; q = stack.pop()) {
+      size++;
+      const x = q % width, y = (q - x) / width;
+      const near: [number, number][] = [[x - 1, y], [x + 1, y], [x, y - 1], [x, y + 1]];
+      for (const [nx, ny] of near) {
+        if (nx < 0 || ny < 0 || nx >= width || ny >= height) continue;
+        const r = ny * width + nx;
+        if (label[r] === -1 && at(rgba, r * 4 + 3) >= 24) {
+          label[r] = id;
+          stack.push(r);
+        }
+      }
+    }
+    sizes.push(size);
+  }
+  const keep = sizes.map((s) => s >= n * SPECK_MAX_SHARE || s === Math.max(...sizes));
+  for (let p = 0; p < n; p++) {
+    const id = at(label, p);
+    if (id >= 0 && !keep[id]) rgba[p * 4 + 3] = 0;
+  }
 }
