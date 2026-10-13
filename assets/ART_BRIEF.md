@@ -22,7 +22,7 @@
 1. **Сначала якорь стиля.** Первым сгенерируйте фон комнаты `room_bg` и одну-две картинки объектов. Выберите удачные и используйте их как референс стиля для всех остальных: в Midjourney это `--sref <ссылка>`, в Stable Diffusion — IP-Adapter, в других сервисах — «загрузить изображение-референс».
 2. **Один общий префикс.** Каждый промпт ниже — это общий префикс стиля плюс описание конкретного ассета. Префикс не меняйте от картинки к картинке.
 3. **Состояния объекта — из одной картинки.** Сначала сгенерируйте **восстановленное** состояние (последнее). Остальные состояния делайте из него через img2img или inpainting с небольшой силой изменений (0,3–0,5), чтобы форма, ракурс и размер не менялись. Объект должен узнаваться во всех состояниях: игрок видит, как чинит *этот же* верстак.
-4. **Прозрачный фон.** Объекты, предметы и завал нужны в PNG с прозрачностью. Большинство генераторов прозрачность не выдают: генерируйте на ровном белом фоне (так и написано в суффиксе спрайта), потом уберите фон (remove.bg, Photoshop, Krita, встроенные инструменты генератора).
+4. **Прозрачный фон.** Объекты, предметы и завал нужны в PNG с прозрачностью. Генерируйте на ровном белом фоне (так и написано в суффиксе спрайта) — белый фон и светлые тени `npm run images` уберёт сам. Вручную убирать фон не нужно.
 5. **Размер.** Генерируйте крупно и уменьшайте. Финальный файл — не меньше указанного в таблицах «размера файла» (это 2× от размера на экране: для чётких телефонных экранов). Больше не нужно: лишний вес замедлит загрузку.
 6. **Без текста.** Никаких букв, цифр, надписей и логотипов на картинках: игра на двух языках, а платформа просит медиаматериалы без текста. Где по сюжету есть надпись (записка, подписи на коробке, гравировка) — она «неразборчивая».
 7. **Лицензия.** Проверьте, что условия генератора разрешают коммерческое использование (в игре есть реклама). Запишите сервис и тариф в `LICENSES.md`.
@@ -34,22 +34,24 @@
 ## Общий префикс стиля (для всех картинок)
 
 ```
-cozy hand-painted 2D game art, warm nostalgic mood, soft painterly brush texture with clean readable silhouettes, gentle warm light from the upper left, muted earthy palette of warm wood brown (#8B5E3C), cream (#F3E9D2), faded sage green (#7D9A78), copper (#B87333), dark metal (#3A3F44) and dust grey (#C9C2B5), slight three-quarter front view, mobile casual game asset, family friendly
+cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows
 ```
+
+Для комнат, объектов и куч к нему добавляется ракурс: `frontal view from slightly above (about 30 degrees), like looking into a dollhouse cutaway`. Для фонов комнат — особая композиция, см. 1.1.
 
 ## Суффикс для спрайтов (объекты, завал, предметы, ресурсы)
 
 ```
-single object, centered, fully visible with a small margin, isolated on a plain flat white background, no floor, no cast shadow
+one single object only, centered, the whole object visible with a small empty margin around it, plain flat white background, no floor, no shadow on the ground
 ```
 
 ## Отрицательный промпт (если генератор его поддерживает)
 
-```
-text, letters, numbers, words, writing, watermark, signature, logo, brand name, frame, border, rounded corners, photorealistic, photo, 3d render, plastic look, neon colors, harsh shadows, blurry, cropped, multiple objects, people, hands
-```
+Общий набор N-COMMON — ко всем картинкам; дополнительные наборы (N-SPRITE, N-ROOM, N-CARD и другие) — в конце `PROMPTS.md`, у каждой картинки указано, какой нужен.
 
-Исключение: в `find_f_photo` и `final_card` человек допустим (уберите `people` из отрицательного промпта только для `find_f_photo`).
+```
+text, letters, numbers, words, writing, signs, watermark, signature, logo, brand names, user interface, frame, border, rounded corners, photorealistic, photograph, 3d render, CGI, plastic look, glossy, neon colors, oversaturated, harsh black shadows, noise, blurry, low resolution, jpeg artifacts, deformed, distorted perspective, fisheye, tilted horizon
+```
 
 ## Словарь состояний объектов
 
@@ -58,8 +60,8 @@ text, letters, numbers, words, writing, watermark, signature, logo, brand name, 
 | Состояние | Фраза |
 | --- | --- |
 | заброшено (шаг 0) | `abandoned and neglected, covered in thick dust and cobwebs, broken and missing parts, faded desaturated grey-brown colors` |
-| частично починено | `partly repaired: cleaned of dust, some parts fixed or replaced, a few signs of wear remain, colors warmer` |
-| восстановлено (последний шаг) | `fully restored and cared for, clean polished surfaces, warm rich saturated colors, cozy and lived-in` |
+| частично починено | `partly repaired: cleaned of dust, some parts fixed or replaced, a few signs of wear remain, warmer colors` |
+| восстановлено (последний шаг) | `fully restored and cared for, clean polished surfaces, warm rich colors, cozy and lived-in` |
 
 ---
 
@@ -69,9 +71,7 @@ text, letters, numbers, words, writing, watermark, signature, logo, brand name, 
 | --- | --- | --- | --- | --- |
 | `room_bg` | Пустой интерьер мастерской, на который сверху ставятся все объекты и завалы | 720×848 | 1440×1696 | ≈ 5:6 (генерируйте 4:5 и обрежьте) |
 
-```
-[префикс], interior of a small old family workshop seen from the front, empty room without furniture: wooden plank back wall, worn wooden floorboards, a little warm daylight, plenty of empty wall and floor space where furniture will be placed later, calm and cozy, full background, no objects in the middle
-```
+**Композиция (важно, с версии 0.8):** игра ставит объекты по сетке — всё настенное в верхней половине комнаты, всё напольное в нижней. Поэтому задняя стена смотрит прямо на зрителя и занимает **ровно верхнюю половину**, плинтус — горизонтальная линия **посередине высоты**, ниже — пол с мягкой перспективой; без боковых стен, потолка и балок. Готовый промпт, картинка-подсказка композиции (`assets/source/guides/room_bg_guide.png`) и схема расстановки (`room_bg_layout.jpg`) — в `ART_TODO.md`, раздел 1.4.
 
 Важно: окно, шкаф, верстак и всё остальное — отдельные спрайты поверх фона. На фоне их рисовать не нужно, иначе при ремонте будет видно «два верстака».
 
@@ -261,6 +261,19 @@ text, letters, numbers, words, writing, watermark, signature, logo, brand name, 
 
 **Находки и финал** (1120×840, 4:3): `find_f_drawing` — детский рисунок, `find_f_palette` — палитра, `find_f_sign` — эскиз вывески (надпись неразборчива), `find_f_apron` — фартук в краске, `find_f_brush` — старая кисть в изоленте, `final_card_paint` — обе комнаты ожили, финал игры.
 
+## 1.10. Вступление (с версии 0.8)
+
+Четыре карточки истории перед обучением, формат как у находок: 1120×840, 4:3, полный кадр, без надписей и без людей.
+
+| Ключ | Сюжет |
+| --- | --- |
+| `story_city` | Усталый вечерний город за окном квартиры, дождь, холодная палитра |
+| `story_key` | Старый латунный ключ с **пустой** картонной биркой в ящике стола |
+| `story_road` | Сельская автобусная остановка на рассвете, сумка на скамейке, дорога к посёлку |
+| `story_arrival` | Приоткрытая дверь пыльной мастерской, коробки у порога, лучи света |
+
+Готовые промпты — в `PROMPTS.md`, раздел 10, и в `ART_TODO.md`, раздел 2.0.
+
 ---
 
 # Часть 2. Звук
@@ -275,6 +288,8 @@ text, letters, numbers, words, writing, watermark, signature, logo, brand name, 
 - Источники: ИИ-генераторы звуков (например, ElevenLabs Sound Effects и аналоги — проверьте право на коммерческое использование), библиотеки: freesound.org (берите **CC0**; CC-BY можно с указанием автора в `LICENSES.md`; **NC не подходит** — в игре реклама), Pixabay Sound Effects, Sonniss GDC bundle.
 
 ## 2.1. Эффекты
+
+Пять звуков интерфейса (`sfx_tap`, `sfx_open`, `sfx_soft`, `sfx_merge`, `sfx_repair`) уже синтезированы кодом и подключены (`npm run sounds`); заменять их не обязательно. Нужны звуки завала, мелодия радио и, по желанию, музыка.
 
 | Ключ | Когда звучит | Длительность | Промпт для генератора | Поиск в библиотеке |
 | --- | --- | --- | --- | --- |
