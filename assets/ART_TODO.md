@@ -1,6 +1,6 @@
 # Графика: что переделать и что осталось
 
-Состояние на 13.10.2026: подключено 86 из 90 нужных картинок. Ниже два блока: **что переделать** (уже подключено, но с недостатками) и **что ещё не сгенерировано**. У каждой картинки — размер, промпт и отрицательный промпт; наборы N-… расписаны в конце файла, к каждому добавляйте N-COMMON.
+Состояние на 13.10.2026: подключено 90 из 90 нужных картинок. Ниже два блока: **что переделать** (уже подключено, но с недостатками) и **что ещё не сгенерировано**. У каждой картинки — размер, промпт и отрицательный промпт; наборы N-… расписаны в конце файла, к каждому добавляйте N-COMMON.
 
 Общие правила те же, что в `PROMPTS.md`:
 - генерируйте приватно (тариф Essential), на ровном белом фоне для спрайтов — фон я уберу сам при подключении;
@@ -241,46 +241,9 @@ Clearly abandoned for many years: the tabletop boards are cracked, warped and st
 Same cozy hand-painted 2D style, original design, lighting, white background and framing. No redesign, no new or missing parts, no text or numbers.
 ```
 
-## 1.7. Стеллаж с красками: убрать стену
+## 1.7. Стеллаж с красками: убрать стену — ✅ готово 13.10.2026
 
-**Что не так:**
-- **Стеллаж с красками** (`obj_paint_rack_0…3`) нарисован на стене с плинтусом и полом, а не на белом фоне — вырезать его автоматически чисто нельзя, поэтому в игре пока заглушка. Нужно убрать фон правкой каждой из четырёх картинок (текст один и тот же).
-
-### `obj_paint_rack_0` — Стеллаж с красками, шаг 0 из 3 — убрать стену
-
-- **Как делать:** правка уже готовой картинки `obj_paint_rack_0` (откройте её карточку в Leonardo).
-- **Отрицательный промпт:** не нужен — это правка готовой картинки
-
-```
-Edit this exact image: keep the paint rack with its cans exactly as it is — same shape, colors, details and camera angle. Remove the wall, the baseboard and the floor around and under it, and the shadow on the wall: replace everything around the paint rack with its cans with a plain flat pure white background. No redesign, no new or missing parts, no text or numbers.
-```
-
-### `obj_paint_rack_1` — Стеллаж с красками, шаг 1 из 3 — убрать стену
-
-- **Как делать:** правка уже готовой картинки `obj_paint_rack_1` (откройте её карточку в Leonardo).
-- **Отрицательный промпт:** не нужен — это правка готовой картинки
-
-```
-Edit this exact image: keep the paint rack with its cans exactly as it is — same shape, colors, details and camera angle. Remove the wall, the baseboard and the floor around and under it, and the shadow on the wall: replace everything around the paint rack with its cans with a plain flat pure white background. No redesign, no new or missing parts, no text or numbers.
-```
-
-### `obj_paint_rack_2` — Стеллаж с красками, шаг 2 из 3 — убрать стену
-
-- **Как делать:** правка уже готовой картинки `obj_paint_rack_2` (откройте её карточку в Leonardo).
-- **Отрицательный промпт:** не нужен — это правка готовой картинки
-
-```
-Edit this exact image: keep the paint rack with its cans exactly as it is — same shape, colors, details and camera angle. Remove the wall, the baseboard and the floor around and under it, and the shadow on the wall: replace everything around the paint rack with its cans with a plain flat pure white background. No redesign, no new or missing parts, no text or numbers.
-```
-
-### `obj_paint_rack_3` — Стеллаж с красками, шаг 3 из 3 — убрать стену
-
-- **Как делать:** правка уже готовой картинки `obj_paint_rack_3` (откройте её карточку в Leonardo).
-- **Отрицательный промпт:** не нужен — это правка готовой картинки
-
-```
-Edit this exact image: keep the paint rack with its cans exactly as it is — same shape, colors, details and camera angle. Remove the wall, the baseboard and the floor around and under it, and the shadow on the wall: replace everything around the paint rack with its cans with a plain flat pure white background. No redesign, no new or missing parts, no text or numbers.
-```
+Стеллаж (`obj_paint_rack_0…3`) перерисован на белом фоне и подключён. Прежние версии на стене лежат в `assets/source/raw/paint_rack_wall/`, в игре они не используются.
 
 ---
 
@@ -288,7 +251,7 @@ Edit this exact image: keep the paint rack with its cans exactly as it is — sa
 
 Кучи завала (`zone_*`) и фоны сцен разбора (`scene_*`) рисовать **не нужно**: игра собирает кучу из спрайтов завала, а фон сцены — из увеличенного фона комнаты (минус 26 картинок). Если когда-нибудь захочется отдельный рисунок для зоны, его промпт остался в `PROMPTS.md`, и он сам заменит собранный вариант.
 
-✅ **Всё нужное сгенерировано** (13.10.2026). Осталось поправить только то, что перечислено в разделе 1.7.
+✅ **Всё нужное сгенерировано** (13.10.2026). Все 90 картинок подключены в игру.
 
 ---
 

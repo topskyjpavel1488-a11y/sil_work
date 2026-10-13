@@ -397,25 +397,25 @@
       }
     },
     "obj_paint_rack_0": {
-      "file": null,
+      "file": "images/obj_paint_rack_0.png",
       "placeholder": {
         "color": "#C9C2B5"
       }
     },
     "obj_paint_rack_1": {
-      "file": null,
+      "file": "images/obj_paint_rack_1.png",
       "placeholder": {
         "color": "#B0B5A1"
       }
     },
     "obj_paint_rack_2": {
-      "file": null,
+      "file": "images/obj_paint_rack_2.png",
       "placeholder": {
         "color": "#96A78C"
       }
     },
     "obj_paint_rack_3": {
-      "file": null,
+      "file": "images/obj_paint_rack_3.png",
       "placeholder": {
         "color": "#7D9A78"
       }
