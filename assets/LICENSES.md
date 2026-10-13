@@ -6,14 +6,14 @@
 
 | Ключи | Что | Источник | Лицензия |
 | --- | --- | --- | --- |
-| `logo`, `find_*`, `final_card`, `room_bg`, `obj_workbench_3` | иллюстрации, сгенерированные нейросетью по промптам из `PROMPTS.md` | оригиналы в `assets/source/images/` | Leonardo.ai, бесплатный тариф (временные заглушки) — см. ниже |
+| все картинки с файлом в `manifest.json` (фоны, объекты, завал, предметы, ресурсы, находки, финальные карточки, логотип) | иллюстрации, сгенерированные нейросетью по промптам из `PROMPTS.md` (13.10.2026) | присланные файлы — в `assets/source/raw/`; подготовленные (без фона, обрезанные) — в `assets/source/images/` | Leonardo.ai, тариф Essential, приватная генерация — см. ниже |
 | остальные `images` в `manifest.json` | цветные прямоугольники-заглушки | рисуются кодом игры | сделаны для проекта |
 | остальные `sounds` в `manifest.json` | короткие синтезированные тона | генерируются кодом через WebAudio | сделаны для проекта |
 | фон по бокам на ПК | узор из полос (CSS в `index.html`) | код игры | сделан для проекта |
 
 Сторонних файлов звука и шрифтов в игре нет; шрифт — системный.
 
-Материалы для каталога (не в игре): `assets/store/store_icon.jpg`, `assets/store/store_cover.png` — Leonardo.ai, бесплатный тариф.
+Материалы для каталога (не в игре): `assets/store/store_icon.png`, `assets/store/store_cover.png` — Leonardo.ai, Essential, приватно (13.10.2026). У иконки убраны рамка и скруглённые углы (требование каталога).
 
 ### Условия Leonardo.ai (бесплатный тариф), проверено 12.10.2026
 
@@ -33,12 +33,12 @@
 
 Что заменить (сейчас с бесплатного тарифа):
 
-- [ ] `room_bg`
-- [ ] `obj_workbench_3`
-- [ ] `find_f_photo`, `find_f_screws`, `find_f_note`, `find_f_radio`, `find_f_clock`
-- [ ] `final_card`
-- [ ] `logo`
-- [ ] `assets/store/store_icon.jpg`, `assets/store/store_cover.png`
+- [x] `room_bg` (13.10.2026; нижняя полоса с подписью-водяным знаком обрезана)
+- [x] `obj_workbench_3`
+- [x] `find_f_photo`, `find_f_screws`, `find_f_note`, `find_f_radio`, `find_f_clock`
+- [x] `final_card`
+- [x] `logo`
+- [x] `assets/store/store_icon.png`, `assets/store/store_cover.png`
 
 Новые картинки, сделанные на Essential, записываются в таблицу выше с пометкой «Leonardo.ai, Essential, приватно».
 

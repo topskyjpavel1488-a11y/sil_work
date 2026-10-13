@@ -1,43 +1,43 @@
 {
   "images": {
     "res_wood": {
-      "file": null,
+      "file": "images/res_wood.png",
       "placeholder": {
         "color": "#8B5E3C"
       }
     },
     "res_metal": {
-      "file": null,
+      "file": "images/res_metal.png",
       "placeholder": {
         "color": "#3A3F44"
       }
     },
     "res_parts": {
-      "file": null,
+      "file": "images/res_parts.png",
       "placeholder": {
         "color": "#B87333"
       }
     },
     "item_fasteners_1": {
-      "file": null,
+      "file": "images/item_fasteners_1.png",
       "placeholder": {
         "color": "#9C9488"
       }
     },
     "item_fasteners_2": {
-      "file": null,
+      "file": "images/item_fasteners_2.png",
       "placeholder": {
         "color": "#7D9A78"
       }
     },
     "item_fasteners_3": {
-      "file": null,
+      "file": "images/item_fasteners_3.png",
       "placeholder": {
         "color": "#B87333"
       }
     },
     "item_fasteners_4": {
-      "file": null,
+      "file": "images/item_fasteners_4.png",
       "placeholder": {
         "color": "#8B5E3C"
       }
@@ -55,7 +55,7 @@
       }
     },
     "obj_workbench_2": {
-      "file": null,
+      "file": "images/obj_workbench_2.png",
       "placeholder": {
         "color": "#BE8D5E"
       }
@@ -67,13 +67,13 @@
       }
     },
     "obj_fastener_box_0": {
-      "file": null,
+      "file": "images/obj_fastener_box_0.png",
       "placeholder": {
         "color": "#C9C2B5"
       }
     },
     "obj_fastener_box_1": {
-      "file": null,
+      "file": "images/obj_fastener_box_1.png",
       "placeholder": {
         "color": "#B87333"
       }
@@ -91,91 +91,91 @@
       }
     },
     "obj_lamp_2": {
-      "file": null,
+      "file": "images/obj_lamp_2.png",
       "placeholder": {
         "color": "#B87333"
       }
     },
     "obj_window_0": {
-      "file": null,
+      "file": "images/obj_window_0.png",
       "placeholder": {
         "color": "#C9C2B5"
       }
     },
     "obj_window_1": {
-      "file": null,
+      "file": "images/obj_window_1.png",
       "placeholder": {
         "color": "#C19B74"
       }
     },
     "obj_window_2": {
-      "file": null,
+      "file": "images/obj_window_2.png",
       "placeholder": {
         "color": "#B87333"
       }
     },
     "obj_cabinet_0": {
-      "file": null,
+      "file": "images/obj_cabinet_0.png",
       "placeholder": {
         "color": "#C9C2B5"
       }
     },
     "obj_cabinet_1": {
-      "file": null,
+      "file": "images/obj_cabinet_1.png",
       "placeholder": {
         "color": "#C3A88A"
       }
     },
     "obj_cabinet_2": {
-      "file": null,
+      "file": "images/obj_cabinet_2.png",
       "placeholder": {
         "color": "#BE8D5E"
       }
     },
     "obj_cabinet_3": {
-      "file": null,
+      "file": "images/obj_cabinet_3.png",
       "placeholder": {
         "color": "#B87333"
       }
     },
     "obj_shelf_0": {
-      "file": null,
+      "file": "images/obj_shelf_0.png",
       "placeholder": {
         "color": "#C9C2B5"
       }
     },
     "obj_shelf_1": {
-      "file": null,
+      "file": "images/obj_shelf_1.png",
       "placeholder": {
         "color": "#C19B74"
       }
     },
     "obj_shelf_2": {
-      "file": null,
+      "file": "images/obj_shelf_2.png",
       "placeholder": {
         "color": "#B87333"
       }
     },
     "obj_radio_0": {
-      "file": null,
+      "file": "images/obj_radio_0.png",
       "placeholder": {
         "color": "#C9C2B5"
       }
     },
     "obj_radio_1": {
-      "file": null,
+      "file": "images/obj_radio_1.png",
       "placeholder": {
         "color": "#C19B74"
       }
     },
     "obj_radio_2": {
-      "file": null,
+      "file": "images/obj_radio_2.png",
       "placeholder": {
         "color": "#B87333"
       }
     },
     "obj_wall_clock_0": {
-      "file": null,
+      "file": "images/obj_wall_clock_0.png",
       "placeholder": {
         "color": "#C9C2B5"
       }
@@ -229,37 +229,37 @@
       }
     },
     "debris_box": {
-      "file": null,
+      "file": "images/debris_box.png",
       "placeholder": {
         "color": "#A67B5B"
       }
     },
     "debris_sack": {
-      "file": null,
+      "file": "images/debris_sack.png",
       "placeholder": {
         "color": "#BFA982"
       }
     },
     "debris_plank": {
-      "file": null,
+      "file": "images/debris_plank.png",
       "placeholder": {
         "color": "#8B5E3C"
       }
     },
     "debris_jar": {
-      "file": null,
+      "file": "images/debris_jar.png",
       "placeholder": {
         "color": "#7D9A78"
       }
     },
     "debris_rag": {
-      "file": null,
+      "file": "images/debris_rag.png",
       "placeholder": {
         "color": "#D2C3B0"
       }
     },
     "debris_crate": {
-      "file": null,
+      "file": "images/debris_crate.png",
       "placeholder": {
         "color": "#6B5B4B"
       }
@@ -349,7 +349,7 @@
       }
     },
     "room_paint_bg": {
-      "file": null,
+      "file": "images/room_paint_bg.jpg",
       "placeholder": {
         "color": "#DCE3D6"
       }
@@ -607,43 +607,43 @@
       }
     },
     "debris_bucket": {
-      "file": null,
+      "file": "images/debris_bucket.png",
       "placeholder": {
         "color": "#8FA3B0"
       }
     },
     "item_paints_1": {
-      "file": null,
+      "file": "images/item_paints_1.png",
       "placeholder": {
         "color": "#B8B0C8"
       }
     },
     "item_paints_2": {
-      "file": null,
+      "file": "images/item_paints_2.png",
       "placeholder": {
         "color": "#6E8FB3"
       }
     },
     "item_paints_3": {
-      "file": null,
+      "file": "images/item_paints_3.png",
       "placeholder": {
         "color": "#C77D6B"
       }
     },
     "item_paints_4": {
-      "file": null,
+      "file": "images/item_paints_4.png",
       "placeholder": {
         "color": "#5E7D59"
       }
     },
     "find_f_drawing": {
-      "file": null,
+      "file": "images/find_f_drawing.jpg",
       "placeholder": {
         "color": "#C8B08A"
       }
     },
     "find_f_palette": {
-      "file": null,
+      "file": "images/find_f_palette.jpg",
       "placeholder": {
         "color": "#C8B08A"
       }
@@ -655,19 +655,19 @@
       }
     },
     "find_f_apron": {
-      "file": null,
+      "file": "images/find_f_apron.jpg",
       "placeholder": {
         "color": "#C8B08A"
       }
     },
     "find_f_brush": {
-      "file": null,
+      "file": "images/find_f_brush.jpg",
       "placeholder": {
         "color": "#C8B08A"
       }
     },
     "final_card_paint": {
-      "file": null,
+      "file": "images/final_card_paint.jpg",
       "placeholder": {
         "color": "#E0B872"
       }
