@@ -10,6 +10,8 @@
 
 Как подключать готовые файлы — в `ART_BRIEF.md`; можно просто прислать мне файлы, названные по ключам.
 
+**Состояния объектов (с 13.10.2026):** восстановленное состояние генерируется по промпту; остальные — **правками этой картинки в Leonardo** (карточка картинки → поле под ней с названием модели). Для таких ключей вместо промпта генерации дан текст правки по шаблону «Edit this exact …, preserving its silhouette…», отрицательный промпт не нужен. Так получились часы — состояния совпадают по форме до пикселя.
+
 **Что делать сейчас — в `ART_TODO.md`:** там список того, что ещё не нарисовано и что нужно переделать. Этот файл — полный справочник промптов на все картинки игры.
 
 ## 1. Фоны комнат
@@ -48,52 +50,64 @@ cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden af
 
 - **Размер файла:** 912×336 px
 - **Соотношение:** горизонтальный ≈ 3:1 (генерируйте 16:9 и обрежьте пустые края)
-- **Отрицательный промпт:** N-SPRITE + N-COMMON
-- **Важно:** Делайте из восстановленного состояния через img2img (сила 0,3–0,5), чтобы форма и ракурс совпали.
+- **Отрицательный промпт:** не нужен — это правка готовой картинки, всё нужное сказано в тексте
+- **Как делать:** это не новая генерация, а **правка готового восстановленного состояния** (`_3`). Откройте в Leonardo карточку выбранного варианта `_3` и попросите модель отредактировать его текстом ниже (поле под картинкой с названием модели). Если форма или ракурс поплыли — повторите правку; удачный результат сохраните под этим ключом.
 
 ```
-cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, frontal view from slightly above (about 30 degrees), like looking into a dollhouse cutaway, a sturdy old wooden carpenter's workbench with a metal vise on the left end, abandoned and neglected, covered in thick dust and cobwebs, broken and missing parts, faded desaturated grey-brown colors, cracked and warped tabletop boards, a rusty vise, a broken leg brace, one single object only, centered, the whole object visible with a small empty margin around it, plain flat white background, no floor, no shadow on the ground
+Edit this exact workbench, preserving its silhouette, proportions, tabletop, vise, drawers, legs and camera angle.
+
+Clearly abandoned for many years: the tabletop boards are cracked, warped and stained, edges chipped, heavy dust and grime on every surface. The vise is rusty and dull. The drawers are scratched with peeling finish, one drawer front is cracked. A cross brace between the legs is split. No tools on the tabletop. The workbench looks neglected, broken and long forgotten, with obvious damage across the entire object.
+
+Same cozy hand-painted 2D style, original design, lighting, white background and framing. No redesign, no new or missing parts, no text or numbers.
 ```
 
 ### `obj_workbench_1` — Верстак, шаг 1 из 3 (частично починено)
 
 - **Размер файла:** 912×336 px
 - **Соотношение:** горизонтальный ≈ 3:1 (генерируйте 16:9 и обрежьте пустые края)
-- **Отрицательный промпт:** N-SPRITE + N-COMMON
-- **Важно:** Делайте из восстановленного состояния через img2img (сила 0,3–0,5), чтобы форма и ракурс совпали.
+- **Отрицательный промпт:** не нужен — это правка готовой картинки, всё нужное сказано в тексте
+- **Как делать:** это не новая генерация, а **правка готового восстановленного состояния** (`_3`). Откройте в Leonardo карточку выбранного варианта `_3` и попросите модель отредактировать его текстом ниже (поле под картинкой с названием модели). Если форма или ракурс поплыли — повторите правку; удачный результат сохраните под этим ключом.
 
 ```
-cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, frontal view from slightly above (about 30 degrees), like looking into a dollhouse cutaway, a sturdy old wooden carpenter's workbench with a metal vise on the left end, partly repaired: cleaned of dust, some parts fixed or replaced, a few signs of wear remain, warmer colors, brand-new light wooden boards on the tabletop, the vise still rusty, one single object only, centered, the whole object visible with a small empty margin around it, plain flat white background, no floor, no shadow on the ground
+Edit this exact workbench, preserving its silhouette, proportions, tabletop, vise, drawers, legs and camera angle.
+
+Clearly partially repaired, first stage: the tabletop is made of fresh, light new boards, clean and bright. Everything below the tabletop is still old: dark, scratched, dusty legs and drawers, a split cross brace, a rusty vise. No tools on the tabletop.
+
+The workbench must visibly look mid-repair, with strong contrast between fixed and damaged areas. Same cozy hand-painted 2D style, original colors, lighting, white background and framing. No redesign, no new or missing parts, no text or numbers.
 ```
 
 ### `obj_workbench_2` — Верстак, шаг 2 из 3 (частично починено)
 
 - **Размер файла:** 912×336 px
 - **Соотношение:** горизонтальный ≈ 3:1 (генерируйте 16:9 и обрежьте пустые края)
-- **Отрицательный промпт:** N-SPRITE + N-COMMON
-- **Важно:** Делайте из восстановленного состояния через img2img (сила 0,3–0,5), чтобы форма и ракурс совпали.
+- **Отрицательный промпт:** не нужен — это правка готовой картинки, всё нужное сказано в тексте
+- **Как делать:** это не новая генерация, а **правка готового восстановленного состояния** (`_3`). Откройте в Leonardo карточку выбранного варианта `_3` и попросите модель отредактировать его текстом ниже (поле под картинкой с названием модели). Если форма или ракурс поплыли — повторите правку; удачный результат сохраните под этим ключом.
 
 ```
-cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, frontal view from slightly above (about 30 degrees), like looking into a dollhouse cutaway, a sturdy old wooden carpenter's workbench with a metal vise on the left end, partly repaired: cleaned of dust, some parts fixed or replaced, a few signs of wear remain, warmer colors, new tabletop, the frame firmly fastened with fresh screws and brackets, the vise cleaned, one single object only, centered, the whole object visible with a small empty margin around it, plain flat white background, no floor, no shadow on the ground
+Edit this exact workbench, preserving its silhouette, proportions, tabletop, vise, drawers, legs and camera angle.
+
+Clearly almost repaired: the new light tabletop is in place and the frame is firmly fixed — fresh screws and small new metal brackets are visible at the joints, the cross brace is whole. The vise is cleaned of rust but still bare metal. The drawers remain worn and scratched, one drawer front still has a crack. No tools on the tabletop.
+
+The workbench must visibly look mid-repair, with strong contrast between fixed and damaged areas. Same cozy hand-painted 2D style, original colors, lighting, white background and framing. No redesign, no new or missing parts, no text or numbers.
 ```
 
 ### `obj_workbench_3` — Верстак, шаг 3 из 3 (восстановлено)
 
 - **Размер файла:** 912×336 px
 - **Соотношение:** горизонтальный ≈ 3:1 (генерируйте 16:9 и обрежьте пустые края)
-- **Отрицательный промпт:** N-SPRITE + N-COMMON
-- **Важно:** Генерируйте это состояние первым, остальные — из него через img2img (сила 0,3–0,5).
+- **Отрицательный промпт:** N-SPRITE + N-COMMON, дополнительно: `second vise, vise at both ends, cluttered tabletop, lamp, boxes on the tabletop`
+- **Важно:** верстак переделывается полностью (13.10.2026). Генерируйте это состояние первым. Середина столешницы должна остаться **свободной**: на неё игра ставит лампу и ящик с крепежом — отдельными картинками. Столешница должна хорошо читаться как ровная поверхность, тиски — одни, слева.
 
 ```
-cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, frontal view from slightly above (about 30 degrees), like looking into a dollhouse cutaway, a sturdy old wooden carpenter's workbench with a metal vise on the left end, fully restored and cared for, clean polished surfaces, warm rich colors, cozy and lived-in, a few hand tools neatly laid on the tabletop, the vise polished, one single object only, centered, the whole object visible with a small empty margin around it, plain flat white background, no floor, no shadow on the ground
+cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, frontal view from slightly above (about 30 degrees), like looking into a dollhouse cutaway, a long sturdy old wooden carpenter's workbench seen from the front, very wide and low, the thick wooden tabletop clearly visible from slightly above as a flat surface across the whole length, one small metal vise at the left end, two drawers under the tabletop and a lower shelf between the legs, fully restored and cared for, clean polished surfaces, warm rich colors, cozy and lived-in, a couple of small hand tools neatly laid at the right end of the tabletop, the middle of the tabletop left empty, one single object only, centered, the whole object visible with a small empty margin around it, plain flat white background, no floor, no shadow on the ground
 ```
 
 ### `obj_fastener_box_0` — Ящик с крепежом, шаг 0 из 1 (заброшено)
 
-- **Размер файла:** 448×256 px
+- **Размер файла:** 368×208 px
 - **Соотношение:** горизонтальный 16:9
 - **Отрицательный промпт:** N-SPRITE + N-COMMON
-- **Важно:** Делайте из восстановленного состояния через img2img (сила 0,3–0,5), чтобы форма и ракурс совпали.
+- **Важно:** делайте правкой восстановленного состояния в Leonardo (шаблон — в `ART_BRIEF.md`, «Состояния объектов»).
 
 ```
 cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, frontal view from slightly above (about 30 degrees), like looking into a dollhouse cutaway, a small wooden cabinet of many little drawers for screws and nails, abandoned and neglected, covered in thick dust and cobwebs, broken and missing parts, faded desaturated grey-brown colors, drawers crooked and stuck, some missing, one single object only, centered, the whole object visible with a small empty margin around it, plain flat white background, no floor, no shadow on the ground
@@ -101,10 +115,10 @@ cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden af
 
 ### `obj_fastener_box_1` — Ящик с крепежом, шаг 1 из 1 (восстановлено)
 
-- **Размер файла:** 448×256 px
+- **Размер файла:** 368×208 px
 - **Соотношение:** горизонтальный 16:9
 - **Отрицательный промпт:** N-SPRITE + N-COMMON
-- **Важно:** Генерируйте это состояние первым, остальные — из него через img2img (сила 0,3–0,5).
+- **Важно:** генерируйте это состояние первым; остальные — правками этой картинки в Leonardo.
 
 ```
 cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, frontal view from slightly above (about 30 degrees), like looking into a dollhouse cutaway, a small wooden cabinet of many little drawers for screws and nails, fully restored and cared for, clean polished surfaces, warm rich colors, cozy and lived-in, all drawers straight, small copper handles shining, one single object only, centered, the whole object visible with a small empty margin around it, plain flat white background, no floor, no shadow on the ground
@@ -114,22 +128,30 @@ cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden af
 
 - **Размер файла:** 448×256 px
 - **Соотношение:** горизонтальный 16:9 (лампа может стоять в кадре с полями по бокам)
-- **Отрицательный промпт:** N-SPRITE + N-COMMON
-- **Важно:** Делайте из восстановленного состояния через img2img (сила 0,3–0,5), чтобы форма и ракурс совпали.
+- **Отрицательный промпт:** не нужен — это правка готовой картинки, всё нужное сказано в тексте
+- **Как делать:** это не новая генерация, а **правка готового восстановленного состояния** (`_2`). Откройте в Leonardo карточку выбранного варианта `_2` и попросите модель отредактировать его текстом ниже (поле под картинкой с названием модели). Если форма или ракурс поплыли — повторите правку; удачный результат сохраните под этим ключом.
 
 ```
-cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, frontal view from slightly above (about 30 degrees), like looking into a dollhouse cutaway, a vintage articulated desk lamp with a round metal shade on a heavy base, abandoned and neglected, covered in thick dust and cobwebs, broken and missing parts, faded desaturated grey-brown colors, the shade dented, the arm bent, the cord frayed, one single object only, centered, the whole object visible with a small empty margin around it, plain flat white background, no floor, no shadow on the ground
+Edit this exact desk lamp, preserving its silhouette, proportions, shade, arm joints, base and camera angle.
+
+Clearly abandoned for many years: the metal shade is dented and tarnished, the paint on the arm is chipped and peeling, the joints are rusty, the base is scratched and covered in dust and grime, the cord is frayed. The lamp is switched off, no light at all. It looks neglected, broken and long forgotten, with obvious damage across the entire object.
+
+Same cozy hand-painted 2D style, original design, lighting, white background and framing. No redesign, no new or missing parts, no text or numbers.
 ```
 
 ### `obj_lamp_1` — Настольная лампа, шаг 1 из 2 (частично починено)
 
 - **Размер файла:** 448×256 px
 - **Соотношение:** горизонтальный 16:9 (лампа может стоять в кадре с полями по бокам)
-- **Отрицательный промпт:** N-SPRITE + N-COMMON
-- **Важно:** Делайте из восстановленного состояния через img2img (сила 0,3–0,5), чтобы форма и ракурс совпали.
+- **Отрицательный промпт:** не нужен — это правка готовой картинки, всё нужное сказано в тексте
+- **Как делать:** это не новая генерация, а **правка готового восстановленного состояния** (`_2`). Откройте в Leonardo карточку выбранного варианта `_2` и попросите модель отредактировать его текстом ниже (поле под картинкой с названием модели). Если форма или ракурс поплыли — повторите правку; удачный результат сохраните под этим ключом.
 
 ```
-cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, frontal view from slightly above (about 30 degrees), like looking into a dollhouse cutaway, a vintage articulated desk lamp with a round metal shade on a heavy base, partly repaired: cleaned of dust, some parts fixed or replaced, a few signs of wear remain, warmer colors, repaired and straight, switched off, one single object only, centered, the whole object visible with a small empty margin around it, plain flat white background, no floor, no shadow on the ground
+Edit this exact desk lamp, preserving its silhouette, proportions, shade, arm joints, base and camera angle.
+
+Clearly partially repaired: the arm and joints are straightened, cleaned and freshly oiled; the base is polished. The shade is still dented and partly tarnished, the cord is wrapped with fresh tape at one spot. The lamp is switched off, no light at all.
+
+The desk lamp must visibly look mid-repair, with strong contrast between fixed and damaged areas. Same cozy hand-painted 2D style, original colors, lighting, white background and framing. No redesign, no new or missing parts, no text or numbers.
 ```
 
 ### `obj_lamp_2` — Настольная лампа, шаг 2 из 2 (восстановлено)
@@ -137,7 +159,7 @@ cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden af
 - **Размер файла:** 448×256 px
 - **Соотношение:** горизонтальный 16:9 (лампа может стоять в кадре с полями по бокам)
 - **Отрицательный промпт:** N-SPRITE + N-COMMON
-- **Важно:** Генерируйте это состояние первым, остальные — из него через img2img (сила 0,3–0,5).
+- **Важно:** генерируйте это состояние первым и выберите лучший вариант. Остальные состояния — правками этой картинки в Leonardo (тексты у соседних ключей).
 
 ```
 cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, frontal view from slightly above (about 30 degrees), like looking into a dollhouse cutaway, a vintage articulated desk lamp with a round metal shade on a heavy base, fully restored and cared for, clean polished surfaces, warm rich colors, cozy and lived-in, switched on, glowing with soft warm yellow light, a gentle glow halo around the shade, one single object only, centered, the whole object visible with a small empty margin around it, plain flat white background, no floor, no shadow on the ground
@@ -145,28 +167,32 @@ cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden af
 
 ### `obj_window_0` — Окно, шаг 0 из 2 (заброшено)
 
-> Обновлено 13.10.2026 (см. `ART_TODO.md`).
-
 - **Размер файла:** 448×304 px
 - **Соотношение:** горизонтальный 3:2
-- **Отрицательный промпт:** N-SPRITE + N-COMMON, дополнительно: `plaster, wall patch, brush strokes around the object`
-- **Из `obj_window_2` через img2img, сила 0,4–0,5.**
+- **Отрицательный промпт:** не нужен — это правка готовой картинки, всё нужное сказано в тексте
+- **Как делать:** это не новая генерация, а **правка готового восстановленного состояния** (`_2`). Откройте в Leonardo карточку выбранного варианта `_2` и попросите модель отредактировать его текстом ниже (поле под картинкой с названием модели). Если форма или ракурс поплыли — повторите правку; удачный результат сохраните под этим ключом.
 
 ```
-cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, frontal view from slightly above (about 30 degrees), like looking into a dollhouse cutaway, an old small-paned wooden window seen straight on, as a separate object, crisp clean edges around the frame, nothing around the frame, no wall, no plaster, no paint strokes around it, abandoned and neglected, covered in thick dust and cobwebs, broken and missing parts, faded desaturated grey-brown colors, dirty cracked panes, peeling paint on the frame, cobwebs in the corners, one single object only, centered, the whole object visible with a small empty margin around it, plain flat white background, no floor, no shadow on the ground
+Edit this exact window, preserving its silhouette, proportions, frame, panes, glazing bars and camera angle.
+
+Clearly abandoned for many years: the wooden frame is weathered and grey with peeling paint, the glass panes are dirty, cloudy and cracked, cobwebs in the corners, heavy dust on the sill. The view outside is barely visible. Nothing around the frame: no wall, no plaster, no paint strokes. It looks neglected, broken and long forgotten, with obvious damage across the entire object.
+
+Same cozy hand-painted 2D style, original design, lighting, white background and framing. No redesign, no new or missing parts, no text or numbers.
 ```
 
 ### `obj_window_1` — Окно, шаг 1 из 2 (частично починено)
 
-> Обновлено 13.10.2026 (см. `ART_TODO.md`).
-
 - **Размер файла:** 448×304 px
 - **Соотношение:** горизонтальный 3:2
-- **Отрицательный промпт:** N-SPRITE + N-COMMON, дополнительно: `plaster, wall patch, brush strokes around the object`
-- **Из `obj_window_2` через img2img, сила 0,3–0,5.**
+- **Отрицательный промпт:** не нужен — это правка готовой картинки, всё нужное сказано в тексте
+- **Как делать:** это не новая генерация, а **правка готового восстановленного состояния** (`_2`). Откройте в Leonardo карточку выбранного варианта `_2` и попросите модель отредактировать его текстом ниже (поле под картинкой с названием модели). Если форма или ракурс поплыли — повторите правку; удачный результат сохраните под этим ключом.
 
 ```
-cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, frontal view from slightly above (about 30 degrees), like looking into a dollhouse cutaway, an old small-paned wooden window seen straight on, as a separate object, crisp clean edges around the frame, nothing around the frame, no wall, no plaster, no paint strokes around it, partly repaired: cleaned of dust, some parts fixed or replaced, a few signs of wear remain, warmer colors, the frame repaired and repainted sage green, the glass still cloudy, one single object only, centered, the whole object visible with a small empty margin around it, plain flat white background, no floor, no shadow on the ground
+Edit this exact window, preserving its silhouette, proportions, frame, panes, glazing bars and camera angle.
+
+Clearly partially repaired: the frame is repaired and freshly repainted sage green, clean and bright. The glass panes are still cloudy and dusty, one pane still has a crack. Nothing around the frame: no wall, no plaster, no paint strokes.
+
+The window must visibly look mid-repair, with strong contrast between fixed and damaged areas. Same cozy hand-painted 2D style, original colors, lighting, white background and framing. No redesign, no new or missing parts, no text or numbers.
 ```
 
 ### `obj_window_2` — Окно, шаг 2 из 2 (восстановлено)
@@ -186,7 +212,7 @@ cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden af
 - **Размер файла:** 448×608 px
 - **Соотношение:** вертикальный 3:4
 - **Отрицательный промпт:** N-SPRITE + N-COMMON
-- **Важно:** Делайте из восстановленного состояния через img2img (сила 0,3–0,5), чтобы форма и ракурс совпали.
+- **Важно:** генерируйте это состояние первым и выберите лучший вариант. Остальные состояния — правками этой картинки в Leonardo (тексты у соседних ключей).
 
 ```
 cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, frontal view from slightly above (about 30 degrees), like looking into a dollhouse cutaway, a tall wooden tool cabinet with two doors, seen straight on, abandoned and neglected, covered in thick dust and cobwebs, broken and missing parts, faded desaturated grey-brown colors, one door hanging on a single hinge, scratched and dusty, one single object only, centered, the whole object visible with a small empty margin around it, plain flat white background, no floor, no shadow on the ground
@@ -197,7 +223,7 @@ cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden af
 - **Размер файла:** 448×608 px
 - **Соотношение:** вертикальный 3:4
 - **Отрицательный промпт:** N-SPRITE + N-COMMON
-- **Важно:** Делайте из восстановленного состояния через img2img (сила 0,3–0,5), чтобы форма и ракурс совпали.
+- **Важно:** делайте правкой восстановленного состояния в Leonardo (шаблон — в `ART_BRIEF.md`, «Состояния объектов»).
 
 ```
 cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, frontal view from slightly above (about 30 degrees), like looking into a dollhouse cutaway, a tall wooden tool cabinet with two doors, seen straight on, partly repaired: cleaned of dust, some parts fixed or replaced, a few signs of wear remain, warmer colors, both doors back on their hinges, still worn, one single object only, centered, the whole object visible with a small empty margin around it, plain flat white background, no floor, no shadow on the ground
@@ -208,7 +234,7 @@ cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden af
 - **Размер файла:** 448×608 px
 - **Соотношение:** вертикальный 3:4
 - **Отрицательный промпт:** N-SPRITE + N-COMMON
-- **Важно:** Делайте из восстановленного состояния через img2img (сила 0,3–0,5), чтобы форма и ракурс совпали.
+- **Важно:** делайте правкой восстановленного состояния в Leonardo (шаблон — в `ART_BRIEF.md`, «Состояния объектов»).
 
 ```
 cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, frontal view from slightly above (about 30 degrees), like looking into a dollhouse cutaway, a tall wooden tool cabinet with two doors, seen straight on, partly repaired: cleaned of dust, some parts fixed or replaced, a few signs of wear remain, warmer colors, new hinges and handles, shelves fixed, the doors slightly open showing empty shelves, one single object only, centered, the whole object visible with a small empty margin around it, plain flat white background, no floor, no shadow on the ground
@@ -219,7 +245,7 @@ cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden af
 - **Размер файла:** 448×608 px
 - **Соотношение:** вертикальный 3:4
 - **Отрицательный промпт:** N-SPRITE + N-COMMON
-- **Важно:** Генерируйте это состояние первым, остальные — из него через img2img (сила 0,3–0,5).
+- **Важно:** генерируйте это состояние первым; остальные — правками этой картинки в Leonardo.
 
 ```
 cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, frontal view from slightly above (about 30 degrees), like looking into a dollhouse cutaway, a tall wooden tool cabinet with two doors, seen straight on, fully restored and cared for, clean polished surfaces, warm rich colors, cozy and lived-in, the doors open, hand tools neatly hung inside on pegs, one single object only, centered, the whole object visible with a small empty margin around it, plain flat white background, no floor, no shadow on the ground
@@ -230,7 +256,7 @@ cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden af
 - **Размер файла:** 448×304 px
 - **Соотношение:** горизонтальный 3:2
 - **Отрицательный промпт:** N-SPRITE + N-COMMON
-- **Важно:** Делайте из восстановленного состояния через img2img (сила 0,3–0,5), чтобы форма и ракурс совпали.
+- **Важно:** делайте правкой восстановленного состояния в Leonardo (шаблон — в `ART_BRIEF.md`, «Состояния объектов»).
 
 ```
 cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, frontal view from slightly above (about 30 degrees), like looking into a dollhouse cutaway, a wooden wall shelf with glass jars of screws and small parts, seen straight on, abandoned and neglected, covered in thick dust and cobwebs, broken and missing parts, faded desaturated grey-brown colors, the shelf sagging on one side, jars dusty and tipped over, one single object only, centered, the whole object visible with a small empty margin around it, plain flat white background, no floor, no shadow on the ground
@@ -241,7 +267,7 @@ cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden af
 - **Размер файла:** 448×304 px
 - **Соотношение:** горизонтальный 3:2
 - **Отрицательный промпт:** N-SPRITE + N-COMMON
-- **Важно:** Делайте из восстановленного состояния через img2img (сила 0,3–0,5), чтобы форма и ракурс совпали.
+- **Важно:** делайте правкой восстановленного состояния в Leonardo (шаблон — в `ART_BRIEF.md`, «Состояния объектов»).
 
 ```
 cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, frontal view from slightly above (about 30 degrees), like looking into a dollhouse cutaway, a wooden wall shelf with glass jars of screws and small parts, seen straight on, partly repaired: cleaned of dust, some parts fixed or replaced, a few signs of wear remain, warmer colors, the shelf straight and level, jars still dusty, one single object only, centered, the whole object visible with a small empty margin around it, plain flat white background, no floor, no shadow on the ground
@@ -252,7 +278,7 @@ cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden af
 - **Размер файла:** 448×304 px
 - **Соотношение:** горизонтальный 3:2
 - **Отрицательный промпт:** N-SPRITE + N-COMMON
-- **Важно:** Генерируйте это состояние первым, остальные — из него через img2img (сила 0,3–0,5).
+- **Важно:** генерируйте это состояние первым; остальные — правками этой картинки в Leonardo.
 
 ```
 cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, frontal view from slightly above (about 30 degrees), like looking into a dollhouse cutaway, a wooden wall shelf with glass jars of screws and small parts, seen straight on, fully restored and cared for, clean polished surfaces, warm rich colors, cozy and lived-in, jars clean and neatly lined up, catching the light, one single object only, centered, the whole object visible with a small empty margin around it, plain flat white background, no floor, no shadow on the ground
@@ -263,7 +289,7 @@ cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden af
 - **Размер файла:** 448×224 px
 - **Соотношение:** горизонтальный 2:1
 - **Отрицательный промпт:** N-SPRITE + N-COMMON
-- **Важно:** Делайте из восстановленного состояния через img2img (сила 0,3–0,5), чтобы форма и ракурс совпали.
+- **Важно:** делайте правкой восстановленного состояния в Leonardo (шаблон — в `ART_BRIEF.md`, «Состояния объектов»).
 
 ```
 cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, frontal view from slightly above (about 30 degrees), like looking into a dollhouse cutaway, a vintage tube radio in a rounded wooden case with a round tuning dial and fabric speaker grille, abandoned and neglected, covered in thick dust and cobwebs, broken and missing parts, faded desaturated grey-brown colors, the back panel missing, dusty, the dial glass cracked, one single object only, centered, the whole object visible with a small empty margin around it, plain flat white background, no floor, no shadow on the ground
@@ -274,7 +300,7 @@ cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden af
 - **Размер файла:** 448×224 px
 - **Соотношение:** горизонтальный 2:1
 - **Отрицательный промпт:** N-SPRITE + N-COMMON
-- **Важно:** Делайте из восстановленного состояния через img2img (сила 0,3–0,5), чтобы форма и ракурс совпали.
+- **Важно:** делайте правкой восстановленного состояния в Leonardo (шаблон — в `ART_BRIEF.md`, «Состояния объектов»).
 
 ```
 cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, frontal view from slightly above (about 30 degrees), like looking into a dollhouse cutaway, a vintage tube radio in a rounded wooden case with a round tuning dial and fabric speaker grille, partly repaired: cleaned of dust, some parts fixed or replaced, a few signs of wear remain, warmer colors, reassembled and clean, the dial dark, one single object only, centered, the whole object visible with a small empty margin around it, plain flat white background, no floor, no shadow on the ground
@@ -285,7 +311,7 @@ cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden af
 - **Размер файла:** 448×224 px
 - **Соотношение:** горизонтальный 2:1
 - **Отрицательный промпт:** N-SPRITE + N-COMMON
-- **Важно:** Генерируйте это состояние первым, остальные — из него через img2img (сила 0,3–0,5).
+- **Важно:** генерируйте это состояние первым; остальные — правками этой картинки в Leonardo.
 
 ```
 cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, frontal view from slightly above (about 30 degrees), like looking into a dollhouse cutaway, a vintage tube radio in a rounded wooden case with a round tuning dial and fabric speaker grille, fully restored and cared for, clean polished surfaces, warm rich colors, cozy and lived-in, working: the tuning dial glows warm amber, one single object only, centered, the whole object visible with a small empty margin around it, plain flat white background, no floor, no shadow on the ground
@@ -293,28 +319,32 @@ cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden af
 
 ### `obj_wall_clock_0` — Настенные часы, шаг 0 из 2 (заброшено)
 
-> Обновлено 13.10.2026 (см. `ART_TODO.md`).
-
 - **Размер файла:** 448×304 px
 - **Соотношение:** горизонтальный 3:2
-- **Отрицательный промпт:** N-SPRITE + N-COMMON, дополнительно: `numerals, roman numerals, numbers, digits`
-- **Из `obj_wall_clock_2` через img2img, сила 0,4–0,5.**
+- **Отрицательный промпт:** не нужен — это правка готовой картинки
+- **Как делать:** правка готового восстановленного состояния (`_2`) в Leonardo — этим текстом сделаны часы в игре (13.10.2026).
 
 ```
-cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, frontal view from slightly above (about 30 degrees), like looking into a dollhouse cutaway, a round vintage wall clock in a wooden case with a pendulum below, seen straight on, a plain cream clock face with simple small dot markers instead of numerals, no numbers, no roman numerals, abandoned and neglected, covered in thick dust and cobwebs, broken and missing parts, faded desaturated grey-brown colors, the glass cracked, the hands missing, the pendulum hanging crooked, one single object only, centered, the whole object visible with a small empty margin around it, plain flat white background, no floor, no shadow on the ground
+Edit this exact clock, preserving its silhouette, proportions, face, hands, pendulum and camera angle.
+
+Clearly abandoned for many years: dark weathered wood, deep scratches, chipped edges, peeling finish, cracked housing, heavy dust and grime. The metal rim is heavily tarnished and rusty. The cream face is yellowed, stained and dusty. The pendulum is dull and tarnished. The clock looks neglected, broken and long forgotten, with obvious damage across the entire object.
+
+Same cozy hand-painted 2D style, original design, lighting, white background and framing. No redesign, no new or missing parts, no text or numbers.
 ```
 
 ### `obj_wall_clock_1` — Настенные часы, шаг 1 из 2 (частично починено)
 
-> Обновлено 13.10.2026 (см. `ART_TODO.md`).
-
 - **Размер файла:** 448×304 px
 - **Соотношение:** горизонтальный 3:2
-- **Отрицательный промпт:** N-SPRITE + N-COMMON, дополнительно: `numerals, roman numerals, numbers, digits`
-- **Из `obj_wall_clock_2` через img2img, сила 0,3–0,5.**
+- **Отрицательный промпт:** не нужен — это правка готовой картинки
+- **Как делать:** правка готового восстановленного состояния (`_2`) в Leonardo — этим текстом сделаны часы в игре (13.10.2026).
 
 ```
-cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, frontal view from slightly above (about 30 degrees), like looking into a dollhouse cutaway, a round vintage wall clock in a wooden case with a pendulum below, seen straight on, a plain cream clock face with simple small dot markers instead of numerals, no numbers, no roman numerals, partly repaired: cleaned of dust, some parts fixed or replaced, a few signs of wear remain, warmer colors, new hands in place, the pendulum straight but still, one single object only, centered, the whole object visible with a small empty margin around it, plain flat white background, no floor, no shadow on the ground
+Edit this exact clock, preserving its silhouette, proportions, face, hands, pendulum and camera angle.
+
+Clearly partially repaired: the left half of the wooden frame has fresh lighter wood patches; the right half remains dark, scratched, chipped and worn. The lower housing has one unfinished repair with exposed raw wood and visible cracks. The metal rim is partly polished, partly rusty. The face is mostly clean but retains stains.
+
+The clock must visibly look mid-repair, with strong contrast between fixed and damaged areas. Same cozy hand-painted 2D style, original colors, lighting, white background and framing. No redesign, no new or missing parts, no text or numbers.
 ```
 
 ### `obj_wall_clock_2` — Настенные часы, шаг 2 из 2 (восстановлено)
@@ -333,33 +363,45 @@ cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden af
 
 - **Размер файла:** 912×336 px
 - **Соотношение:** горизонтальный ≈ 3:1 (генерируйте 16:9 и обрежьте пустые края)
-- **Отрицательный промпт:** N-SPRITE + N-COMMON
-- **Важно:** Делайте из восстановленного состояния через img2img (сила 0,3–0,5), чтобы форма и ракурс совпали.
+- **Отрицательный промпт:** не нужен — это правка готовой картинки, всё нужное сказано в тексте
+- **Как делать:** это не новая генерация, а **правка готового восстановленного состояния** (`_3`). Откройте в Leonardo карточку выбранного варианта `_3` и попросите модель отредактировать его текстом ниже (поле под картинкой с названием модели). Если форма или ракурс поплыли — повторите правку; удачный результат сохраните под этим ключом.
 
 ```
-cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, frontal view from slightly above (about 30 degrees), like looking into a dollhouse cutaway, a long old wooden painting table covered with layers of colorful dried paint, a few brushes in a jar on it, abandoned and neglected, covered in thick dust and cobwebs, broken and missing parts, faded desaturated grey-brown colors, one leg broken, the top warped and stained, dried paint cans knocked over, one single object only, centered, the whole object visible with a small empty margin around it, plain flat white background, no floor, no shadow on the ground
+Edit this exact painting table, preserving its silhouette, proportions, tabletop, legs and camera angle.
+
+Clearly abandoned for many years: the tabletop is warped, stained and caked with old cracked layers of dried paint, one leg is cracked and the table leans slightly, a few old paint cans are knocked over and dented, heavy dust and grime. No fresh cloth, no tidy cans, no stool. It looks neglected, broken and long forgotten, with obvious damage across the entire object.
+
+Same cozy hand-painted 2D style, original design, lighting, white background and framing. No redesign, no new or missing parts, no text or numbers.
 ```
 
 ### `obj_paint_table_1` — Малярная: Покрасочный стол, шаг 1 из 3 (частично починено)
 
 - **Размер файла:** 912×336 px
 - **Соотношение:** горизонтальный ≈ 3:1 (генерируйте 16:9 и обрежьте пустые края)
-- **Отрицательный промпт:** N-SPRITE + N-COMMON
-- **Важно:** Делайте из восстановленного состояния через img2img (сила 0,3–0,5), чтобы форма и ракурс совпали.
+- **Отрицательный промпт:** не нужен — это правка готовой картинки, всё нужное сказано в тексте
+- **Как делать:** это не новая генерация, а **правка готового восстановленного состояния** (`_3`). Откройте в Leonardo карточку выбранного варианта `_3` и попросите модель отредактировать его текстом ниже (поле под картинкой с названием модели). Если форма или ракурс поплыли — повторите правку; удачный результат сохраните под этим ключом.
 
 ```
-cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, frontal view from slightly above (about 30 degrees), like looking into a dollhouse cutaway, a long old wooden painting table covered with layers of colorful dried paint, a few brushes in a jar on it, partly repaired: cleaned of dust, some parts fixed or replaced, a few signs of wear remain, warmer colors, the leg fixed and the top sanded, still stained, one single object only, centered, the whole object visible with a small empty margin around it, plain flat white background, no floor, no shadow on the ground
+Edit this exact painting table, preserving its silhouette, proportions, tabletop, legs and camera angle.
+
+Clearly partially repaired, first stage: the cracked leg is replaced with fresh light wood and the table stands straight; the tabletop is sanded in a few patches but still mostly stained with old paint. Old dented cans still lie around. No cloth, no stool.
+
+The painting table must visibly look mid-repair, with strong contrast between fixed and damaged areas. Same cozy hand-painted 2D style, original colors, lighting, white background and framing. No redesign, no new or missing parts, no text or numbers.
 ```
 
 ### `obj_paint_table_2` — Малярная: Покрасочный стол, шаг 2 из 3 (частично починено)
 
 - **Размер файла:** 912×336 px
 - **Соотношение:** горизонтальный ≈ 3:1 (генерируйте 16:9 и обрежьте пустые края)
-- **Отрицательный промпт:** N-SPRITE + N-COMMON
-- **Важно:** Делайте из восстановленного состояния через img2img (сила 0,3–0,5), чтобы форма и ракурс совпали.
+- **Отрицательный промпт:** не нужен — это правка готовой картинки, всё нужное сказано в тексте
+- **Как делать:** это не новая генерация, а **правка готового восстановленного состояния** (`_3`). Откройте в Leonardo карточку выбранного варианта `_3` и попросите модель отредактировать его текстом ниже (поле под картинкой с названием модели). Если форма или ракурс поплыли — повторите правку; удачный результат сохраните под этим ключом.
 
 ```
-cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, frontal view from slightly above (about 30 degrees), like looking into a dollhouse cutaway, a long old wooden painting table covered with layers of colorful dried paint, a few brushes in a jar on it, partly repaired: cleaned of dust, some parts fixed or replaced, a few signs of wear remain, warmer colors, a fresh drop cloth spread on the top, a few clean paint cans, one single object only, centered, the whole object visible with a small empty margin around it, plain flat white background, no floor, no shadow on the ground
+Edit this exact painting table, preserving its silhouette, proportions, tabletop, legs and camera angle.
+
+Clearly almost repaired: the legs are fixed and the tabletop is covered with a fresh clean drop cloth; two or three clean paint cans stand neatly on it. The table edges still show old paint drips and scratches. No stool yet.
+
+The painting table must visibly look mid-repair, with strong contrast between fixed and damaged areas. Same cozy hand-painted 2D style, original colors, lighting, white background and framing. No redesign, no new or missing parts, no text or numbers.
 ```
 
 ### `obj_paint_table_3` — Малярная: Покрасочный стол, шаг 3 из 3 (восстановлено)
@@ -367,7 +409,7 @@ cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden af
 - **Размер файла:** 912×336 px
 - **Соотношение:** горизонтальный ≈ 3:1 (генерируйте 16:9 и обрежьте пустые края)
 - **Отрицательный промпт:** N-SPRITE + N-COMMON
-- **Важно:** Генерируйте это состояние первым, остальные — из него через img2img (сила 0,3–0,5).
+- **Важно:** генерируйте это состояние первым и выберите лучший вариант. Остальные состояния — правками этой картинки в Leonardo (тексты у соседних ключей).
 
 ```
 cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, frontal view from slightly above (about 30 degrees), like looking into a dollhouse cutaway, a long old wooden painting table covered with layers of colorful dried paint, a few brushes in a jar on it, fully restored and cared for, clean polished surfaces, warm rich colors, cozy and lived-in, neat paint cans, brushes in a jar and a half-painted wooden stool on the top, one single object only, centered, the whole object visible with a small empty margin around it, plain flat white background, no floor, no shadow on the ground
@@ -377,22 +419,30 @@ cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden af
 
 - **Размер файла:** 448×496 px
 - **Соотношение:** почти квадрат 1:1 (чуть выше, чем шире)
-- **Отрицательный промпт:** N-SPRITE + N-COMMON
-- **Важно:** Делайте из восстановленного состояния через img2img (сила 0,3–0,5), чтобы форма и ракурс совпали.
+- **Отрицательный промпт:** не нужен — это правка готовой картинки, всё нужное сказано в тексте
+- **Как делать:** это не новая генерация, а **правка готового восстановленного состояния** (`_2`). Откройте в Leonardo карточку выбранного варианта `_2` и попросите модель отредактировать его текстом ниже (поле под картинкой с названием модели). Если форма или ракурс поплыли — повторите правку; удачный результат сохраните под этим ключом.
 
 ```
-cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, frontal view from slightly above (about 30 degrees), like looking into a dollhouse cutaway, a tall wooden drying rack with several slatted shelves for freshly painted parts, abandoned and neglected, covered in thick dust and cobwebs, broken and missing parts, faded desaturated grey-brown colors, several slats broken, the frame leaning, cobwebs between shelves, one single object only, centered, the whole object visible with a small empty margin around it, plain flat white background, no floor, no shadow on the ground
+Edit this exact drying rack, preserving its silhouette, proportions, frame, slatted shelves and camera angle.
+
+Clearly abandoned for many years: several slats are cracked and sagging, the frame is weathered, grey and leaning slightly, cobwebs between the shelves, heavy dust. The shelves are empty. It looks neglected, broken and long forgotten, with obvious damage across the entire object.
+
+Same cozy hand-painted 2D style, original design, lighting, white background and framing. No redesign, no new or missing parts, no text or numbers.
 ```
 
 ### `obj_drying_rack_1` — Малярная: Сушилка для деталей, шаг 1 из 2 (частично починено)
 
 - **Размер файла:** 448×496 px
 - **Соотношение:** почти квадрат 1:1 (чуть выше, чем шире)
-- **Отрицательный промпт:** N-SPRITE + N-COMMON
-- **Важно:** Делайте из восстановленного состояния через img2img (сила 0,3–0,5), чтобы форма и ракурс совпали.
+- **Отрицательный промпт:** не нужен — это правка готовой картинки, всё нужное сказано в тексте
+- **Как делать:** это не новая генерация, а **правка готового восстановленного состояния** (`_2`). Откройте в Leonardo карточку выбранного варианта `_2` и попросите модель отредактировать его текстом ниже (поле под картинкой с названием модели). Если форма или ракурс поплыли — повторите правку; удачный результат сохраните под этим ключом.
 
 ```
-cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, frontal view from slightly above (about 30 degrees), like looking into a dollhouse cutaway, a tall wooden drying rack with several slatted shelves for freshly painted parts, partly repaired: cleaned of dust, some parts fixed or replaced, a few signs of wear remain, warmer colors, new slats, the frame straight, the shelves empty, one single object only, centered, the whole object visible with a small empty margin around it, plain flat white background, no floor, no shadow on the ground
+Edit this exact drying rack, preserving its silhouette, proportions, frame, slatted shelves and camera angle.
+
+Clearly partially repaired: the upper shelves have fresh light new slats and the frame stands straight; the lower shelves still have old dark, cracked slats with cobwebs. The shelves are empty — no painted parts drying yet.
+
+The drying rack must visibly look mid-repair, with strong contrast between fixed and damaged areas. Same cozy hand-painted 2D style, original colors, lighting, white background and framing. No redesign, no new or missing parts, no text or numbers.
 ```
 
 ### `obj_drying_rack_2` — Малярная: Сушилка для деталей, шаг 2 из 2 (восстановлено)
@@ -400,7 +450,7 @@ cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden af
 - **Размер файла:** 448×496 px
 - **Соотношение:** почти квадрат 1:1 (чуть выше, чем шире)
 - **Отрицательный промпт:** N-SPRITE + N-COMMON
-- **Важно:** Генерируйте это состояние первым, остальные — из него через img2img (сила 0,3–0,5).
+- **Важно:** генерируйте это состояние первым и выберите лучший вариант. Остальные состояния — правками этой картинки в Leonardo (тексты у соседних ключей).
 
 ```
 cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, frontal view from slightly above (about 30 degrees), like looking into a dollhouse cutaway, a tall wooden drying rack with several slatted shelves for freshly painted parts, fully restored and cared for, clean polished surfaces, warm rich colors, cozy and lived-in, small freshly painted wooden parts drying on the shelves in soft sage, honey and red colors, one single object only, centered, the whole object visible with a small empty margin around it, plain flat white background, no floor, no shadow on the ground
@@ -410,33 +460,45 @@ cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden af
 
 - **Размер файла:** 448×304 px
 - **Соотношение:** горизонтальный 3:2
-- **Отрицательный промпт:** N-SPRITE + N-COMMON
-- **Важно:** Делайте из восстановленного состояния через img2img (сила 0,3–0,5), чтобы форма и ракурс совпали.
+- **Отрицательный промпт:** не нужен — это правка готовой картинки, всё нужное сказано в тексте
+- **Как делать:** это не новая генерация, а **правка готового восстановленного состояния** (`_3`). Откройте в Leonardo карточку выбранного варианта `_3` и попросите модель отредактировать его текстом ниже (поле под картинкой с названием модели). Если форма или ракурс поплыли — повторите правку; удачный результат сохраните под этим ключом.
 
 ```
-cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, frontal view from slightly above (about 30 degrees), like looking into a dollhouse cutaway, a wide wooden wall rack with rows of paint cans, seen straight on, abandoned and neglected, covered in thick dust and cobwebs, broken and missing parts, faded desaturated grey-brown colors, the rack sagging, cans rusty, dented and tipped over, one single object only, centered, the whole object visible with a small empty margin around it, plain flat white background, no floor, no shadow on the ground
+Edit this exact paint rack, preserving its silhouette, proportions, shelves, uprights and camera angle.
+
+Clearly abandoned for many years: the shelves sag, the wood is weathered and grey, the paint cans are rusty, dented, tipped over and crusted with dried drips, heavy dust and cobwebs. It looks neglected, broken and long forgotten, with obvious damage across the entire object.
+
+Same cozy hand-painted 2D style, original design, lighting, white background and framing. No redesign, no new or missing parts, no text or numbers.
 ```
 
 ### `obj_paint_rack_1` — Малярная: Стеллаж с красками, шаг 1 из 3 (частично починено)
 
 - **Размер файла:** 448×304 px
 - **Соотношение:** горизонтальный 3:2
-- **Отрицательный промпт:** N-SPRITE + N-COMMON
-- **Важно:** Делайте из восстановленного состояния через img2img (сила 0,3–0,5), чтобы форма и ракурс совпали.
+- **Отрицательный промпт:** не нужен — это правка готовой картинки, всё нужное сказано в тексте
+- **Как делать:** это не новая генерация, а **правка готового восстановленного состояния** (`_3`). Откройте в Leonardo карточку выбранного варианта `_3` и попросите модель отредактировать его текстом ниже (поле под картинкой с названием модели). Если форма или ракурс поплыли — повторите правку; удачный результат сохраните под этим ключом.
 
 ```
-cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, frontal view from slightly above (about 30 degrees), like looking into a dollhouse cutaway, a wide wooden wall rack with rows of paint cans, seen straight on, partly repaired: cleaned of dust, some parts fixed or replaced, a few signs of wear remain, warmer colors, the rack straight and fixed, only a few old cans, one single object only, centered, the whole object visible with a small empty margin around it, plain flat white background, no floor, no shadow on the ground
+Edit this exact paint rack, preserving its silhouette, proportions, shelves, uprights and camera angle.
+
+Clearly partially repaired, first stage: the rack is fixed and level with a few fresh light wooden boards; only a few old dented cans stand on it, the rest of the shelves are empty and dusty.
+
+The paint rack must visibly look mid-repair, with strong contrast between fixed and damaged areas. Same cozy hand-painted 2D style, original colors, lighting, white background and framing. No redesign, no new or missing parts, no text or numbers.
 ```
 
 ### `obj_paint_rack_2` — Малярная: Стеллаж с красками, шаг 2 из 3 (частично починено)
 
 - **Размер файла:** 448×304 px
 - **Соотношение:** горизонтальный 3:2
-- **Отрицательный промпт:** N-SPRITE + N-COMMON
-- **Важно:** Делайте из восстановленного состояния через img2img (сила 0,3–0,5), чтобы форма и ракурс совпали.
+- **Отрицательный промпт:** не нужен — это правка готовой картинки, всё нужное сказано в тексте
+- **Как делать:** это не новая генерация, а **правка готового восстановленного состояния** (`_3`). Откройте в Leonardo карточку выбранного варианта `_3` и попросите модель отредактировать его текстом ниже (поле под картинкой с названием модели). Если форма или ракурс поплыли — повторите правку; удачный результат сохраните под этим ключом.
 
 ```
-cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, frontal view from slightly above (about 30 degrees), like looking into a dollhouse cutaway, a wide wooden wall rack with rows of paint cans, seen straight on, partly repaired: cleaned of dust, some parts fixed or replaced, a few signs of wear remain, warmer colors, cans sorted in rows, labels plain without text, one single object only, centered, the whole object visible with a small empty margin around it, plain flat white background, no floor, no shadow on the ground
+Edit this exact paint rack, preserving its silhouette, proportions, shelves, uprights and camera angle.
+
+Clearly almost repaired: the rack is clean and sturdy, cans are sorted in rows, but about half of them are still old, dull and rusty, without the fresh colorful drips. Plain cans without labels.
+
+The paint rack must visibly look mid-repair, with strong contrast between fixed and damaged areas. Same cozy hand-painted 2D style, original colors, lighting, white background and framing. No redesign, no new or missing parts, no text or numbers.
 ```
 
 ### `obj_paint_rack_3` — Малярная: Стеллаж с красками, шаг 3 из 3 (восстановлено)
@@ -444,7 +506,7 @@ cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden af
 - **Размер файла:** 448×304 px
 - **Соотношение:** горизонтальный 3:2
 - **Отрицательный промпт:** N-SPRITE + N-COMMON
-- **Важно:** Генерируйте это состояние первым, остальные — из него через img2img (сила 0,3–0,5).
+- **Важно:** генерируйте это состояние первым и выберите лучший вариант. Остальные состояния — правками этой картинки в Leonardo (тексты у соседних ключей).
 
 ```
 cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, frontal view from slightly above (about 30 degrees), like looking into a dollhouse cutaway, a wide wooden wall rack with rows of paint cans, seen straight on, fully restored and cared for, clean polished surfaces, warm rich colors, cozy and lived-in, full rows of clean cans with colorful drips of honey, sage green and warm red, catching the light, one single object only, centered, the whole object visible with a small empty margin around it, plain flat white background, no floor, no shadow on the ground
@@ -454,22 +516,30 @@ cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden af
 
 - **Размер файла:** 448×304 px
 - **Соотношение:** горизонтальный 3:2
-- **Отрицательный промпт:** N-SPRITE + N-COMMON
-- **Важно:** Делайте из восстановленного состояния через img2img (сила 0,3–0,5), чтобы форма и ракурс совпали.
+- **Отрицательный промпт:** не нужен — это правка готовой картинки, всё нужное сказано в тексте
+- **Как делать:** это не новая генерация, а **правка готового восстановленного состояния** (`_2`). Откройте в Leonardo карточку выбранного варианта `_2` и попросите модель отредактировать его текстом ниже (поле под картинкой с названием модели). Если форма или ракурс поплыли — повторите правку; удачный результат сохраните под этим ключом.
 
 ```
-cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, frontal view from slightly above (about 30 degrees), like looking into a dollhouse cutaway, an old small-paned wooden window with a small round metal ventilation fan built into one pane, seen straight on, as a separate object, abandoned and neglected, covered in thick dust and cobwebs, broken and missing parts, faded desaturated grey-brown colors, paint-splattered cloudy panes, the fan blades bent and dusty, one single object only, centered, the whole object visible with a small empty margin around it, plain flat white background, no floor, no shadow on the ground
+Edit this exact window with a ventilation fan, preserving its silhouette, proportions, frame, panes, round fan and camera angle.
+
+Clearly abandoned for many years: the panes are cloudy and splattered with old paint, the frame is weathered with peeling paint, the fan blades are bent, rusty and clogged with dust, cobwebs in the corners. Nothing around the frame. It looks neglected, broken and long forgotten, with obvious damage across the entire object.
+
+Same cozy hand-painted 2D style, original design, lighting, white background and framing. No redesign, no new or missing parts, no text or numbers.
 ```
 
 ### `obj_vent_window_1` — Малярная: Окно с вытяжкой, шаг 1 из 2 (частично починено)
 
 - **Размер файла:** 448×304 px
 - **Соотношение:** горизонтальный 3:2
-- **Отрицательный промпт:** N-SPRITE + N-COMMON
-- **Важно:** Делайте из восстановленного состояния через img2img (сила 0,3–0,5), чтобы форма и ракурс совпали.
+- **Отрицательный промпт:** не нужен — это правка готовой картинки, всё нужное сказано в тексте
+- **Как делать:** это не новая генерация, а **правка готового восстановленного состояния** (`_2`). Откройте в Leonardo карточку выбранного варианта `_2` и попросите модель отредактировать его текстом ниже (поле под картинкой с названием модели). Если форма или ракурс поплыли — повторите правку; удачный результат сохраните под этим ключом.
 
 ```
-cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, frontal view from slightly above (about 30 degrees), like looking into a dollhouse cutaway, an old small-paned wooden window with a small round metal ventilation fan built into one pane, seen straight on, as a separate object, partly repaired: cleaned of dust, some parts fixed or replaced, a few signs of wear remain, warmer colors, the frame repaired and repainted, the fan fixed but still, one single object only, centered, the whole object visible with a small empty margin around it, plain flat white background, no floor, no shadow on the ground
+Edit this exact window with a ventilation fan, preserving its silhouette, proportions, frame, panes, round fan and camera angle.
+
+Clearly partially repaired: the frame is repaired and freshly repainted, the fan blades are straightened and cleaned but the fan is still; the glass panes are still cloudy and paint-splattered. Nothing around the frame.
+
+The window with a ventilation fan must visibly look mid-repair, with strong contrast between fixed and damaged areas. Same cozy hand-painted 2D style, original colors, lighting, white background and framing. No redesign, no new or missing parts, no text or numbers.
 ```
 
 ### `obj_vent_window_2` — Малярная: Окно с вытяжкой, шаг 2 из 2 (восстановлено)
@@ -477,7 +547,7 @@ cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden af
 - **Размер файла:** 448×304 px
 - **Соотношение:** горизонтальный 3:2
 - **Отрицательный промпт:** N-SPRITE + N-COMMON
-- **Важно:** Генерируйте это состояние первым, остальные — из него через img2img (сила 0,3–0,5).
+- **Важно:** генерируйте это состояние первым и выберите лучший вариант. Остальные состояния — правками этой картинки в Leonardo (тексты у соседних ключей).
 
 ```
 cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, frontal view from slightly above (about 30 degrees), like looking into a dollhouse cutaway, an old small-paned wooden window with a small round metal ventilation fan built into one pane, seen straight on, as a separate object, fully restored and cared for, clean polished surfaces, warm rich colors, cozy and lived-in, clean panes with warm daylight, the fan spinning gently, fresh air feeling, one single object only, centered, the whole object visible with a small empty margin around it, plain flat white background, no floor, no shadow on the ground
@@ -487,22 +557,30 @@ cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden af
 
 - **Размер файла:** 448×496 px
 - **Соотношение:** почти квадрат 1:1 (чуть выше, чем шире)
-- **Отрицательный промпт:** N-SPRITE + N-COMMON
-- **Важно:** Делайте из восстановленного состояния через img2img (сила 0,3–0,5), чтобы форма и ракурс совпали.
+- **Отрицательный промпт:** не нужен — это правка готовой картинки, всё нужное сказано в тексте
+- **Как делать:** это не новая генерация, а **правка готового восстановленного состояния** (`_2`). Откройте в Leonardo карточку выбранного варианта `_2` и попросите модель отредактировать его текстом ниже (поле под картинкой с названием модели). Если форма или ракурс поплыли — повторите правку; удачный результат сохраните под этим ключом.
 
 ```
-cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, frontal view from slightly above (about 30 degrees), like looking into a dollhouse cutaway, an old wooden studio easel standing on the floor, seen straight on, abandoned and neglected, covered in thick dust and cobwebs, broken and missing parts, faded desaturated grey-brown colors, one leg missing, the easel lying crooked, splattered with dried paint, one single object only, centered, the whole object visible with a small empty margin around it, plain flat white background, no floor, no shadow on the ground
+Edit this exact easel, preserving its silhouette, proportions, legs, canvas ledge, top clamp and camera angle.
+
+Clearly abandoned for many years: the wood is weathered, grey and splattered with old dried paint, one leg is cracked and the easel leans crooked, the clamp is rusty, heavy dust and cobwebs. No canvas on it. It looks neglected, broken and long forgotten, with obvious damage across the entire object.
+
+Same cozy hand-painted 2D style, original design, lighting, white background and framing. No redesign, no new or missing parts, no text or numbers.
 ```
 
 ### `obj_easel_1` — Малярная: Мольберт, шаг 1 из 2 (частично починено)
 
 - **Размер файла:** 448×496 px
 - **Соотношение:** почти квадрат 1:1 (чуть выше, чем шире)
-- **Отрицательный промпт:** N-SPRITE + N-COMMON
-- **Важно:** Делайте из восстановленного состояния через img2img (сила 0,3–0,5), чтобы форма и ракурс совпали.
+- **Отрицательный промпт:** не нужен — это правка готовой картинки, всё нужное сказано в тексте
+- **Как делать:** это не новая генерация, а **правка готового восстановленного состояния** (`_2`). Откройте в Leonardo карточку выбранного варианта `_2` и попросите модель отредактировать его текстом ниже (поле под картинкой с названием модели). Если форма или ракурс поплыли — повторите правку; удачный результат сохраните под этим ключом.
 
 ```
-cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, frontal view from slightly above (about 30 degrees), like looking into a dollhouse cutaway, an old wooden studio easel standing on the floor, seen straight on, partly repaired: cleaned of dust, some parts fixed or replaced, a few signs of wear remain, warmer colors, standing straight on new legs, empty, one single object only, centered, the whole object visible with a small empty margin around it, plain flat white background, no floor, no shadow on the ground
+Edit this exact easel, preserving its silhouette, proportions, legs, canvas ledge, top clamp and camera angle.
+
+Clearly partially repaired: the cracked leg is replaced with fresh light wood and the easel stands straight; the rest of the wood is still old, splattered with dried paint, the clamp still rusty. No canvas on it.
+
+The easel must visibly look mid-repair, with strong contrast between fixed and damaged areas. Same cozy hand-painted 2D style, original colors, lighting, white background and framing. No redesign, no new or missing parts, no text or numbers.
 ```
 
 ### `obj_easel_2` — Малярная: Мольберт, шаг 2 из 2 (восстановлено)
@@ -510,7 +588,7 @@ cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden af
 - **Размер файла:** 448×496 px
 - **Соотношение:** почти квадрат 1:1 (чуть выше, чем шире)
 - **Отрицательный промпт:** N-SPRITE + N-COMMON
-- **Важно:** Генерируйте это состояние первым, остальные — из него через img2img (сила 0,3–0,5).
+- **Важно:** генерируйте это состояние первым и выберите лучший вариант. Остальные состояния — правками этой картинки в Leonardo (тексты у соседних ключей).
 
 ```
 cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, frontal view from slightly above (about 30 degrees), like looking into a dollhouse cutaway, an old wooden studio easel standing on the floor, seen straight on, fully restored and cared for, clean polished surfaces, warm rich colors, cozy and lived-in, holding a small canvas with a simple painting of a cozy house and a tree, one single object only, centered, the whole object visible with a small empty margin around it, plain flat white background, no floor, no shadow on the ground
@@ -520,22 +598,30 @@ cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden af
 
 - **Размер файла:** 448×256 px
 - **Соотношение:** горизонтальный 16:9 (стремянка в кадре с полями по бокам)
-- **Отрицательный промпт:** N-SPRITE + N-COMMON
-- **Важно:** Делайте из восстановленного состояния через img2img (сила 0,3–0,5), чтобы форма и ракурс совпали.
+- **Отрицательный промпт:** не нужен — это правка готовой картинки, всё нужное сказано в тексте
+- **Как делать:** это не новая генерация, а **правка готового восстановленного состояния** (`_2`). Откройте в Leonardo карточку выбранного варианта `_2` и попросите модель отредактировать его текстом ниже (поле под картинкой с названием модели). Если форма или ракурс поплыли — повторите правку; удачный результат сохраните под этим ключом.
 
 ```
-cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, frontal view from slightly above (about 30 degrees), like looking into a dollhouse cutaway, an old wooden step ladder covered in paint drips, standing open, abandoned and neglected, covered in thick dust and cobwebs, broken and missing parts, faded desaturated grey-brown colors, two steps broken, one leg cracked, the hinge rusty, one single object only, centered, the whole object visible with a small empty margin around it, plain flat white background, no floor, no shadow on the ground
+Edit this exact step ladder, preserving its silhouette, proportions, rails, steps, hinge and camera angle.
+
+Clearly abandoned for many years: two steps are cracked, one rail is split, the hinge is rusty, the wood is weathered and covered in old paint drips, dust and cobwebs. Nothing on the top step. It looks neglected, broken and long forgotten, with obvious damage across the entire object.
+
+Same cozy hand-painted 2D style, original design, lighting, white background and framing. No redesign, no new or missing parts, no text or numbers.
 ```
 
 ### `obj_ladder_1` — Малярная: Стремянка, шаг 1 из 2 (частично починено)
 
 - **Размер файла:** 448×256 px
 - **Соотношение:** горизонтальный 16:9 (стремянка в кадре с полями по бокам)
-- **Отрицательный промпт:** N-SPRITE + N-COMMON
-- **Важно:** Делайте из восстановленного состояния через img2img (сила 0,3–0,5), чтобы форма и ракурс совпали.
+- **Отрицательный промпт:** не нужен — это правка готовой картинки, всё нужное сказано в тексте
+- **Как делать:** это не новая генерация, а **правка готового восстановленного состояния** (`_2`). Откройте в Leonardo карточку выбранного варианта `_2` и попросите модель отредактировать его текстом ниже (поле под картинкой с названием модели). Если форма или ракурс поплыли — повторите правку; удачный результат сохраните под этим ключом.
 
 ```
-cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, frontal view from slightly above (about 30 degrees), like looking into a dollhouse cutaway, an old wooden step ladder covered in paint drips, standing open, partly repaired: cleaned of dust, some parts fixed or replaced, a few signs of wear remain, warmer colors, new steps, the hinge oiled, still dusty, one single object only, centered, the whole object visible with a small empty margin around it, plain flat white background, no floor, no shadow on the ground
+Edit this exact step ladder, preserving its silhouette, proportions, rails, steps, hinge and camera angle.
+
+Clearly partially repaired: the cracked steps are replaced with fresh light new wood and the hinge is oiled; the rails are still old, dusty and covered in paint drips. Nothing on the top step.
+
+The step ladder must visibly look mid-repair, with strong contrast between fixed and damaged areas. Same cozy hand-painted 2D style, original colors, lighting, white background and framing. No redesign, no new or missing parts, no text or numbers.
 ```
 
 ### `obj_ladder_2` — Малярная: Стремянка, шаг 2 из 2 (восстановлено)
@@ -543,7 +629,7 @@ cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden af
 - **Размер файла:** 448×256 px
 - **Соотношение:** горизонтальный 16:9 (стремянка в кадре с полями по бокам)
 - **Отрицательный промпт:** N-SPRITE + N-COMMON
-- **Важно:** Генерируйте это состояние первым, остальные — из него через img2img (сила 0,3–0,5).
+- **Важно:** генерируйте это состояние первым и выберите лучший вариант. Остальные состояния — правками этой картинки в Leonardo (тексты у соседних ключей).
 
 ```
 cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, frontal view from slightly above (about 30 degrees), like looking into a dollhouse cutaway, an old wooden step ladder covered in paint drips, standing open, fully restored and cared for, clean polished surfaces, warm rich colors, cozy and lived-in, sturdy and clean, a small paint can and a brush on its top step, one single object only, centered, the whole object visible with a small empty margin around it, plain flat white background, no floor, no shadow on the ground
@@ -553,33 +639,45 @@ cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden af
 
 - **Размер файла:** 448×336 px
 - **Соотношение:** горизонтальный 4:3
-- **Отрицательный промпт:** N-SPRITE + N-COMMON
-- **Важно:** Делайте из восстановленного состояния через img2img (сила 0,3–0,5), чтобы форма и ракурс совпали.
+- **Отрицательный промпт:** не нужен — это правка готовой картинки, всё нужное сказано в тексте
+- **Как делать:** это не новая генерация, а **правка готового восстановленного состояния** (`_3`). Откройте в Leonardo карточку выбранного варианта `_3` и попросите модель отредактировать его текстом ниже (поле под картинкой с названием модели). Если форма или ракурс поплыли — повторите правку; удачный результат сохраните под этим ключом.
 
 ```
-cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, frontal view from slightly above (about 30 degrees), like looking into a dollhouse cutaway, a small low metal cabinet with two doors for paint solvents, seen straight on, abandoned and neglected, covered in thick dust and cobwebs, broken and missing parts, faded desaturated grey-brown colors, rusty, one door dented and hanging open, empty dusty bottles inside, one single object only, centered, the whole object visible with a small empty margin around it, plain flat white background, no floor, no shadow on the ground
+Edit this exact metal cabinet, preserving its silhouette, proportions, doors, handles, body and camera angle.
+
+Clearly abandoned for many years: the metal is covered in rust and flaking old paint, one door is dented and hangs slightly open, the handles are corroded, heavy dust and grime. No bottles on top. It looks neglected, broken and long forgotten, with obvious damage across the entire object.
+
+Same cozy hand-painted 2D style, original design, lighting, white background and framing. No redesign, no new or missing parts, no text or numbers.
 ```
 
 ### `obj_solvent_cabinet_1` — Малярная: Шкафчик для растворителей, шаг 1 из 3 (частично починено)
 
 - **Размер файла:** 448×336 px
 - **Соотношение:** горизонтальный 4:3
-- **Отрицательный промпт:** N-SPRITE + N-COMMON
-- **Важно:** Делайте из восстановленного состояния через img2img (сила 0,3–0,5), чтобы форма и ракурс совпали.
+- **Отрицательный промпт:** не нужен — это правка готовой картинки, всё нужное сказано в тексте
+- **Как делать:** это не новая генерация, а **правка готового восстановленного состояния** (`_3`). Откройте в Leonardo карточку выбранного варианта `_3` и попросите модель отредактировать его текстом ниже (поле под картинкой с названием модели). Если форма или ракурс поплыли — повторите правку; удачный результат сохраните под этим ключом.
 
 ```
-cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, frontal view from slightly above (about 30 degrees), like looking into a dollhouse cutaway, a small low metal cabinet with two doors for paint solvents, seen straight on, partly repaired: cleaned of dust, some parts fixed or replaced, a few signs of wear remain, warmer colors, the rust cleaned, the door straightened, one single object only, centered, the whole object visible with a small empty margin around it, plain flat white background, no floor, no shadow on the ground
+Edit this exact metal cabinet, preserving its silhouette, proportions, doors, handles, body and camera angle.
+
+Clearly partially repaired, first stage: the rust is scraped off to bare grey metal on the left half; the right half is still rusty with flaking paint. The dented door is straightened but still shows the dent marks. No bottles on top.
+
+The metal cabinet must visibly look mid-repair, with strong contrast between fixed and damaged areas. Same cozy hand-painted 2D style, original colors, lighting, white background and framing. No redesign, no new or missing parts, no text or numbers.
 ```
 
 ### `obj_solvent_cabinet_2` — Малярная: Шкафчик для растворителей, шаг 2 из 3 (частично починено)
 
 - **Размер файла:** 448×336 px
 - **Соотношение:** горизонтальный 4:3
-- **Отрицательный промпт:** N-SPRITE + N-COMMON
-- **Важно:** Делайте из восстановленного состояния через img2img (сила 0,3–0,5), чтобы форма и ракурс совпали.
+- **Отрицательный промпт:** не нужен — это правка готовой картинки, всё нужное сказано в тексте
+- **Как делать:** это не новая генерация, а **правка готового восстановленного состояния** (`_3`). Откройте в Leonardo карточку выбранного варианта `_3` и попросите модель отредактировать его текстом ниже (поле под картинкой с названием модели). Если форма или ракурс поплыли — повторите правку; удачный результат сохраните под этим ключом.
 
 ```
-cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, frontal view from slightly above (about 30 degrees), like looking into a dollhouse cutaway, a small low metal cabinet with two doors for paint solvents, seen straight on, partly repaired: cleaned of dust, some parts fixed or replaced, a few signs of wear remain, warmer colors, freshly repainted sage green, new handles, one single object only, centered, the whole object visible with a small empty margin around it, plain flat white background, no floor, no shadow on the ground
+Edit this exact metal cabinet, preserving its silhouette, proportions, doors, handles, body and camera angle.
+
+Clearly almost repaired: the body is freshly painted sage green and the doors close properly, the handles are new; small scuffs and a few bare spots of grey primer remain on the corners. No bottles on top yet.
+
+The metal cabinet must visibly look mid-repair, with strong contrast between fixed and damaged areas. Same cozy hand-painted 2D style, original colors, lighting, white background and framing. No redesign, no new or missing parts, no text or numbers.
 ```
 
 ### `obj_solvent_cabinet_3` — Малярная: Шкафчик для растворителей, шаг 3 из 3 (восстановлено)
@@ -587,7 +685,7 @@ cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden af
 - **Размер файла:** 448×336 px
 - **Соотношение:** горизонтальный 4:3
 - **Отрицательный промпт:** N-SPRITE + N-COMMON
-- **Важно:** Генерируйте это состояние первым, остальные — из него через img2img (сила 0,3–0,5).
+- **Важно:** генерируйте это состояние первым и выберите лучший вариант. Остальные состояния — правками этой картинки в Leonardo (тексты у соседних ключей).
 
 ```
 cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, frontal view from slightly above (about 30 degrees), like looking into a dollhouse cutaway, a small low metal cabinet with two doors for paint solvents, seen straight on, fully restored and cared for, clean polished surfaces, warm rich colors, cozy and lived-in, the doors closed neatly, plain glass bottles without labels standing on top in a row, one single object only, centered, the whole object visible with a small empty margin around it, plain flat white background, no floor, no shadow on the ground
@@ -597,33 +695,45 @@ cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden af
 
 - **Размер файла:** 448×208 px
 - **Соотношение:** горизонтальный ≈ 2:1
-- **Отрицательный промпт:** N-SPRITE + N-COMMON
-- **Важно:** Делайте из восстановленного состояния через img2img (сила 0,3–0,5), чтобы форма и ракурс совпали.
+- **Отрицательный промпт:** не нужен — это правка готовой картинки, всё нужное сказано в тексте
+- **Как делать:** это не новая генерация, а **правка готового восстановленного состояния** (`_3`). Откройте в Leonardo карточку выбранного варианта `_3` и попросите модель отредактировать его текстом ниже (поле под картинкой с названием модели). Если форма или ракурс поплыли — повторите правку; удачный результат сохраните под этим ключом.
 
 ```
-cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, frontal view from slightly above (about 30 degrees), like looking into a dollhouse cutaway, a low wooden sanding bench with a hand sanding block and sheets of sandpaper, abandoned and neglected, covered in thick dust and cobwebs, broken and missing parts, faded desaturated grey-brown colors, the top cracked, covered in thick dust and wood shavings, one single object only, centered, the whole object visible with a small empty margin around it, plain flat white background, no floor, no shadow on the ground
+Edit this exact sanding bench, preserving its silhouette, proportions, top, legs, sanding block and camera angle.
+
+Clearly abandoned for many years: the top is cracked and gouged, covered in thick dust and old wood shavings, the legs are weathered and grey, the sanding block is worn and grimy. Nothing else on it. It looks neglected, broken and long forgotten, with obvious damage across the entire object.
+
+Same cozy hand-painted 2D style, original design, lighting, white background and framing. No redesign, no new or missing parts, no text or numbers.
 ```
 
 ### `obj_sanding_bench_1` — Малярная: Шлифовальный верстак, шаг 1 из 3 (частично починено)
 
 - **Размер файла:** 448×208 px
 - **Соотношение:** горизонтальный ≈ 2:1
-- **Отрицательный промпт:** N-SPRITE + N-COMMON
-- **Важно:** Делайте из восстановленного состояния через img2img (сила 0,3–0,5), чтобы форма и ракурс совпали.
+- **Отрицательный промпт:** не нужен — это правка готовой картинки, всё нужное сказано в тексте
+- **Как делать:** это не новая генерация, а **правка готового восстановленного состояния** (`_3`). Откройте в Leonardo карточку выбранного варианта `_3` и попросите модель отредактировать его текстом ниже (поле под картинкой с названием модели). Если форма или ракурс поплыли — повторите правку; удачный результат сохраните под этим ключом.
 
 ```
-cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, frontal view from slightly above (about 30 degrees), like looking into a dollhouse cutaway, a low wooden sanding bench with a hand sanding block and sheets of sandpaper, partly repaired: cleaned of dust, some parts fixed or replaced, a few signs of wear remain, warmer colors, a new top, still dusty, one single object only, centered, the whole object visible with a small empty margin around it, plain flat white background, no floor, no shadow on the ground
+Edit this exact sanding bench, preserving its silhouette, proportions, top, legs, sanding block and camera angle.
+
+Clearly partially repaired, first stage: the top is replaced with a fresh light board, but it is still dusty with shavings; the legs are old, weathered and grey. Nothing else on it.
+
+The sanding bench must visibly look mid-repair, with strong contrast between fixed and damaged areas. Same cozy hand-painted 2D style, original colors, lighting, white background and framing. No redesign, no new or missing parts, no text or numbers.
 ```
 
 ### `obj_sanding_bench_2` — Малярная: Шлифовальный верстак, шаг 2 из 3 (частично починено)
 
 - **Размер файла:** 448×208 px
 - **Соотношение:** горизонтальный ≈ 2:1
-- **Отрицательный промпт:** N-SPRITE + N-COMMON
-- **Важно:** Делайте из восстановленного состояния через img2img (сила 0,3–0,5), чтобы форма и ракурс совпали.
+- **Отрицательный промпт:** не нужен — это правка готовой картинки, всё нужное сказано в тексте
+- **Как делать:** это не новая генерация, а **правка готового восстановленного состояния** (`_3`). Откройте в Leonardo карточку выбранного варианта `_3` и попросите модель отредактировать его текстом ниже (поле под картинкой с названием модели). Если форма или ракурс поплыли — повторите правку; удачный результат сохраните под этим ключом.
 
 ```
-cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, frontal view from slightly above (about 30 degrees), like looking into a dollhouse cutaway, a low wooden sanding bench with a hand sanding block and sheets of sandpaper, partly repaired: cleaned of dust, some parts fixed or replaced, a few signs of wear remain, warmer colors, clean, sandpaper sheets neatly stacked, one single object only, centered, the whole object visible with a small empty margin around it, plain flat white background, no floor, no shadow on the ground
+Edit this exact sanding bench, preserving its silhouette, proportions, top, legs, sanding block and camera angle.
+
+Clearly almost repaired: the top and legs are clean and sturdy, sandpaper sheets are neatly stacked; a little dust remains in the corners and the legs still need a fresh coat of finish. No chair leg yet.
+
+The sanding bench must visibly look mid-repair, with strong contrast between fixed and damaged areas. Same cozy hand-painted 2D style, original colors, lighting, white background and framing. No redesign, no new or missing parts, no text or numbers.
 ```
 
 ### `obj_sanding_bench_3` — Малярная: Шлифовальный верстак, шаг 3 из 3 (восстановлено)
@@ -631,7 +741,7 @@ cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden af
 - **Размер файла:** 448×208 px
 - **Соотношение:** горизонтальный ≈ 2:1
 - **Отрицательный промпт:** N-SPRITE + N-COMMON
-- **Важно:** Генерируйте это состояние первым, остальные — из него через img2img (сила 0,3–0,5).
+- **Важно:** генерируйте это состояние первым и выберите лучший вариант. Остальные состояния — правками этой картинки в Leonardo (тексты у соседних ключей).
 
 ```
 cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, frontal view from slightly above (about 30 degrees), like looking into a dollhouse cutaway, a low wooden sanding bench with a hand sanding block and sheets of sandpaper, fully restored and cared for, clean polished surfaces, warm rich colors, cozy and lived-in, a freshly sanded wooden chair leg resting on it, a soft brush beside, warm and tidy, one single object only, centered, the whole object visible with a small empty margin around it, plain flat white background, no floor, no shadow on the ground

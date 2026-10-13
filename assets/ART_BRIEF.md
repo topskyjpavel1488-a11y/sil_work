@@ -21,7 +21,7 @@
 
 1. **Сначала якорь стиля.** Первым сгенерируйте фон комнаты `room_bg` и одну-две картинки объектов. Выберите удачные и используйте их как референс стиля для всех остальных: в Midjourney это `--sref <ссылка>`, в Stable Diffusion — IP-Adapter, в других сервисах — «загрузить изображение-референс».
 2. **Один общий префикс.** Каждый промпт ниже — это общий префикс стиля плюс описание конкретного ассета. Префикс не меняйте от картинки к картинке.
-3. **Состояния объекта — из одной картинки.** Сначала сгенерируйте **восстановленное** состояние (последнее). Остальные состояния делайте из него через img2img или inpainting с небольшой силой изменений (0,3–0,5), чтобы форма, ракурс и размер не менялись. Объект должен узнаваться во всех состояниях: игрок видит, как чинит *этот же* верстак.
+3. **Состояния объекта — из одной картинки.** Сначала сгенерируйте **восстановленное** состояние (последнее). Остальные делайте **правкой этой картинки в Leonardo** (см. «Состояния объектов: правка готовой картинки» ниже): форма, ракурс и размер сохраняются, и объект узнаётся во всех состояниях — игрок видит, как чинит *этот же* верстак.
 4. **Прозрачный фон.** Объекты, предметы и завал нужны в PNG с прозрачностью. Генерируйте на ровном белом фоне (так и написано в суффиксе спрайта) — белый фон и светлые тени `npm run images` уберёт сам. Вручную убирать фон не нужно.
 5. **Размер.** Генерируйте крупно и уменьшайте. Финальный файл — не меньше указанного в таблицах «размера файла» (это 2× от размера на экране: для чётких телефонных экранов). Больше не нужно: лишний вес замедлит загрузку.
 6. **Без текста.** Никаких букв, цифр, надписей и логотипов на картинках: игра на двух языках, а платформа просит медиаматериалы без текста. Где по сюжету есть надпись (записка, подписи на коробке, гравировка) — она «неразборчивая».
@@ -53,15 +53,35 @@ one single object only, centered, the whole object visible with a small empty ma
 text, letters, numbers, words, writing, signs, watermark, signature, logo, brand names, user interface, frame, border, rounded corners, photorealistic, photograph, 3d render, CGI, plastic look, glossy, neon colors, oversaturated, harsh black shadows, noise, blurry, low resolution, jpeg artifacts, deformed, distorted perspective, fisheye, tilted horizon
 ```
 
-## Словарь состояний объектов
+## Состояния объектов: правка готовой картинки
 
-Добавляйте к описанию объекта фразу состояния:
+Так получились часы (13.10.2026), и так делаются все объекты с несколькими состояниями:
 
-| Состояние | Фраза |
-| --- | --- |
-| заброшено (шаг 0) | `abandoned and neglected, covered in thick dust and cobwebs, broken and missing parts, faded desaturated grey-brown colors` |
-| частично починено | `partly repaired: cleaned of dust, some parts fixed or replaced, a few signs of wear remain, warmer colors` |
-| восстановлено (последний шаг) | `fully restored and cared for, clean polished surfaces, warm rich colors, cozy and lived-in` |
+1. Сгенерируйте **восстановленное** состояние (последний номер) по промпту из `PROMPTS.md` и выберите лучший вариант.
+2. Откройте карточку этой картинки в Leonardo. Под ней, рядом с названием модели, можно попросить модель **исправить текущую картинку** — вставьте туда текст правки.
+3. Для каждого из остальных состояний текст правки уже готов в `PROMPTS.md` / `ART_TODO.md` у своего ключа. Отрицательный промпт не нужен.
+
+Шаблон, если понадобится написать правку самому:
+
+«Частично починено»:
+```
+Edit this exact <object>, preserving its silhouette, proportions, <key parts> and camera angle.
+
+Clearly partially repaired: <what is fixed — fresh lighter wood, new parts, polished metal>; <what is still damaged — dark, scratched, rusty, cracked>.
+
+The <object> must visibly look mid-repair, with strong contrast between fixed and damaged areas. Same cozy hand-painted 2D style, original colors, lighting, white background and framing. No redesign, no new or missing parts, no text or numbers.
+```
+
+«Заброшено»:
+```
+Edit this exact <object>, preserving its silhouette, proportions, <key parts> and camera angle.
+
+Clearly abandoned for many years: <weathered wood, deep scratches, chipped edges, rust, cracks, heavy dust and grime — по частям объекта>. It looks neglected, broken and long forgotten, with obvious damage across the entire object.
+
+Same cozy hand-painted 2D style, original design, lighting, white background and framing. No redesign, no new or missing parts, no text or numbers.
+```
+
+Если у объекта два промежуточных состояния (`_1` и `_2`), первое — «начало ремонта» (починена одна главная часть), второе — «почти готово» (осталась пара следов износа).
 
 ---
 
@@ -82,7 +102,7 @@ text, letters, numbers, words, writing, signs, watermark, signature, logo, brand
 | Ключи | Объект | На экране | Размер файла | Соотношение |
 | --- | --- | --- | --- | --- |
 | `obj_workbench_0..3` | Верстак | 456×168 | 912×336 | ≈ 3:1 (генерируйте 16:9 или 3:1) |
-| `obj_fastener_box_0..1` | Ящик с крепежом | 224×128 | 448×256 | ≈ 16:9 |
+| `obj_fastener_box_0..1` | Ящик с крепежом (стоит на верстаке) | 184×104 | 368×208 | ≈ 16:9 |
 | `obj_lamp_0..2` | Настольная лампа | 224×128 | 448×256 | 16:9 (лампа высокая — потом можно сделать прямоугольник выше) |
 | `obj_window_0..2` | Окно | 224×152 | 448×304 | 3:2 |
 | `obj_cabinet_0..3` | Шкаф для инструментов | 224×304 | 448×608 | 3:4 |
@@ -92,11 +112,11 @@ text, letters, numbers, words, writing, signs, watermark, signature, logo, brand
 
 Промпт: `[префикс], [объект], [фраза состояния], [суффикс спрайта]`. Описания объектов и что меняется по шагам:
 
-**Верстак** — `a sturdy old wooden carpenter's workbench with a vise on one side`
-- `_0` заброшено: доски столешницы треснули, тиски ржавые;
-- `_1` новые доски столешницы (шаг 1 — древесина);
-- `_2` закреплён крепежом, тиски почищены (шаг 2 — древесина и крепёж);
-- `_3` восстановлено: на нём аккуратно лежат инструменты.
+**Верстак** (переделывается полностью, 13.10.2026) — широкий низкий столярный верстак, столешница хорошо видна сверху как ровная поверхность, **одни тиски слева**, ящики под столешницей и нижняя полка; **середина столешницы свободна** — на неё игра ставит лампу и ящик с крепежом.
+- `_3` восстановлено: пара инструментов аккуратно лежит у правого края;
+- `_2` почти готово: новая столешница и укреплённая рама (свежие шурупы, металлические уголки), тиски почищены, ящики ещё потёртые;
+- `_1` начало ремонта: новые светлые доски столешницы, всё ниже — старое;
+- `_0` заброшено: доски треснули и покоробились, тиски ржавые, распорка расколота.
 
 **Ящик с крепежом** — `a small wooden drawer cabinet for screws and nails with many little drawers`
 - `_0` заброшено, ящички перекошены; `_1` восстановлено, ящички ровные с медными ручками.
