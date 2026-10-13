@@ -2,7 +2,7 @@
 import type Phaser from 'phaser';
 import { addAsset } from '../assets';
 import { audio } from '../audio';
-import { PALETTE } from '../config';
+import { PALETTE, UI_SOUNDS } from '../config';
 import { t } from '../i18n';
 import { Button } from './Button';
 import { Modal } from './Modal';
@@ -15,6 +15,8 @@ export interface CardData {
   sound?: string;
   note?: string;
   buttonKey?: string;
+  // A small text link above the main button, e.g. "Skip" in the opening story.
+  secondary?: { labelKey: string; onTap: () => void };
 }
 
 export function showFindCard(scene: Phaser.Scene, card: CardData, onClose: () => void): Modal {
@@ -35,6 +37,21 @@ export function showFindCard(scene: Phaser.Scene, card: CardData, onClose: () =>
   modal.add(
     new Button(scene, { x: px + 40, y: py + h - 144, w: w - 80, h: 112, label: t(card.buttonKey ?? 'ui.close'), fill: PALETTE.green, onTap: close }),
   );
+  if (card.secondary) {
+    const { labelKey, onTap } = card.secondary;
+    const link = scene.add
+      .text(px + w / 2, py + h - 184, t(labelKey), textStyle(32, '#7D7468', { fontStyle: 'bold' }))
+      .setOrigin(0.5)
+      .setPadding(24, 16, 24, 16)
+      .setInteractive({ useHandCursor: true });
+    link.on('pointerup', () => {
+      if (closed) return;
+      closed = true;
+      audio.play(UI_SOUNDS.tap);
+      modal.close(onTap);
+    });
+    modal.add(link);
+  }
   if (card.sound) audio.play(card.sound);
   return modal;
 }

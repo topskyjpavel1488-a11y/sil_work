@@ -671,6 +671,30 @@
       "placeholder": {
         "color": "#E0B872"
       }
+    },
+    "story_city": {
+      "file": null,
+      "placeholder": {
+        "color": "#9FA8B0"
+      }
+    },
+    "story_key": {
+      "file": null,
+      "placeholder": {
+        "color": "#C9A36A"
+      }
+    },
+    "story_road": {
+      "file": null,
+      "placeholder": {
+        "color": "#B9C49A"
+      }
+    },
+    "story_arrival": {
+      "file": null,
+      "placeholder": {
+        "color": "#A8825C"
+      }
     }
   },
   "sounds": {

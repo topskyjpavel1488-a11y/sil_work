@@ -105,6 +105,8 @@ export interface Content {
   debrisKinds: Record<string, DebrisKind>;
   finds: FindDef[];
   tutorial: TutorialStep[];
+  // Opening story, shown once before the tutorial in a new game (spec 4.6, v0.8).
+  story: CardDef[];
 }
 
 export function maxLevel(content: Content, chain: ChainId): number {

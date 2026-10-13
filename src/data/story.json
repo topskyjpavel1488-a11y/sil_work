@@ -1,0 +1,8 @@
+{
+  "cards": [
+    { "titleKey": "story.city.title", "textKey": "story.city.text", "image": "story_city" },
+    { "titleKey": "story.key.title", "textKey": "story.key.text", "image": "story_key" },
+    { "titleKey": "story.road.title", "textKey": "story.road.text", "image": "story_road" },
+    { "titleKey": "story.arrival.title", "textKey": "story.arrival.text", "image": "story_arrival" }
+  ]
+}

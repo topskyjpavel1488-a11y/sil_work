@@ -66,6 +66,7 @@ export function collectAssetKeys(content: Content): { images: string[]; sounds: 
     images.add(k.image);
     sounds.add(k.sound);
   });
+  content.story.forEach((c) => images.add(c.image));
   content.finds.forEach((f) => {
     images.add(f.image);
     if (f.sound) sounds.add(f.sound);
@@ -75,7 +76,7 @@ export function collectAssetKeys(content: Content): { images: string[]; sounds: 
   return { images: [...images], sounds: [...sounds] };
 }
 
-const cards = (content: Content) => [...content.finds, ...content.rooms.flatMap((r) => (r.intro ? [r.final, r.intro] : [r.final]))];
+const cards = (content: Content) => [...content.finds, ...content.story, ...content.rooms.flatMap((r) => (r.intro ? [r.final, r.intro] : [r.final]))];
 
 function collectTextKeys(content: Content): string[] {
   return [

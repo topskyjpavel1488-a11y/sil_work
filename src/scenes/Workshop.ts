@@ -26,6 +26,8 @@ import { COLORS, textStyle } from '../ui/style';
 import { fadeIn, goTo } from '../ui/transition';
 import { onTap } from '../ui/tap';
 
+const STORY_HINT = 'story';
+
 interface Hotspot {
   box: Phaser.GameObjects.Container;
   label: Phaser.GameObjects.Text;
@@ -90,7 +92,7 @@ export class WorkshopScene extends Phaser.Scene {
     this.tutorial = new TutorialOverlay(this, this.store, rect(this.section, 'ui.tutorial'));
     this.refresh(this.store.state);
     if (data.repair) this.openRepair(data.repair);
-    else this.showRoomIntro();
+    else if (!this.showStory()) this.showRoomIntro();
 
     if (!this.readyReported) {
       this.readyReported = true;
@@ -194,6 +196,30 @@ export class WorkshopScene extends Phaser.Scene {
   private switchRoom(roomId: string, repair?: string): void {
     this.store.setRoom(roomId);
     goTo(this, 'Workshop', repair ? { repair } : undefined);
+  }
+
+  // Opening story: once, only in a brand-new game (an old save that already played skips it).
+  private showStory(): boolean {
+    const { state, content } = this.store;
+    const fresh = !state.tutorial.done && state.tutorial.step === 0 && Object.values(state.objects).every((o) => o.step === 0);
+    if (!fresh || state.hints.includes(STORY_HINT) || content.story.length === 0) return false;
+    this.modalOpen = true;
+    const finish = () => {
+      this.store.markHint(STORY_HINT);
+      this.modalOpen = false;
+    };
+    const show = (i: number) => {
+      const card = content.story[i];
+      if (!card) return finish();
+      const last = i === content.story.length - 1;
+      showFindCard(
+        this,
+        { ...card, buttonKey: last ? 'ui.start' : 'ui.next', secondary: last ? undefined : { labelKey: 'tutorial.skip', onTap: finish } },
+        () => show(i + 1),
+      );
+    };
+    show(0);
+    return true;
   }
 
   // The first visit to a room may explain what is new there, once.

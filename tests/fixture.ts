@@ -99,4 +99,5 @@ export const fixture: Content = {
     { id: 'f_screws', room: 'workshop', ...card('find_f_screws') },
   ],
   tutorial: [],
+  story: [],
 };

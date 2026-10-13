@@ -1,6 +1,6 @@
 # Графика: что переделать и что осталось
 
-Состояние на 13.10.2026: в игре 51 картинка из 112. Ниже два блока: **что переделать** (уже подключено, но с недостатками) и **что ещё не сгенерировано**. У каждой картинки — размер, промпт и отрицательный промпт; наборы N-… расписаны в конце файла, к каждому добавляйте N-COMMON.
+Состояние на 13.10.2026: в игре 51 картинка из 116 (с вступлением). Ниже два блока: **что переделать** (уже подключено, но с недостатками) и **что ещё не сгенерировано**. У каждой картинки — размер, промпт и отрицательный промпт; наборы N-… расписаны в конце файла, к каждому добавляйте N-COMMON.
 
 Общие правила те же, что в `PROMPTS.md`:
 - генерируйте приватно (тариф Essential), на ровном белом фоне для спрайтов — фон я уберу сам при подключении;
@@ -161,17 +161,62 @@ cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden af
 
 # Часть 2. Ещё не сгенерировано
 
-Всего 61 картинок: 58 ниже плюс 3 из первой части (вывеска и два состояния часов). Промпты те же, что в `PROMPTS.md`.
+Всего 65 картинок: 62 ниже плюс 3 из первой части (вывеска и два состояния часов). Промпты те же, что в `PROMPTS.md`.
 
 | Группа | Картинок |
 | --- | --- |
+| Вступление (новое, 13.10.2026) | 4 |
 | Мастерская: недостающие состояния объектов | 4 |
 | Мастерская: кучи завала в комнате | 6 |
 | Мастерская: фоны сцен разбора | 6 |
 | Малярная: объекты | 28 |
 | Малярная: кучи завала в комнате | 7 |
 | Малярная: фоны сцен разбора | 7 |
-| **Итого** | **58** |
+| **Итого** | **62** |
+
+## 2.0. Вступление (новое, 13.10.2026)
+
+Четыре карточки истории перед обучением: город, ключ, решение, приезд. Тот же формат, что у находок; надписей нет, бирка на ключе пустая.
+
+### `story_city` — Вступление: город
+
+- **Размер файла:** 1120×840 px
+- **Соотношение:** горизонтальный 4:3
+- **Отрицательный промпт:** N-CARD + N-COMMON
+
+```
+cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, a tired city evening seen through a small apartment window: grey rain on the glass, blurred lights of a busy street and a metro station far below, a cold cup of coffee and a laptop on the windowsill, muted cool blue-grey palette with a single warm lamp inside, a feeling of routine and fatigue, no people, horizontal 4:3 composition, full illustration with background
+```
+
+### `story_key` — Вступление: ключ
+
+- **Размер файла:** 1120×840 px
+- **Соотношение:** горизонтальный 4:3
+- **Отрицательный промпт:** N-CARD + N-COMMON
+
+```
+cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, an old heavy brass key with a blank cardboard tag tied with string, lying in an open wooden desk drawer among papers and pencils, warm lamp light falling on it, a quiet moment of memory, the tag is blank with no writing, horizontal 4:3 composition, full illustration with background
+```
+
+### `story_road` — Вступление: решение
+
+- **Размер файла:** 1120×840 px
+- **Соотношение:** горизонтальный 4:3
+- **Отрицательный промпт:** N-CARD + N-COMMON
+
+```
+cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, a small rural bus stop at dawn by a country road through fields, a packed travel bag on the bench, soft pink and golden morning light, mist over the fields, a winding road leading to a distant village with small wooden houses, hopeful and calm, no people, no signs, horizontal 4:3 composition, full illustration with background
+```
+
+### `story_arrival` — Вступление: приезд
+
+- **Размер файла:** 1120×840 px
+- **Соотношение:** горизонтальный 4:3
+- **Отрицательный промпт:** N-CARD + N-COMMON
+
+```
+cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, the half-open old wooden door of a small family workshop seen from the threshold, dusty dim interior with cardboard boxes, sacks and old planks piled by the door, warm sunbeams with floating dust coming through a small window, a sense of a new beginning, no people, horizontal 4:3 composition, full illustration with background
+```
 
 ## 2.1. Мастерская: недостающие состояния объектов
 

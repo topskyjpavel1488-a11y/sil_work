@@ -28,7 +28,7 @@ function displaySize(key: string): Rect | null {
   if (key.startsWith('zone_')) return inRooms(`zone.${key.slice(5)}`);
   if (key.startsWith('scene_')) return layout.scavenge?.area ?? null;
   if (key === 'room_bg' || key === 'room_paint_bg') return inRooms('room');
-  if (key.startsWith('find_') || key.startsWith('final_card')) return { w: 560, h: 420 };
+  if (key.startsWith('find_') || key.startsWith('final_card') || key.startsWith('story_')) return { w: 560, h: 420 };
   if (key.startsWith('debris_')) return { w: 192, h: 176 };
   if (key.startsWith('item_')) return { w: 144, h: 144 };
   if (key.startsWith('res_')) return { w: 80, h: 80 };
@@ -39,7 +39,7 @@ function displaySize(key: string): Rect | null {
 const isSprite = (key: string) => /^(obj|zone|debris|item|res)_/.test(key) || key === 'logo';
 // Sprites with light glass keep their grey areas: the shadow test cannot tell glass from shadow.
 const hasGlass = (key: string) => /jar|shelf|window|paints_4/.test(key);
-const isFullFrame = (key: string) => /^(room|scene|find|final_card)/.test(key);
+const isFullFrame = (key: string) => /^(room|scene|find|final_card|story)/.test(key);
 
 const manifest = JSON.parse(readFileSync(MANIFEST, 'utf8')) as Manifest;
 if (!existsSync(SOURCE)) {

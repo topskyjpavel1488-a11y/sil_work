@@ -1246,6 +1246,50 @@ cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden af
 cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, frontal view from slightly above (about 30 degrees), like looking into a dollhouse cutaway, a wide view of a cozy old workshop half restored: the left half still dusty and cluttered with boxes, the right half clean and warmly lit by a glowing desk lamp, a wooden workbench in the center, inviting, horizontal composition
 ```
 
+## 10. Вступление (история перед обучением)
+
+Четыре иллюстрации к карточкам вступления, тот же формат, что у находок. Генерируйте их одной серией с одним референсом стиля; в первой карточке палитра холоднее (город), дальше всё теплее.
+
+### `story_city` — Вступление: город
+
+- **Размер файла:** 1120×840 px
+- **Соотношение:** горизонтальный 4:3
+- **Отрицательный промпт:** N-CARD + N-COMMON
+
+```
+cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, a tired city evening seen through a small apartment window: grey rain on the glass, blurred lights of a busy street and a metro station far below, a cold cup of coffee and a laptop on the windowsill, muted cool blue-grey palette with a single warm lamp inside, a feeling of routine and fatigue, no people, horizontal 4:3 composition, full illustration with background
+```
+
+### `story_key` — Вступление: ключ
+
+- **Размер файла:** 1120×840 px
+- **Соотношение:** горизонтальный 4:3
+- **Отрицательный промпт:** N-CARD + N-COMMON
+
+```
+cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, an old heavy brass key with a blank cardboard tag tied with string, lying in an open wooden desk drawer among papers and pencils, warm lamp light falling on it, a quiet moment of memory, the tag is blank with no writing, horizontal 4:3 composition, full illustration with background
+```
+
+### `story_road` — Вступление: решение
+
+- **Размер файла:** 1120×840 px
+- **Соотношение:** горизонтальный 4:3
+- **Отрицательный промпт:** N-CARD + N-COMMON
+
+```
+cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, a small rural bus stop at dawn by a country road through fields, a packed travel bag on the bench, soft pink and golden morning light, mist over the fields, a winding road leading to a distant village with small wooden houses, hopeful and calm, no people, no signs, horizontal 4:3 composition, full illustration with background
+```
+
+### `story_arrival` — Вступление: приезд
+
+- **Размер файла:** 1120×840 px
+- **Соотношение:** горизонтальный 4:3
+- **Отрицательный промпт:** N-CARD + N-COMMON
+
+```
+cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, the half-open old wooden door of a small family workshop seen from the threshold, dusty dim interior with cardboard boxes, sacks and old planks piled by the door, warm sunbeams with floating dust coming through a small window, a sense of a new beginning, no people, horizontal 4:3 composition, full illustration with background
+```
+
 ## Отрицательные промпты
 
 К каждому набору добавляйте N-COMMON. Если генератор не поддерживает отрицательный промпт, допишите в конец основного: `avoid: ...` с теми же словами.

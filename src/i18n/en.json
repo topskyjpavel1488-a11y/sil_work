@@ -115,5 +115,15 @@
   "final.paint.text": "It smells of wood and fresh paint, the clock is ticking, the radio plays softly. Both rooms are full of life again, and the workshop's story goes on. Thank you for being here.",
   "intro.paint.title": "Paint room",
   "intro.paint.text": "This is where Grandpa painted what he fixed. This room has its own parts: paints. Matching paints combine on the table just like fasteners.",
-  "ui.final.nextRoom": "New room unlocked: {room}"
+  "ui.final.nextRoom": "New room unlocked: {room}",
+  "story.city.title": "The city",
+  "story.city.text": "Alarm, metro, work, metro again. Every day looks the same, and even weekends rush by.",
+  "story.key.title": "The key",
+  "story.key.text": "One evening, an old key turns up in a desk drawer, with a cardboard tag: \"Workshop\". Grandpa left it as an inheritance, and there was never time to go.",
+  "story.road.title": "The decision",
+  "story.road.text": "Enough putting it off. The bag is packed, the morning bus ticket bought. Somewhere in a quiet village, Grandpa's workshop is waiting.",
+  "story.arrival.title": "Arrival",
+  "story.arrival.text": "The door creaks. Inside: dust, boxes and the smell of old wood. Everything starts over here — with the pile of junk by the door.",
+  "ui.next": "Next",
+  "ui.start": "Start"
 }
