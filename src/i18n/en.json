@@ -136,5 +136,6 @@
   "ui.compare.before": "Before",
   "ui.compare.after": "After",
   "ui.settings.shortcut": "Add a desktop shortcut",
-  "ui.table.sort": "Tidy up the table"
+  "ui.table.sort": "Tidy up the table",
+  "ui.settings.story": "Watch the intro"
 }

@@ -136,5 +136,6 @@
   "ui.compare.before": "Было",
   "ui.compare.after": "Стало",
   "ui.settings.shortcut": "Ярлык на рабочий стол",
-  "ui.table.sort": "Разложить по порядку"
+  "ui.table.sort": "Разложить по порядку",
+  "ui.settings.story": "Посмотреть вступление"
 }

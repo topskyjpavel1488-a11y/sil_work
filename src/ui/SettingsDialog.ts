@@ -7,11 +7,12 @@ import type { PlatformAdapter } from '../platform/adapter';
 import type { Store } from '../store';
 import { Button } from './Button';
 import { Modal } from './Modal';
+import { playStory } from './Story';
 import { COLORS, textStyle } from './style';
 
 export function showSettings(scene: Phaser.Scene, store: Store, platform: PlatformAdapter, onClose: () => void): void {
   const w = 640;
-  const h = 1060;
+  const h = 1160;
   const modal = new Modal(scene, w, h, () => modal.close(onClose));
   const { px, py } = modal;
   modal.add(scene.add.text(px + 40, py + 40, t('ui.settings.title'), textStyle(44, COLORS.text, { fontStyle: 'bold' })));
@@ -67,9 +68,23 @@ export function showSettings(scene: Phaser.Scene, store: Store, platform: Platfo
   };
   paintAuth();
 
+  // Replays the opening story without touching progress, then comes back to the settings.
+  modal.add(
+    new Button(scene, {
+      x: px + 40,
+      y: py + 688,
+      w: w - 80,
+      h: 112,
+      label: t('ui.settings.story'),
+      fill: PALETTE.wood,
+      onTap: () =>
+        modal.close(() => playStory(scene, store.content, 'ui.close', () => showSettings(scene, store, platform, onClose))),
+    }),
+  );
+
   const shortcut = new Button(scene, {
     x: px + 40,
-    y: py + 688,
+    y: py + 812,
     w: w - 80,
     h: 112,
     label: t('ui.settings.shortcut'),

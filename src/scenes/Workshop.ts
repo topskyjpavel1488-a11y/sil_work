@@ -21,6 +21,7 @@ import { showFindCard } from '../ui/FindCard';
 import { RepairBadge } from '../ui/RepairBadge';
 import { RepairDialog } from '../ui/RepairDialog';
 import { showSettings } from '../ui/SettingsDialog';
+import { playStory } from '../ui/Story';
 import { TutorialOverlay } from '../ui/TutorialOverlay';
 import { ResourceBar } from '../ui/ResourceBar';
 import { COLORS, textStyle } from '../ui/style';
@@ -225,21 +226,10 @@ export class WorkshopScene extends Phaser.Scene {
     const fresh = !state.tutorial.done && state.tutorial.step === 0 && Object.values(state.objects).every((o) => o.step === 0);
     if (!fresh || state.hints.includes(STORY_HINT) || content.story.length === 0) return false;
     this.modalOpen = true;
-    const finish = () => {
+    playStory(this, content, 'ui.start', () => {
       this.store.markHint(STORY_HINT);
       this.modalOpen = false;
-    };
-    const show = (i: number) => {
-      const card = content.story[i];
-      if (!card) return finish();
-      const last = i === content.story.length - 1;
-      showFindCard(
-        this,
-        { ...card, buttonKey: last ? 'ui.start' : 'ui.next', secondary: last ? undefined : { labelKey: 'tutorial.skip', onTap: finish } },
-        () => show(i + 1),
-      );
-    };
-    show(0);
+    });
     return true;
   }
 
