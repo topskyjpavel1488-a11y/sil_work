@@ -81,23 +81,44 @@ cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden af
 cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, a fully restored cozy workshop in the warm evening: the desk lamp glowing, the radio dial lit, a round wall clock with a plain cream face and simple dot markers instead of numerals on the wall, tools neatly in their places, everything warm and alive, horizontal 4:3 composition, full illustration with background
 ```
 
-## 1.4. Фон мастерской — `room_bg`
+## 1.4. Фоны комнат — `room_bg` и `room_paint_bg` (обязательно)
 
-**Что не так:**
-- пришёл 896×1152 — меньше нужного (1440×1696), на телефоне фон мягче остальных картинок;
-- в правом нижнем углу была подпись-водяной знак (похоже на «lesfeces»); я обрезал нижнюю полосу, но в новом файле подписи быть не должно совсем.
+**Что не так:** игра расставляет объекты по сетке: всё настенное (полки, окна, часы, антресоль, радио, стеллаж) стоит в **верхней половине** комнаты, всё напольное (верстак, шкаф, столы, кучи завала) — в **нижней**. Нынешние фоны нарисованы с глубокой перспективой: двускатная крыша, большие боковые стены, пол начинается ниже середины. Поэтому напольные вещи «залезают» на стены.
 
-**Как исправить:** проще всего — взять текущую картинку (она нравится по композиции) и прогнать через **Upscale** в Leonardo (Universal Upscaler / Creative Upscale с низкой креативностью), затем прислать оригинал без подписи в полный размер. Если генерировать заново — промпт ниже, текущий фон как референс стиля и композиции.
+Нужен фон как сцена театра или кукольный домик без передней стены:
+- задняя стена смотрит прямо на зрителя и занимает **ровно верхнюю половину** картинки;
+- плинтус — прямая горизонтальная линия **ровно посередине высоты**;
+- нижняя половина — пол с очень мягкой перспективой;
+- без боковых стен, потолка, балок и углов.
+
+**Как добиться в Leonardo:**
+1. Загрузите картинку-подсказку композиции из `assets/source/guides/` (`room_bg_guide.png` для мастерской, `room_paint_bg_guide.png` для малярной) как **Image Guidance → Image to Image** с силой 0,6–0,75 или как **Depth / Edge to Image**, если доступно. Она задаёт главное: где стена, где плинтус, где пол.
+2. Текущий фон добавьте вторым референсом (**Style Reference**), чтобы сохранить цвет и свет.
+3. Промпт ниже. Размер — не меньше 1440×1696 (генерируйте 4:5, например 1440×1800; лишнее я обрежу).
+4. Проверка: положите результат рядом со схемой `room_bg_layout.jpg` или `room_paint_bg_layout.jpg` — там подписано, какой объект где стоит. Плинтус должен совпасть с пунктирной линией.
 
 ### `room_bg` — Фон мастерской (пустая комната)
 
 - **Размер файла:** не меньше 1440×1696 px
-- **Соотношение:** вертикальный 5:6 (генерируйте 4:5, например 1440×1800, и обрежьте по высоте до 1696)
-- **Отрицательный промпт:** N-ROOM + N-COMMON, дополнительно: `signature, artist name, watermark`
-- **Важно:** окно, полку, часы, верстак и шкаф на фоне не рисовать — это отдельные объекты. Дверь можно.
+- **Соотношение:** вертикальный 5:6 (генерируйте 4:5 и обрежьте по высоте до 1696)
+- **Отрицательный промпт:** N-ROOM + N-COMMON, дополнительно: `side walls, ceiling, roof, rafters, gable, beams across the top, room corners, deep perspective, vanishing point, door, window, signature, artist name, watermark`
+- **Подсказка композиции:** `assets/source/guides/room_bg_guide.png`, схема расстановки — `room_bg_layout.jpg`.
+- **Важно:** никаких предметов — окно, полка, часы, верстак и шкаф будут отдельными спрайтами поверх фона.
 
 ```
-cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, frontal view from slightly above (about 30 degrees), like looking into a dollhouse cutaway, interior of a small old family workshop, the back wall faces the viewer straight on and fills the upper 40 percent of the picture: vertical wooden plank wall with faded sage green trim and posts, plenty of empty wall space; below it a worn wooden plank floor in gentle perspective fills the lower part, mostly empty; side walls visible only as thin slivers at the edges; a simple old wooden door on the far left of the back wall; warm sunlight patches on the floor; the room is completely empty with no furniture, vertical composition, full background
+cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, flat frontal view straight at the back wall of a small room, like a theatre stage or a dollhouse with the front wall removed, the back wall faces the viewer squarely and fills exactly the upper half of the picture, a straight horizontal wooden baseboard runs across the whole width exactly at the middle height of the picture, the lower half of the picture is a wooden plank floor seen from slightly above with very gentle perspective, the planks run towards the wall, no side walls, no ceiling, no roof beams, no corners, symmetrical composition, the interior of an old family workshop: the back wall is made of vertical cream-painted wooden planks with a faded sage green wainscot panel along its lower part above the baseboard, the floor is worn warm brown wooden planks with a few scuffs, warm golden sunlight patches on the floor and the wall, the room is completely empty with no furniture and no objects, plenty of empty wall space, vertical composition, full background
+```
+
+### `room_paint_bg` — Фон малярной (пустая комната)
+
+- **Размер файла:** не меньше 1440×1696 px
+- **Соотношение:** вертикальный 5:6 (генерируйте 4:5 и обрежьте по высоте до 1696)
+- **Отрицательный промпт:** N-ROOM + N-COMMON, дополнительно: `side walls, ceiling, roof, rafters, gable, beams across the top, room corners, deep perspective, vanishing point, door, window, signature, artist name, watermark`
+- **Подсказка композиции:** `assets/source/guides/room_paint_bg_guide.png`, схема расстановки — `room_paint_bg_layout.jpg`.
+- **Важно:** тот же ракурс и линия пола, что у мастерской: комнаты должны выглядеть соседними в одном доме. Стеллаж, окно, мольберт, стремянку и столы не рисовать.
+
+```
+cozy hand-painted 2D game illustration, soft painterly brushwork, warm golden afternoon light coming from the upper left, nostalgic calm mood, muted earthy palette of warm wood brown, cream, faded sage green, copper accents, dark metal and dust grey, clean readable shapes, gentle soft shadows, flat frontal view straight at the back wall of a small room, like a theatre stage or a dollhouse with the front wall removed, the back wall faces the viewer squarely and fills exactly the upper half of the picture, a straight horizontal wooden baseboard runs across the whole width exactly at the middle height of the picture, the lower half of the picture is a wooden plank floor seen from slightly above with very gentle perspective, the planks run towards the wall, no side walls, no ceiling, no roof beams, no corners, symmetrical composition, the interior of an old family paint shop: the back wall is whitewashed plaster with old faint splashes of honey, sage green and warm red paint and a sage green wooden wainscot panel along its lower part above the baseboard, the floor is worn light wooden planks with old dried paint drips, warm golden sunlight patches on the floor and the wall, the room is completely empty with no furniture and no objects, plenty of empty wall space, vertical composition, full background
 ```
 
 ## 1.5. Окно — `obj_window_0`, `_1`, `_2` (по желанию)

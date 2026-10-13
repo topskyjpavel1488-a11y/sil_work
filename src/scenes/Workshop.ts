@@ -17,6 +17,7 @@ import type { Store } from '../store';
 import { Button } from '../ui/Button';
 import { available, requirementName } from '../ui/labels';
 import { showFindCard } from '../ui/FindCard';
+import { RepairBadge } from '../ui/RepairBadge';
 import { RepairDialog } from '../ui/RepairDialog';
 import { showSettings } from '../ui/SettingsDialog';
 import { TutorialOverlay } from '../ui/TutorialOverlay';
@@ -33,6 +34,7 @@ interface Hotspot {
 export class WorkshopScene extends Phaser.Scene {
   private objects = new Map<string, Hotspot>();
   private zones = new Map<string, Hotspot>();
+  private badges = new Map<string, RepairBadge>();
   private resources!: ResourceBar;
   private goalTitle!: Phaser.GameObjects.Text;
   private goalCost!: Phaser.GameObjects.Text;
@@ -59,6 +61,7 @@ export class WorkshopScene extends Phaser.Scene {
     this.section = this.room.layout;
     this.objects.clear();
     this.zones.clear();
+    this.badges.clear();
     this.modalOpen = false;
     this.navRects = [];
     fadeIn(this);
@@ -72,6 +75,10 @@ export class WorkshopScene extends Phaser.Scene {
       this.objects.set(object.id, this.addHotspot(object.stateImages[0] ?? '', rect(this.section, `object.${object.id}`), object.nameKey, () => this.onObject(object)));
     }
     this.warmLight = this.add.rectangle(room.x, room.y, room.w, room.h, PALETTE.copper, 0.14).setOrigin(0).setVisible(false);
+    // Badges go above every object and the warm light, so none of them is hidden by a neighbour.
+    for (const object of objectsIn(content, this.room.id)) {
+      this.badges.set(object.id, new RepairBadge(this, rect(this.section, `object.${object.id}`)));
+    }
 
     this.createResourceBar();
     this.createGoalBanner();
@@ -286,16 +293,21 @@ export class WorkshopScene extends Phaser.Scene {
       hotspot.box.setAlpha(unlocked ? 1 : 0.4);
       hotspot.label.setAlpha(unlocked ? 1 : 0.5);
       if (hotspot.box.input) hotspot.box.input.enabled = unlocked;
+      const restored = isObjectRestored(state, object);
+      this.badges.get(object.id)?.set(
+        unlocked && !restored
+          ? { kind: 'todo', done: step, total: object.steps.length, ready: checkRepair(state, content, object.id).ok }
+          : { kind: 'hidden' },
+      );
     }
     for (const zone of zonesIn(content, this.room.id)) {
       const hotspot = this.zones.get(zone.id);
       if (!hotspot) continue;
       const open = isZoneUnlocked(state, content, zone);
+      // A cleared pile is gone from the room: nothing is left to tap there (spec 4.2, v0.8).
       const cleared = isZoneCleared(state, zone);
-      hotspot.box.setAlpha(!open ? 0.3 : cleared ? 0.45 : 1);
-      hotspot.label.setAlpha(open ? 1 : 0.4);
-      const name = this.textures.exists(zone.image) ? '' : t(zone.nameKey);
-      hotspot.label.setText(cleared ? `${name} ✓`.trim() : name);
+      hotspot.box.setVisible(!cleared).setAlpha(open ? 1 : 0.3);
+      hotspot.label.setVisible(!cleared && !this.textures.exists(zone.image)).setAlpha(open ? 1 : 0.4);
       if (hotspot.box.input) hotspot.box.input.enabled = open && !cleared;
     }
     const warm = objectsIn(content, this.room.id).some((o) => o.steps.some((s, i) => s.effect === 'warmLight' && stepOf(state, o.id) > i));
