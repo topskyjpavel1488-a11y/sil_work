@@ -35,6 +35,7 @@
 
 - [x] `room_bg` (13.10.2026; нижняя полоса с подписью-водяным знаком обрезана)
 - [x] `obj_workbench_3`
+- [x] 13.10.2026 (вторая партия, Essential, приватно): новые `room_bg`, `room_paint_bg` (обрезаны сверху и с боков, чтобы плинтус встал посередине), `obj_wall_clock_0..2`, `find_f_sign`
 - [x] `find_f_photo`, `find_f_screws`, `find_f_note`, `find_f_radio`, `find_f_clock`
 - [x] `final_card`
 - [x] `logo`

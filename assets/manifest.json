@@ -181,13 +181,13 @@
       }
     },
     "obj_wall_clock_1": {
-      "file": null,
+      "file": "images/obj_wall_clock_1.png",
       "placeholder": {
         "color": "#C19B74"
       }
     },
     "obj_wall_clock_2": {
-      "file": null,
+      "file": "images/obj_wall_clock_2.png",
       "placeholder": {
         "color": "#B87333"
       }
@@ -649,7 +649,7 @@
       }
     },
     "find_f_sign": {
-      "file": null,
+      "file": "images/find_f_sign.jpg",
       "placeholder": {
         "color": "#C8B08A"
       }
