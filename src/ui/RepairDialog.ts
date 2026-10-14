@@ -56,7 +56,11 @@ export class RepairDialog extends Phaser.GameObjects.Container {
     const hit = scene.add.zone(px, py, PANEL_W, panelH).setOrigin(0).setInteractive();
     this.add([panel, hit]);
 
-    this.add(scene.add.text(px + 40, py + 40, t(object?.nameKey ?? objectId), textStyle(44, COLORS.text, { fontStyle: 'bold' })));
+    // A long name is squeezed so it never runs under the close button.
+    const title = scene.add.text(px + 40, py + 40, t(object?.nameKey ?? objectId), textStyle(44, COLORS.text, { fontStyle: 'bold' }));
+    const titleMax = PANEL_W - 40 - 136;
+    if (title.width > titleMax) title.setScale(titleMax / title.width);
+    this.add(title);
     const total = object?.steps.length ?? 0;
     this.add(scene.add.text(px + 40, py + 108, t('ui.repair.step', { n: step + 1, total }), textStyle(32, COLORS.text)));
     this.add(

@@ -161,6 +161,13 @@ export class WorkshopScene extends Phaser.Scene {
     });
   }
 
+  // A long object name ("Шкаф для инструментов") is squeezed to fit the banner instead of running past its border.
+  private setGoalTitle(text: string): void {
+    const maxWidth = rect(this.section, 'ui.goal').w - 56;
+    this.goalTitle.setScale(1).setText(text);
+    if (this.goalTitle.width > maxWidth) this.goalTitle.setScale(maxWidth / this.goalTitle.width);
+  }
+
   private createGoalBanner(): void {
     const r = rect(this.section, 'ui.goal');
     const bg = this.add.graphics();
@@ -483,12 +490,12 @@ export class WorkshopScene extends Phaser.Scene {
 
     const goal = currentGoal(state, content);
     if (!goal) {
-      this.goalTitle.setText(t('ui.goal.done'));
+      this.setGoalTitle(t('ui.goal.done'));
       this.goalCost.setText('');
       this.goalHint.setText('');
       return;
     }
-    this.goalTitle.setText(t('ui.goal.title', { name: t(goal.object.nameKey) }));
+    this.setGoalTitle(t('ui.goal.title', { name: t(goal.object.nameKey) }));
     const check = checkRepair(state, content, goal.object.id);
     this.goalCost.setText(check.requirements.map((r) => `${requirementName(content, r)} ${Math.min(available(r), r.need)}/${r.need}`).join(' · '));
     const first = missingSources(state, content, goal.object.id, this.room.id)[0];

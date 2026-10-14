@@ -11,6 +11,12 @@ export const COLORS = {
 } as const;
 
 let textScale = 1;
+let textResolution = 1;
+
+// Dev screenshot mode renders the game larger; texts get a matching resolution to stay sharp.
+export function setTextResolution(resolution: number): void {
+  textResolution = resolution;
+}
 
 // Applies to texts created afterwards; the scene is restarted to redraw with it.
 export function setTextScale(scale: number): void {
@@ -18,5 +24,5 @@ export function setTextScale(scale: number): void {
 }
 
 export function textStyle(size: number, color: string = COLORS.text, extra: Phaser.Types.GameObjects.Text.TextStyle = {}) {
-  return { fontFamily: FONT, fontSize: `${Math.round(Math.max(32, size) * textScale)}px`, color, ...extra };
+  return { fontFamily: FONT, fontSize: `${Math.round(Math.max(32, size) * textScale)}px`, color, ...(textResolution !== 1 ? { resolution: textResolution } : {}), ...extra };
 }

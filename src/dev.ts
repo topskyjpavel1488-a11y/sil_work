@@ -10,6 +10,27 @@ import { Button } from './ui/Button';
 export function addDevButton(scene: Phaser.Scene, store: Store): void {
   // Console helper for checking scenes by hand: __tm.start('Finale', { roomId: 'workshop' }).
   (window as unknown as { __tm: unknown }).__tm = { start: (key: string, data?: object) => scene.scene.start(key, data), store, game: scene.game, audio };
+  // Screenshot mode: no debug button in the picture. __tm.shot('name') saves the canvas to assets/store/screenshots/.
+  if (new URLSearchParams(location.search).has('shot')) {
+    Object.assign((window as unknown as { __tm: object }).__tm, {
+      shot: (name: string) =>
+        new Promise<string>((resolve) =>
+          scene.game.renderer.snapshot((img) => {
+            const canvas = document.createElement('canvas');
+            const image = img as HTMLImageElement;
+            canvas.width = image.width;
+            canvas.height = image.height;
+            const ctx = canvas.getContext('2d');
+            if (!ctx) return resolve('no canvas');
+            ctx.fillStyle = '#f3e9d2';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.drawImage(image, 0, 0);
+            canvas.toBlob((blob) => void fetch(`/__shot?name=${name}`, { method: 'POST', body: blob }).then(() => resolve(`${canvas.width}x${canvas.height}`)), 'image/png');
+          }),
+        ),
+    });
+    return;
+  }
   const goal = rect('workshop', 'ui.goal');
   new Button(scene, {
     x: goal.x + goal.w - 128,
