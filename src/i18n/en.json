@@ -142,5 +142,6 @@
   "ui.welcome.title": "Welcome back!",
   "ui.welcome.goal": "You were repairing: {name}. You have:",
   "ui.welcome.gift": "Gift of the day: {gift}. Already added to your supplies.",
-  "ui.settings.largeText": "Large text"
+  "ui.settings.largeText": "Large text",
+  "ui.nav.compare": "Compare"
 }

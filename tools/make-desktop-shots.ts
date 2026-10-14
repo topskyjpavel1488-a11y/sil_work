@@ -1,13 +1,14 @@
 // Desktop store screenshots (Yandex: landscape only, 16:9, 1280–2560 px on the long side): each portrait
 // screenshot from assets/store/screenshots/ is put in the middle of a 1920×1080 frame on the blurred
-// workshop background, the way the game itself sits on a desktop screen. Run: npm run shots:desktop.
+// workshop background, the way the game itself sits on a desktop screen. Run: npm run shots:desktop [en].
 import { mkdirSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 import sharp from 'sharp';
 
 const ROOT = join(import.meta.dirname, '..');
-const SRC = join(ROOT, 'assets/store/screenshots');
-const OUT = join(ROOT, 'assets/store/screenshots_desktop');
+const SUFFIX = process.argv[2] === 'en' ? '_en' : '';
+const SRC = join(ROOT, `assets/store/screenshots${SUFFIX}`);
+const OUT = join(ROOT, `assets/store/screenshots_desktop${SUFFIX}`);
 const W = 1920;
 const H = 1080;
 const COLUMN_W = Math.round((H * 9) / 16);
@@ -31,5 +32,5 @@ for (const name of readdirSync(SRC).filter((f) => f.endsWith('.png')).sort()) {
     .composite([{ input: column, left: Math.round((W - COLUMN_W) / 2), top: 0 }])
     .png()
     .toFile(join(OUT, name));
-  console.log(`screenshots_desktop/${name}  ${W}×${H}`);
+  console.log(`screenshots_desktop${SUFFIX}/${name}  ${W}×${H}`);
 }

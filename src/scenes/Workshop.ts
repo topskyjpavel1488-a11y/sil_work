@@ -198,7 +198,7 @@ export class WorkshopScene extends Phaser.Scene {
     // A restored room keeps a "before / after" button, so the comparison is not a one-time chance (spec v0.8).
     const compare = isRoomRestored(this.store.state, this.store.content, this.room.id);
     const labels = [this.roomLabel(), t('ui.nav.table'), t('ui.nav.journal')];
-    if (compare) labels.push(t('ui.final.compare'));
+    if (compare) labels.push(t('ui.nav.compare'));
     // The room button is wider: a room name with an arrow is longer than "Table" or "Journal".
     const weights = compare ? [1.25, 0.7, 0.75, 0.8] : [1.4, 0.8, 0.8];
     const unit = (r.w - 16 * 4) / weights.reduce((a, b) => a + b, 0);

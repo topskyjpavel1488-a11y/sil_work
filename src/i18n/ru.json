@@ -142,5 +142,6 @@
   "ui.welcome.title": "С возвращением!",
   "ui.welcome.goal": "Вы чинили: {name}. Сейчас есть:",
   "ui.welcome.gift": "Подарок дня: {gift}. Уже добавлено в запасы.",
-  "ui.settings.largeText": "Крупный текст"
+  "ui.settings.largeText": "Крупный текст",
+  "ui.nav.compare": "Было — стало"
 }

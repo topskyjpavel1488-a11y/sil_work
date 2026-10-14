@@ -34,7 +34,8 @@ async function createPlatform(): Promise<PlatformAdapter> {
       // Fall through to the local adapter.
     }
   }
-  const mock = new MockAdapter();
+  // The test build has no SDK: ?lang=en shows the English version (checking texts, English store media).
+  const mock = new MockAdapter(new URLSearchParams(location.search).get('lang') === 'en' ? 'en' : 'ru');
   await mock.init();
   return mock;
 }

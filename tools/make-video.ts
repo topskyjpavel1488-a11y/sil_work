@@ -1,5 +1,5 @@
 // Assembles the store gameplay videos from the frames recorded by src/dev-video.ts (assets/store/.frames/).
-// Run: npm run video. Output (Yandex: MP4, up to 28 s, height ≥ 400 px):
+// Run: npm run video (or `npm run video en` for the English frames: files get an _en suffix). Output (Yandex: MP4, up to 28 s, height ≥ 400 px):
 // - assets/store/video_horizontal.mp4 — 1920×1080: the portrait game in the middle on a blurred room background;
 // - assets/store/video_vertical.mp4 — 1080×1920: the game full frame.
 import { spawnSync } from 'node:child_process';
@@ -13,6 +13,7 @@ const FRAMES = join(ROOT, 'assets/store/.frames');
 const OUT = join(ROOT, 'assets/store');
 const FPS = 30;
 const MAX_SECONDS = 28;
+const SUFFIX = process.argv[2] === 'en' ? '_en' : '';
 const COLUMN_W = 608; // 1080 × 9/16, rounded to an even number for H.264
 
 function ffmpeg(args: string[]): void {
@@ -43,7 +44,7 @@ const encode = ['-t', String(MAX_SECONDS), '-r', String(FPS), '-c:v', 'libx264',
 ffmpeg([
   '-loop', '1', '-i', background, ...input,
   '-filter_complex', `[1:v]scale=${COLUMN_W}:1080:flags=lanczos[g];[0:v][g]overlay=(W-w)/2:0:shortest=1`,
-  ...encode, join(OUT, 'video_horizontal.mp4'),
+  ...encode, join(OUT, `video_horizontal${SUFFIX}.mp4`),
 ]);
-ffmpeg([...input, '-vf', 'scale=1080:1920:flags=lanczos', ...encode, join(OUT, 'video_vertical.mp4')]);
-console.log(`${count} frames → ${(Math.min(count / FPS, MAX_SECONDS)).toFixed(1)} s: video_horizontal.mp4, video_vertical.mp4`);
+ffmpeg([...input, '-vf', 'scale=1080:1920:flags=lanczos', ...encode, join(OUT, `video_vertical${SUFFIX}.mp4`)]);
+console.log(`${count} frames → ${(Math.min(count / FPS, MAX_SECONDS)).toFixed(1)} s: video_horizontal${SUFFIX}.mp4, video_vertical${SUFFIX}.mp4`);

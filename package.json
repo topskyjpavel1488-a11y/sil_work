@@ -19,7 +19,9 @@
     "sounds": "tsx tools/synth-sounds.ts",
     "sounds:process": "tsx tools/process-sounds.ts",
     "video": "tsx tools/make-video.ts",
-    "shots:desktop": "tsx tools/make-desktop-shots.ts"
+    "shots:desktop": "tsx tools/make-desktop-shots.ts",
+    "ads": "tsx tools/make-ads.ts",
+    "pack:store": "tsx tools/pack-store.ts"
   },
   "dependencies": {
     "phaser": "3.90.0"
