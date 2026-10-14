@@ -14,7 +14,7 @@
 
 Шрифт — системный, сторонних шрифтов нет.
 
-Материалы для каталога (не в игре): `assets/store/store_icon.png`, `assets/store/store_cover.png` — Leonardo.ai, Essential, приватно (13.10.2026); скриншоты `assets/store/screenshots/` и видео `assets/store/video_*.mp4` — сняты из игры (14.10.2026), фон горизонтального видео — размытый фон мастерской. У иконки убраны рамка и скруглённые углы (требование каталога).
+Материалы для каталога (не в игре): `assets/store/store_icon.png`, `assets/store/store_cover.png` — Leonardo.ai, Essential, приватно (13.10.2026); скриншоты `assets/store/screenshots/`, `screenshots_desktop/` и видео `assets/store/video_*.mp4` — сняты из игры (14.10.2026), фон горизонтального видео — размытый фон мастерской. У иконки убраны рамка и скруглённые углы (требование каталога).
 
 ### Условия Leonardo.ai (бесплатный тариф), проверено 12.10.2026
 

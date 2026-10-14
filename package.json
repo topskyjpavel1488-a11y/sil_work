@@ -18,7 +18,8 @@
     "images": "tsx tools/optimize-images.ts",
     "sounds": "tsx tools/synth-sounds.ts",
     "sounds:process": "tsx tools/process-sounds.ts",
-    "video": "tsx tools/make-video.ts"
+    "video": "tsx tools/make-video.ts",
+    "shots:desktop": "tsx tools/make-desktop-shots.ts"
   },
   "dependencies": {
     "phaser": "3.90.0"
