@@ -1,14 +1,14 @@
 // Settings: music and sounds separately, Yandex sign-in for guests, reset with confirmation (spec 6.2).
 import type Phaser from 'phaser';
 import { audio } from '../audio';
-import { PALETTE } from '../config';
+import { config, PALETTE } from '../config';
 import { t } from '../i18n';
 import type { PlatformAdapter } from '../platform/adapter';
 import type { Store } from '../store';
 import { Button } from './Button';
 import { Modal } from './Modal';
 import { playStory } from './Story';
-import { COLORS, textStyle } from './style';
+import { COLORS, setTextScale, textStyle } from './style';
 
 export function showSettings(scene: Phaser.Scene, store: Store, platform: PlatformAdapter, onClose: () => void): void {
   const w = 640;
@@ -18,20 +18,26 @@ export function showSettings(scene: Phaser.Scene, store: Store, platform: Platfo
   modal.add(scene.add.text(px + 40, py + 40, t('ui.settings.title'), textStyle(44, COLORS.text, { fontStyle: 'bold' })));
   modal.add(new Button(scene, { x: px + w - 112, y: py + 16, w: 96, h: 96, label: '✕', fill: PALETTE.dust, textColor: COLORS.text, onTap: () => modal.close(onClose) }));
 
-  const toggle = (y: number, labelKey: string, key: 'music' | 'sfx') => {
-    modal.add(scene.add.text(px + 40, y + 56, t(labelKey), textStyle(36, COLORS.text)).setOrigin(0, 0.5));
+  const toggle = (y: number, labelKey: string, key: 'music' | 'sfx' | 'largeText') => {
+    modal.add(scene.add.text(px + 40, y + 52, t(labelKey), textStyle(36, COLORS.text)).setOrigin(0, 0.5));
     const button = new Button(scene, {
       x: px + w - 240,
       y,
       w: 200,
-      h: 112,
+      h: 104,
       label: '',
       fill: PALETTE.green,
       onTap: () => {
         const on = !store.state.settings[key];
         store.setSettings({ [key]: on });
         if (key === 'sfx') audio.setSfx(on);
-        else audio.setMusic(on);
+        if (key === 'music') audio.setMusic(on);
+        if (key === 'largeText') {
+          // Every text is redrawn: the screen restarts with the new size.
+          setTextScale(on ? config.largeTextScale : 1);
+          modal.close(() => scene.scene.restart());
+          return;
+        }
         paint();
       },
     });
@@ -39,17 +45,18 @@ export function showSettings(scene: Phaser.Scene, store: Store, platform: Platfo
     paint();
     modal.add(button);
   };
-  toggle(py + 144, 'ui.settings.music', 'music');
-  toggle(py + 280, 'ui.settings.sfx', 'sfx');
+  toggle(py + 136, 'ui.settings.music', 'music');
+  toggle(py + 256, 'ui.settings.sfx', 'sfx');
+  toggle(py + 376, 'ui.settings.largeText', 'largeText');
 
   // Sign-in only on this button, with the benefit explained next to it (spec 2.1, rule 1.2).
-  const authText = scene.add.text(px + 40, py + 432, '', textStyle(32, COLORS.text, { wordWrap: { width: w - 80 } }));
+  const authText = scene.add.text(px + 40, py + 492, '', textStyle(32, COLORS.text, { wordWrap: { width: w - 80 } }));
   modal.add(authText);
   const login = new Button(scene, {
     x: px + 40,
-    y: py + 552,
+    y: py + 632,
     w: w - 80,
-    h: 112,
+    h: 104,
     label: t('ui.settings.login'),
     fill: PALETTE.copper,
     onTap: () => {
@@ -72,9 +79,9 @@ export function showSettings(scene: Phaser.Scene, store: Store, platform: Platfo
   modal.add(
     new Button(scene, {
       x: px + 40,
-      y: py + 688,
+      y: py + 752,
       w: w - 80,
-      h: 112,
+      h: 104,
       label: t('ui.settings.story'),
       fill: PALETTE.wood,
       onTap: () =>
@@ -84,9 +91,9 @@ export function showSettings(scene: Phaser.Scene, store: Store, platform: Platfo
 
   const shortcut = new Button(scene, {
     x: px + 40,
-    y: py + 812,
+    y: py + 872,
     w: w - 80,
-    h: 112,
+    h: 104,
     label: t('ui.settings.shortcut'),
     fill: PALETTE.green,
     onTap: () => void platform.showShortcut().then((added) => added && modal.scene && shortcut.setVisible(false)),

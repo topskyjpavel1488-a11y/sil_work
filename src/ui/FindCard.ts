@@ -12,6 +12,8 @@ export interface CardData {
   image: string;
   titleKey: string;
   textKey: string;
+  // Ready text instead of textKey, for cards put together at run time (welcome back).
+  text?: string;
   sound?: string;
   note?: string;
   buttonKey?: string;
@@ -32,7 +34,7 @@ export function showFindCard(scene: Phaser.Scene, card: CardData, onClose: () =>
   const { px, py } = modal;
   modal.add(addAsset(scene, card.image, { x: px + 40, y: py + 40, w: w - 80, h: 420 }));
   modal.add(scene.add.text(px + 40, py + 492, t(card.titleKey), textStyle(44, COLORS.text, { fontStyle: 'bold', wordWrap: { width: w - 80 } })));
-  modal.add(scene.add.text(px + 40, py + 568, t(card.textKey), textStyle(34, COLORS.text, { wordWrap: { width: w - 80 }, lineSpacing: 6 })));
+  modal.add(scene.add.text(px + 40, py + 568, card.text ?? t(card.textKey), textStyle(34, COLORS.text, { wordWrap: { width: w - 80 }, lineSpacing: 6 })));
   if (card.note) modal.add(scene.add.text(px + 40, py + h - 196, card.note, textStyle(32, '#7D7468', { fontStyle: 'italic' })));
   const secondaryTap = () => {
     if (closed || !card.secondary) return;

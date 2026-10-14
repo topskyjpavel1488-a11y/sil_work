@@ -22,6 +22,9 @@ import { fadeIn, goTo } from '../ui/transition';
 import { drawZoneScene } from '../ui/ZoneArt';
 import { onTap } from '../ui/tap';
 
+// Debris sounds repeat a lot: each tap plays slightly higher or lower.
+const DEBRIS_PITCH_SPREAD = 0.08;
+
 const SECTION = 'scavenge';
 
 export class ScavengeScene extends Phaser.Scene {
@@ -116,7 +119,7 @@ export class ScavengeScene extends Phaser.Scene {
     if (!box || !d) return;
     this.debris.delete(debrisId);
     box.disableInteractive();
-    audio.play(this.store.content.debrisKinds[d.kind]?.sound ?? UI_SOUNDS.tap);
+    audio.play(this.store.content.debrisKinds[d.kind]?.sound ?? UI_SOUNDS.tap, DEBRIS_PITCH_SPREAD);
     this.tweens.add({ targets: box, scale: 1.15, alpha: 0, duration: FEEDBACK.transitionMs, ease: 'Sine.easeOut', onComplete: () => box.destroy() });
     dustPuff(this, box.x, box.y + box.height / 3, box.width * 0.8);
     const { content } = this.store;

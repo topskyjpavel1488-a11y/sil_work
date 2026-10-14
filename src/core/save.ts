@@ -37,6 +37,8 @@ export function isSaveData(v: unknown): v is SaveData {
     isObject(settings) &&
     typeof settings.music === 'boolean' &&
     typeof settings.sfx === 'boolean' &&
+    (settings.largeText === undefined || typeof settings.largeText === 'boolean') &&
+    (v.giftDay === undefined || typeof v.giftDay === 'string') &&
     typeof v.savedAt === 'number'
   );
 }

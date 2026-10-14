@@ -1,5 +1,6 @@
 // Holds the current state, applies core actions and notifies scenes (spec 3.3).
 import type { Content } from './core/content';
+import { claimGift, type Gift } from './core/daily';
 import { moveItem, sortTable, stashItem } from './core/merge';
 import { repair } from './core/repair';
 import { grantReward } from './core/rewards';
@@ -77,6 +78,13 @@ export class Store {
     const next = structuredClone(this.current);
     next.room = roomId;
     this.commit({ state: next, events: [] });
+  }
+
+  // Handles today's gift once per local day; returns what was added (empty on the first day or when already handled).
+  claimGift(day: string): Gift {
+    const result = claimGift(this.current, this.content, day);
+    if (result.state !== this.current) this.commit(result);
+    return result.gift;
   }
 
   markHint(hint: string): void {

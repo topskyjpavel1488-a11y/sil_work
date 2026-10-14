@@ -138,5 +138,9 @@
   "ui.settings.shortcut": "Add a desktop shortcut",
   "ui.table.sort": "Tidy up the table",
   "ui.settings.story": "Watch the intro",
-  "ui.settings.credits": "Sounds: ElevenLabs (elevenlabs.io)"
+  "ui.settings.credits": "Sounds: ElevenLabs (elevenlabs.io)",
+  "ui.welcome.title": "Welcome back!",
+  "ui.welcome.goal": "You were repairing: {name}. You have:",
+  "ui.welcome.gift": "Gift of the day: {gift}. Already added to your supplies.",
+  "ui.settings.largeText": "Large text"
 }

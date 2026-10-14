@@ -69,7 +69,8 @@ class Audio {
     void this.ctx?.resume().catch(() => undefined);
   }
 
-  play(key: string): void {
+  // vary: random pitch spread (0.08 = ±8%), so a sound heard many times in a row does not tire the ear.
+  play(key: string, vary = 0): void {
     const ctx = this.ctx;
     const out = this.sfxGain;
     if (!ctx || !out || !this.sfxOn || this.paused) return;
@@ -77,6 +78,7 @@ class Audio {
     if (buffer) {
       const src = ctx.createBufferSource();
       src.buffer = buffer;
+      if (vary > 0) src.playbackRate.value = 1 + (Math.random() * 2 - 1) * vary;
       src.connect(out);
       src.start();
       if (buffer.duration >= DUCK_MIN_S) this.duck(buffer.duration);

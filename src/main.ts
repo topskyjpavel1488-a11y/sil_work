@@ -1,7 +1,8 @@
 import Phaser from 'phaser';
 import { Ads } from './ads';
 import { audio } from './audio';
-import { BUILD, DESIGN_HEIGHT, DESIGN_WIDTH } from './config';
+import { session } from './session';
+import { BUILD, config, DESIGN_HEIGHT, DESIGN_WIDTH } from './config';
 import { createInitialState } from './core/state';
 import { content } from './data';
 import { setLanguage } from './i18n';
@@ -16,6 +17,7 @@ import { MergeTableScene } from './scenes/MergeTable';
 import { ScavengeScene } from './scenes/Scavenge';
 import { WorkshopScene } from './scenes/Workshop';
 import { Store } from './store';
+import { setTextScale } from './ui/style';
 
 // No context menu or long-tap menu anywhere on the page (spec 2.1, 6.1).
 document.addEventListener('contextmenu', (e) => e.preventDefault());
@@ -43,11 +45,13 @@ async function start(): Promise<void> {
 
   const saver = new SaveManager(platform);
   const saved = await saver.load();
+  session.lastSeen = saved?.savedAt ?? 0;
   const store = new Store(content, saved ?? createInitialState(content), saver);
   // A player without any save is in their first session: no ads in its first minutes (spec 8.3).
   const ads = new Ads(platform, store, saver, saved === null);
   audio.setSfx(store.state.settings.sfx);
   audio.setMusic(store.state.settings.music);
+  setTextScale(store.state.settings.largeText ? config.largeTextScale : 1);
 
   // Audio may start only after a user gesture.
   document.addEventListener('pointerdown', () => audio.unlock());

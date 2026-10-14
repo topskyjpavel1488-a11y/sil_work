@@ -26,7 +26,9 @@ export interface GameState {
   tutorial: { done: boolean; step: number };
   // One-time hints already shown, such as the new chain in the second room.
   hints: string[];
-  settings: { music: boolean; sfx: boolean };
+  settings: { music: boolean; sfx: boolean; largeText?: boolean };
+  // The local day (YYYY-MM-DD) whose gift was handled; absent in saves made before v0.8.
+  giftDay?: string;
   savedAt: number;
 }
 
@@ -60,6 +62,7 @@ export type GameEvent =
   | { type: 'settings' }
   | { type: 'reset' }
   | { type: 'rewardGranted'; kind: RewardKind; cell?: CellRef }
+  | { type: 'giftClaimed'; gift: Partial<Record<Resource, number>> }
   | { type: 'rejected'; reason: RejectReason };
 
 export type RejectReason =

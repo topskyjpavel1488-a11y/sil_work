@@ -8,15 +8,17 @@ import { findRoom, objectsIn, zonesIn, type ObjectDef, type RoomDef, type ZoneDe
 import { currentGoal, isObjectAvailable, isObjectRestored, isRoomRestored, isRoomUnlocked, isZoneCleared, isZoneUnlocked } from '../core/progress';
 import { missingSources, type Source } from '../core/hints';
 import { checkRepair } from '../core/repair';
+import { dayKey, welcomeDue } from '../core/daily';
+import { session } from '../session';
 import { currentTutorialStep } from '../core/tutorial';
-import { stepOf, type GameEvent, type GameState } from '../core/state';
+import { stepOf, type GameEvent, type GameState, type Resource } from '../core/state';
 import { t } from '../i18n';
 import { depthKey, rect, type Rect } from '../layout';
 import type { Ads } from '../ads';
 import type { PlatformAdapter } from '../platform/adapter';
 import type { Store } from '../store';
 import { Button } from '../ui/Button';
-import { available, requirementName } from '../ui/labels';
+import { available, requirementName, resourceName } from '../ui/labels';
 import { showBeforeAfter } from '../ui/BeforeAfter';
 import { showFindCard } from '../ui/FindCard';
 import { RepairBadge } from '../ui/RepairBadge';
@@ -35,6 +37,8 @@ const GLOWS: Record<string, number> = { lamp: 0xffc870, radio: 0xffb050, vent_wi
 import { onTap } from '../ui/tap';
 
 const STORY_HINT = 'story';
+// The daily gift is shown as an old box from the debris art.
+const GIFT_IMAGE = 'debris_box';
 
 interface Hotspot {
   box: Phaser.GameObjects.Container;
@@ -60,6 +64,7 @@ export class WorkshopScene extends Phaser.Scene {
   private section = '';
   private idleSince = 0;
   private idleFrame: Phaser.GameObjects.Graphics | null = null;
+  private roomButton: Button | null = null;
 
   constructor(
     private readonly store: Store,
@@ -115,7 +120,7 @@ export class WorkshopScene extends Phaser.Scene {
     this.input.on('pointerdown', () => this.resetIdle());
     this.time.addEvent({ delay: 1000, loop: true, callback: () => this.checkIdle() });
     if (data.repair) this.openRepair(data.repair);
-    else if (!this.showStory()) this.showRoomIntro();
+    else if (!this.showStory() && !this.showRoomIntro()) this.showWelcome();
 
     if (!this.readyReported) {
       this.readyReported = true;
@@ -185,7 +190,7 @@ export class WorkshopScene extends Phaser.Scene {
     const other = this.otherRoom();
     // A restored room keeps a "before / after" button, so the comparison is not a one-time chance (spec v0.8).
     const compare = isRoomRestored(this.store.state, this.store.content, this.room.id);
-    const labels = [other ? `→ ${t(other.nameKey)}` : t(this.room.nameKey), t('ui.nav.table'), t('ui.nav.journal')];
+    const labels = [this.roomLabel(), t('ui.nav.table'), t('ui.nav.journal')];
     if (compare) labels.push(t('ui.final.compare'));
     // The room button is wider: a room name with an arrow is longer than "Table" or "Journal".
     const weights = compare ? [1.25, 0.7, 0.75, 0.8] : [1.4, 0.8, 0.8];
@@ -197,7 +202,7 @@ export class WorkshopScene extends Phaser.Scene {
       const button = { x, y: r.y + 16, w, h: r.h - 32 };
       x += w + 16;
       this.navRects.push(button);
-      new Button(this, {
+      const created = new Button(this, {
         ...button,
         label,
         fill: i === 0 ? PALETTE.copper : i === 3 ? PALETTE.green : PALETTE.metal,
@@ -217,7 +222,18 @@ export class WorkshopScene extends Phaser.Scene {
           } else goTo(this, scene);
         },
       });
+      if (i === 0) this.roomButton = created;
     });
+  }
+
+  // The room button names a room and how many of its things are restored, e.g. "→ Малярная 3/8" on two lines (spec v0.8).
+  private roomLabel(): string {
+    const { state, content } = this.store;
+    const other = this.otherRoom();
+    const room = other ?? this.room;
+    const objects = objectsIn(content, room.id);
+    const done = objects.filter((o) => isObjectRestored(state, o)).length;
+    return `${other ? '→ ' : ''}${t(room.nameKey)}\n${done}/${objects.length}`;
   }
 
   // The other open room, if any (two rooms since v0.7).
@@ -244,13 +260,40 @@ export class WorkshopScene extends Phaser.Scene {
   }
 
   // The first visit to a room may explain what is new there, once.
-  private showRoomIntro(): void {
+  private showRoomIntro(): boolean {
     const intro = this.room.intro;
     const hint = `intro_${this.room.id}`;
-    if (!intro || this.store.state.hints.includes(hint)) return;
+    if (!intro || this.store.state.hints.includes(hint)) return false;
     this.modalOpen = true;
     this.store.markHint(hint);
     showFindCard(this, intro, () => (this.modalOpen = false));
+    return true;
+  }
+
+  // Once per visit after the tutorial: today's gift and, after a long break, what the player was doing (spec v0.8).
+  private showWelcome(): void {
+    const { content } = this.store;
+    if (session.welcomed || !this.store.state.tutorial.done) return;
+    session.welcomed = true;
+    const gift = this.store.claimGift(dayKey(new Date()));
+    const giftParts = (Object.entries(gift) as [Resource, number][]).map(([r, n]) => `+${n} ${resourceName(content, r)}`);
+    const goal = currentGoal(this.store.state, content);
+    const back = welcomeDue(session.lastSeen, Date.now()) && goal !== null;
+    if (giftParts.length === 0 && !back) return;
+    const lines: string[] = [];
+    if (giftParts.length > 0) lines.push(t('ui.welcome.gift', { gift: giftParts.join(', ') }));
+    if (back && goal) {
+      const check = checkRepair(this.store.state, content, goal.object.id);
+      lines.push(t('ui.welcome.goal', { name: t(goal.object.nameKey) }));
+      lines.push(check.requirements.map((r) => `${requirementName(content, r)} ${Math.min(available(r), r.need)}/${r.need}`).join(' · '));
+    }
+    const objectImage = goal ? (goal.object.stateImages[stepOf(this.store.state, goal.object.id)] ?? '') : '';
+    this.modalOpen = true;
+    showFindCard(
+      this,
+      { image: giftParts.length > 0 ? GIFT_IMAGE : objectImage, titleKey: 'ui.welcome.title', textKey: '', text: lines.join('\n'), sound: giftParts.length > 0 ? UI_SOUNDS.repair : undefined },
+      () => (this.modalOpen = false),
+    );
   }
 
   private onObject(object: ObjectDef): void {
@@ -435,6 +478,7 @@ export class WorkshopScene extends Phaser.Scene {
     this.warmLight.setVisible(warm);
 
     this.resources.update(state);
+    this.roomButton?.setLabel(this.roomLabel());
     this.updateTutorial(state);
 
     const goal = currentGoal(state, content);
