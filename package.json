@@ -17,7 +17,8 @@
     "package": "npm run build:release && tsx tools/package.ts",
     "images": "tsx tools/optimize-images.ts",
     "sounds": "tsx tools/synth-sounds.ts",
-    "sounds:process": "tsx tools/process-sounds.ts"
+    "sounds:process": "tsx tools/process-sounds.ts",
+    "video": "tsx tools/make-video.ts"
   },
   "dependencies": {
     "phaser": "3.90.0"

@@ -3,3 +3,6 @@ dist/
 *.zip
 *.log
 .vite/
+
+# Video frames captured in the dev ?shot mode (temporary)
+assets/store/.frames/

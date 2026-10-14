@@ -13,20 +13,22 @@ function yandexSdk(): Plugin {
 }
 
 // Dev server only: POST /__shot?name=… with a PNG body saves a store screenshot to assets/store/screenshots/
-// (taken in the ?shot mode, see src/dev.ts). Never part of a build.
+// (taken in the ?shot mode, see src/dev.ts); with &frame=1 a JPEG video frame goes to assets/store/.frames/. Never part of a build.
 function screenshotSaver(): Plugin {
   return {
     name: 'screenshot-saver',
     apply: 'serve',
     configureServer(server) {
       server.middlewares.use('/__shot', (req, res) => {
-        const name = new URL(req.url ?? '', 'http://x').searchParams.get('name')?.replace(/[^a-z0-9_-]/gi, '') || 'shot';
+        const params = new URL(req.url ?? '', 'http://x').searchParams;
+        const name = params.get('name')?.replace(/[^a-z0-9_-]/gi, '') || 'shot';
+        const frame = params.has('frame');
         const chunks: Buffer[] = [];
         req.on('data', (c: Buffer) => chunks.push(c));
         req.on('end', () => {
-          const dir = join(import.meta.dirname, 'assets/store/screenshots');
+          const dir = join(import.meta.dirname, frame ? 'assets/store/.frames' : 'assets/store/screenshots');
           mkdirSync(dir, { recursive: true });
-          writeFileSync(join(dir, `${name}.png`), Buffer.concat(chunks));
+          writeFileSync(join(dir, `${name}.${frame ? 'jpg' : 'png'}`), Buffer.concat(chunks));
           res.end('ok');
         });
       });
