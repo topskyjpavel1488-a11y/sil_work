@@ -90,6 +90,7 @@ export interface RoomDef {
   nameKey: string;
   image: string;
   layout: string; // section of layout.json with this room's main screen
+  music?: string; // background loop while the room is on screen
   unlockAfter?: string;
   final: CardDef; // shown when every object of the room is restored
   finalNoteKey: string;

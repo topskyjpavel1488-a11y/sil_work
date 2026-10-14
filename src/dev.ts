@@ -1,5 +1,6 @@
 // Development-only helpers, loaded through a dynamic import guarded by import.meta.env.DEV,
 // so none of this reaches `npm run build`.
+import { audio } from './audio';
 import type Phaser from 'phaser';
 import { rect } from './layout';
 import type { Store } from './store';
@@ -8,7 +9,7 @@ import { Button } from './ui/Button';
 // Grants resources and a level 2 item so repairs can be tried before scavenging exists.
 export function addDevButton(scene: Phaser.Scene, store: Store): void {
   // Console helper for checking scenes by hand: __tm.start('Finale', { roomId: 'workshop' }).
-  (window as unknown as { __tm: unknown }).__tm = { start: (key: string, data?: object) => scene.scene.start(key, data), store, game: scene.game };
+  (window as unknown as { __tm: unknown }).__tm = { start: (key: string, data?: object) => scene.scene.start(key, data), store, game: scene.game, audio };
   const goal = rect('workshop', 'ui.goal');
   new Button(scene, {
     x: goal.x + goal.w - 128,

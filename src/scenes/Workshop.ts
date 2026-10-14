@@ -74,6 +74,8 @@ export class WorkshopScene extends Phaser.Scene {
     const { content } = this.store;
     this.room = findRoom(content, this.store.state.room) ?? (content.rooms[0] as RoomDef);
     this.section = this.room.layout;
+    // Each room has its own track; other scenes (table, journal) keep playing the last room's one.
+    audio.playMusic(this.room.music ?? null);
     this.objects.clear();
     this.zones.clear();
     this.badges.clear();

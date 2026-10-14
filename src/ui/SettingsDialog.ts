@@ -12,7 +12,7 @@ import { COLORS, textStyle } from './style';
 
 export function showSettings(scene: Phaser.Scene, store: Store, platform: PlatformAdapter, onClose: () => void): void {
   const w = 640;
-  const h = 1160;
+  const h = 1208;
   const modal = new Modal(scene, w, h, () => modal.close(onClose));
   const { px, py } = modal;
   modal.add(scene.add.text(px + 40, py + 40, t('ui.settings.title'), textStyle(44, COLORS.text, { fontStyle: 'bold' })));
@@ -97,7 +97,7 @@ export function showSettings(scene: Phaser.Scene, store: Store, platform: Platfo
   modal.add(
     new Button(scene, {
       x: px + 40,
-      y: py + h - 152,
+      y: py + h - 200,
       w: w - 80,
       h: 112,
       label: t('ui.settings.reset'),
@@ -105,6 +105,8 @@ export function showSettings(scene: Phaser.Scene, store: Store, platform: Platfo
       onTap: () => confirmReset(scene, store, () => modal.close(onClose)),
     }),
   );
+  // Attribution required by the ElevenLabs free plan for the sound effects (assets/LICENSES.md).
+  modal.add(scene.add.text(px + w / 2, py + h - 44, t('ui.settings.credits'), textStyle(24, '#7D7468')).setOrigin(0.5));
 }
 
 function confirmReset(scene: Phaser.Scene, store: Store, done: () => void): void {

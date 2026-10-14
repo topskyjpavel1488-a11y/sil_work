@@ -137,5 +137,6 @@
   "ui.compare.after": "After",
   "ui.settings.shortcut": "Add a desktop shortcut",
   "ui.table.sort": "Tidy up the table",
-  "ui.settings.story": "Watch the intro"
+  "ui.settings.story": "Watch the intro",
+  "ui.settings.credits": "Sounds: ElevenLabs (elevenlabs.io)"
 }

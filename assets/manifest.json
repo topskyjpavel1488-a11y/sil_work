@@ -699,7 +699,7 @@
   },
   "sounds": {
     "sfx_debris_box": {
-      "file": null,
+      "file": "sounds/sfx_debris_box.mp3",
       "synth": {
         "freq": 300,
         "ms": 90,
@@ -707,7 +707,7 @@
       }
     },
     "sfx_debris_sack": {
-      "file": null,
+      "file": "sounds/sfx_debris_sack.mp3",
       "synth": {
         "freq": 180,
         "ms": 110,
@@ -715,7 +715,7 @@
       }
     },
     "sfx_debris_plank": {
-      "file": null,
+      "file": "sounds/sfx_debris_plank.mp3",
       "synth": {
         "freq": 260,
         "ms": 80,
@@ -723,7 +723,7 @@
       }
     },
     "sfx_debris_jar": {
-      "file": null,
+      "file": "sounds/sfx_debris_jar.mp3",
       "synth": {
         "freq": 880,
         "ms": 70,
@@ -731,7 +731,7 @@
       }
     },
     "sfx_debris_rag": {
-      "file": null,
+      "file": "sounds/sfx_debris_rag.mp3",
       "synth": {
         "freq": 150,
         "ms": 120,
@@ -739,7 +739,7 @@
       }
     },
     "sfx_debris_crate": {
-      "file": null,
+      "file": "sounds/sfx_debris_crate.mp3",
       "synth": {
         "freq": 200,
         "ms": 100,
@@ -747,7 +747,7 @@
       }
     },
     "sfx_radio_melody": {
-      "file": null,
+      "file": "sounds/sfx_radio_melody.mp3",
       "synth": {
         "freq": 392,
         "ms": 900,
@@ -795,12 +795,20 @@
       }
     },
     "sfx_debris_bucket": {
-      "file": null,
+      "file": "sounds/sfx_debris_bucket.mp3",
       "synth": {
         "freq": 240,
         "ms": 110,
         "wave": "triangle"
       }
+    },
+    "music_main": {
+      "file": "sounds/music_main.mp3",
+      "loop": true
+    },
+    "music_paint": {
+      "file": "sounds/music_paint.mp3",
+      "loop": true
     }
   }
 }

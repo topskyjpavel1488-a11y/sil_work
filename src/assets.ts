@@ -13,6 +13,7 @@ interface ImageEntry {
 interface SoundEntry {
   file: string | null;
   synth?: { freq: number; ms: number; wave?: string };
+  loop?: boolean;
 }
 
 export const manifest = manifestJson as { images: Record<string, ImageEntry>; sounds: Record<string, SoundEntry> };

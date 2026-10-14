@@ -5,6 +5,7 @@
       "nameKey": "room.workshop",
       "image": "room_bg",
       "layout": "workshop",
+      "music": "music_main",
       "final": {
         "titleKey": "final.title",
         "textKey": "final.text",
@@ -17,6 +18,7 @@
       "nameKey": "room.paint",
       "image": "room_paint_bg",
       "layout": "paint",
+      "music": "music_paint",
       "unlockAfter": "workshop",
       "final": {
         "titleKey": "final.paint.title",

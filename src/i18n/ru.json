@@ -137,5 +137,6 @@
   "ui.compare.after": "Стало",
   "ui.settings.shortcut": "Ярлык на рабочий стол",
   "ui.table.sort": "Разложить по порядку",
-  "ui.settings.story": "Посмотреть вступление"
+  "ui.settings.story": "Посмотреть вступление",
+  "ui.settings.credits": "Звуки: ElevenLabs (elevenlabs.io)"
 }

@@ -71,6 +71,7 @@ export function collectAssetKeys(content: Content): { images: string[]; sounds: 
     images.add(f.image);
     if (f.sound) sounds.add(f.sound);
   });
+  content.rooms.forEach((r) => r.music && sounds.add(r.music));
   Object.values(UI_SOUNDS).forEach((k) => sounds.add(k));
   Object.values(UI_IMAGES).forEach((k) => images.add(k));
   return { images: [...images], sounds: [...sounds] };
