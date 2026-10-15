@@ -1,11 +1,13 @@
 // npm run package — zips dist/ (release build) for upload to the Yandex Games console:
 // index.html at the archive root, file names as built (spec 1.21, 12.3).
+// npm run build:itch — the same for itch.io (`tsx tools/package.ts itch`): a build without the Yandex SDK.
 import { readdirSync, readFileSync, statSync, writeFileSync, existsSync } from 'node:fs';
 import { join, relative, sep } from 'node:path';
 import { deflateRawSync } from 'node:zlib';
 
 const DIST = 'dist';
-const OUT = 'tikhaya-masterskaya.zip';
+const ITCH = process.argv[2] === 'itch';
+const OUT = ITCH ? 'tikhaya-masterskaya-itch.zip' : 'tikhaya-masterskaya.zip';
 
 const CRC_TABLE = Array.from({ length: 256 }, (_, n) => {
   let c = n;
@@ -30,7 +32,11 @@ if (!existsSync(join(DIST, 'index.html'))) {
   console.error('dist/index.html is missing: run the release build first');
   process.exit(1);
 }
-if (!readFileSync(join(DIST, 'index.html'), 'utf8').includes('/sdk.js')) {
+if (ITCH && readFileSync(join(DIST, 'index.html'), 'utf8').includes('/sdk.js')) {
+  console.error('dist/ is a Yandex release build: run npm run build:itch');
+  process.exit(1);
+}
+if (!ITCH && !readFileSync(join(DIST, 'index.html'), 'utf8').includes('/sdk.js')) {
   console.error('dist/ is not a release build (no Yandex Games SDK): run npm run package, not the test build');
   process.exit(1);
 }

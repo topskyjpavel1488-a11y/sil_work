@@ -2,7 +2,7 @@ import Phaser from 'phaser';
 import { Ads } from './ads';
 import { audio } from './audio';
 import { session } from './session';
-import { BUILD, config, DESIGN_HEIGHT, DESIGN_WIDTH } from './config';
+import { BUILD, config, DESIGN_HEIGHT, DESIGN_WIDTH, ITCH } from './config';
 import { createInitialState } from './core/state';
 import { content } from './data';
 import { setLanguage } from './i18n';
@@ -35,7 +35,11 @@ async function createPlatform(): Promise<PlatformAdapter> {
     }
   }
   // The test build has no SDK: ?lang=en shows the English version (checking texts, English store media).
-  const mock = new MockAdapter(new URLSearchParams(location.search).get('lang') === 'en' ? 'en' : 'ru');
+  // On itch.io the browser language decides: Russian for Russian speakers, English for everyone else.
+  const asked = new URLSearchParams(location.search).get('lang');
+  const browserRu = typeof navigator !== 'undefined' && navigator.language.toLowerCase().startsWith('ru');
+  const lang = asked === 'en' || asked === 'ru' ? asked : ITCH && !browserRu ? 'en' : 'ru';
+  const mock = new MockAdapter(lang);
   await mock.init();
   return mock;
 }

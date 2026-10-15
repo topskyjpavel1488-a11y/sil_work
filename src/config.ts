@@ -14,6 +14,8 @@ export const PALETTE = {
 
 // Optional chaining keeps this module importable from Node tools, where import.meta.env is absent.
 export const BUILD: 'test' | 'release' = import.meta.env?.VITE_BUILD === 'release' ? 'release' : 'test';
+// The itch.io build (branch itch, `npm run build:itch`): no Yandex SDK, language from the browser, no sign-in.
+export const ITCH = import.meta.env?.MODE === 'itch';
 
 export const config = {
   boardCols: 5,

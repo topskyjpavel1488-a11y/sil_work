@@ -1,7 +1,7 @@
 // Settings: music and sounds separately, Yandex sign-in for guests, reset with confirmation (spec 6.2).
 import type Phaser from 'phaser';
 import { audio } from '../audio';
-import { config, PALETTE } from '../config';
+import { config, ITCH, PALETTE } from '../config';
 import { t } from '../i18n';
 import type { PlatformAdapter } from '../platform/adapter';
 import type { Store } from '../store';
@@ -72,6 +72,11 @@ export function showSettings(scene: Phaser.Scene, store: Store, platform: Platfo
     const authorized = platform.isAuthorized();
     authText.setText(t(authorized ? 'ui.settings.loggedIn' : 'ui.settings.loginHint'));
     login.setVisible(!authorized);
+    // Outside Yandex Games there is no account to sign in to: progress stays in this browser.
+    if (ITCH) {
+      authText.setVisible(false);
+      login.setVisible(false);
+    }
   };
   paintAuth();
 

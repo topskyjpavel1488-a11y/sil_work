@@ -21,7 +21,9 @@
     "video": "tsx tools/make-video.ts",
     "shots:desktop": "tsx tools/make-desktop-shots.ts",
     "ads": "tsx tools/make-ads.ts",
-    "pack:store": "tsx tools/pack-store.ts"
+    "pack:store": "tsx tools/pack-store.ts",
+    "build:itch": "tsc --noEmit && vite build --mode itch && tsx tools/check-dist.ts && tsx tools/package.ts itch",
+    "itch:cover": "tsx tools/make-itch-cover.ts"
   },
   "dependencies": {
     "phaser": "3.90.0"
