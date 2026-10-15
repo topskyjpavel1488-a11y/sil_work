@@ -1,11 +1,11 @@
-// Prepares the owner's sounds (assets/source/sounds/*.mp3) for the game and names them in the manifest.
+// Prepares the sounds in assets/source/sounds/ (*.mp3, *.ogg, *.wav) for the game and names them in the manifest.
 // Run: npm run sounds:process. Uses the ffmpeg binary from the ffmpeg-static dev dependency.
 // - sfx_*: trailing silence cut, short fade-out, mono, levelled by loudness (RMS) with a peak limit,
 //   so a dense rustle and a sharp knock sound equally loud next to the synthesized UI sounds;
 // - music_*: the end is crossfaded into the start for a seamless loop, then levelled quietly (it sits under effects).
 import { spawnSync } from 'node:child_process';
 import { mkdirSync, readdirSync, readFileSync, statSync, writeFileSync } from 'node:fs';
-import { basename, join } from 'node:path';
+import { basename, extname, join } from 'node:path';
 import ffmpegPath from 'ffmpeg-static';
 
 const ROOT = join(import.meta.dirname, '..');
@@ -56,8 +56,9 @@ function music(src: string, dst: string): void {
 
 mkdirSync(OUT, { recursive: true });
 const manifest = JSON.parse(readFileSync(MANIFEST, 'utf8')) as { sounds: Record<string, { file: string | null; synth?: unknown; loop?: boolean }> };
-for (const name of readdirSync(SRC).filter((f) => f.endsWith('.mp3')).sort()) {
-  const key = basename(name, '.mp3');
+// Sources may be MP3 (ElevenLabs) or OGG (Kenney, CC0); older replaced sources wait in subfolders and are skipped.
+for (const name of readdirSync(SRC).filter((f) => /.(mp3|ogg|wav)$/.test(f)).sort()) {
+  const key = basename(name, extname(name));
   const file = `sounds/${key}.mp3`;
   const src = join(SRC, name);
   const dst = join(OUT, `${key}.mp3`);
