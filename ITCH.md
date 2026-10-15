@@ -46,7 +46,7 @@
 | --- | --- |
 | Genre | Simulation (или Puzzle) |
 | Tags | `cozy`, `relaxing`, `merge`, `restoration`, `casual`, `2d`, `singleplayer`, `short`, `mobile`, `cute` |
-| AI generation disclosure | **Yes** — графика и звуки сделаны с помощью нейросетей (itch требует это указывать) |
+| AI generation disclosure | **Yes** — графика сделана с помощью нейросети (Leonardo.ai); звуки и музыка — CC0 от людей (Kenney, OpenGameArt). itch требует это указывать |
 | Languages | English, Russian |
 | Inputs | Mouse, Touchscreen |
 | Accessibility | Configurable text size (есть «Крупный текст»), Interactive tutorial |
@@ -83,7 +83,6 @@ The game is coming to Yandex Games, and I'd love your feedback before the releas
 
 Leave a comment below — every reply helps!
 
-Sounds: ElevenLabs (elevenlabs.io)
 ```
 
 ### Русский (если захотите второй блок на странице или для русскоязычных площадок)
@@ -108,7 +107,6 @@ Sounds: ElevenLabs (elevenlabs.io)
 
 Пишите в комментариях — каждый отзыв помогает!
 
-Звуки: ElevenLabs (elevenlabs.io)
 ```
 
 ---
