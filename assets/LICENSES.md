@@ -9,7 +9,9 @@
 | все картинки с файлом в `manifest.json` (фоны, объекты, завал, предметы, ресурсы, находки, финальные карточки, логотип) | иллюстрации, сгенерированные нейросетью по промптам из `PROMPTS.md` (13.10.2026) | присланные файлы — в `assets/source/raw/`; подготовленные (без фона, обрезанные) — в `assets/source/images/` | Leonardo.ai, тариф Essential, приватная генерация — см. ниже |
 | остальные `images` в `manifest.json` | цветные прямоугольники-заглушки | рисуются кодом игры | сделаны для проекта |
 | `sfx_debris_*` (все 7) | звуки завала (15.10.2026) — Kenney: Impact Sounds 1.0 (`bookPlace2`, `metalPot1`, `impactWood_medium_003`, `impactGlass_light_002`, `impactPlank_medium_002`) и RPG Audio (`dropLeather`, `cloth3`), kenney.nl | исходники OGG — в `assets/source/sounds/`, подготовленные — в `assets/files/sounds/`; прежние версии ElevenLabs — в `assets/source/sounds/elevenlabs/` (не используются) | **CC0** (общественное достояние), указывать автора не обязательно |
-| `sfx_radio_melody`, `music_main`, `music_paint` | мелодия радио, фоновая музыка комнат, сгенерированные нейросетью по промптам из `SOUND_PROMPTS.md` (14.10.2026) | присланные файлы — в `assets/source/sounds/`; подготовленные (`npm run sounds:process`: обрезка тишины, затухание, громкость, петля музыки) — в `assets/files/sounds/` | ElevenLabs Sound Effects, бесплатный тариф — см. ниже |
+| `music_main` | фоновая музыка мастерской — «Hot Springs Town», Kistol (opengameart.org/content/hot-springs-town) | исходник — `assets/source/sounds/music_main.ogg`; подготовленный (бесшовная петля, громкость) — `assets/files/sounds/` | **CC0** |
+| `music_paint` | фоновая музыка малярной — «Bluebonnet» (looped), Kistol (opengameart.org/content/bluebonnet) | исходник — `assets/source/sounds/music_paint.looped.ogg` (петля авторская, только громкость) | **CC0** |
+| `sfx_radio_melody` | мелодия радио — 8 с из «Chill lofi inspired [loop edit]», qubodup по треку omfgdude (opengameart.org/content/chill-lofi-inspired-loop-edit) с фильтром старого приёмника и тихим треском | оригинал — `assets/source/sounds/originals/chilllofir-loop.ogg`, отрывок с фильтром — `assets/source/sounds/sfx_radio_melody.wav` | **CC0** |
 | остальные `sounds` в `manifest.json` | короткие синтезированные тона | генерируются кодом через WebAudio | сделаны для проекта |
 | фон по бокам на ПК | узор из полос (CSS в `index.html`) | код игры | сделан для проекта |
 
@@ -52,9 +54,9 @@
 
 `sfx_tap`, `sfx_open`, `sfx_soft`, `sfx_merge`, `sfx_repair` — сделано для проекта: синтезированы программой `tools/synth-sounds.ts` (`npm run sounds`), без сторонних записей и семплов. Права целиком у владельца проекта.
 
-## Звуки ElevenLabs
+## Звуки ElevenLabs — больше не используются
 
-Сгенерированы владельцем проекта 14.10.2026 в ElevenLabs Sound Effects на бесплатном тарифе. По условиям ElevenLabs (страница https://elevenlabs.io/sound-effects/commercial) звуки бесплатного тарифа можно использовать в коммерческих проектах при указании авторства elevenlabs.io. Авторство указано в игре: строка «Звуки: ElevenLabs (elevenlabs.io)» внизу окна настроек (ключ `ui.settings.credits`). Его стоит добавить и в описание игры в каталоге. Если ElevenLabs изменит условия или понадобится обойтись без указания авторства, звуки нужно перегенерировать на платном тарифе.
+С 14 по 15.10.2026 звуки завала, мелодия радио и музыка были сгенерированы в ElevenLabs (бесплатный тариф, с указанием авторства). 15.10.2026 все они заменены материалами под CC0 (см. таблицу выше), строка авторства убрана из игры и описаний. Прежние файлы лежат в `assets/source/sounds/elevenlabs/` и в сборку не входят.
 
 ## Библиотеки в сборке
 

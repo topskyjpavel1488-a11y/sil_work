@@ -33,7 +33,7 @@
 Головоломка про уют: разбирайте завалы, объединяйте детали и чините старые вещи в мастерской деда. Начните прямо сейчас!
 ```
 
-### Об игре — 848 из 1000 знаков
+### Об игре — 813 из 1000 знаков
 
 ```
 Городская суета надоела, а в ящике стола нашёлся ключ от мастерской, которую оставил дед. Пора ехать!
@@ -48,8 +48,6 @@
 • Прогресс сохраняется, а после входа — синхронизируется между устройствами.
 
 Спокойная игра для тех, кто любит видеть, как беспорядок превращается в уют.
-
-Звуки: ElevenLabs (elevenlabs.io)
 ```
 
 ### Как играть — 520 из 1000 знаков
@@ -94,7 +92,7 @@ A cozy puzzle: clear the clutter and bring Grandpa's workshop to life
 Cozy merge puzzle: clear the clutter, combine parts and repair old things in Grandpa's workshop. Start restoring now!
 ```
 
-### Об игре — 796 из 1000 знаков
+### Об игре — 760 из 1000 знаков
 
 ```
 Tired of the city rush, you find the key to the workshop Grandpa left you. Time to go!
@@ -109,8 +107,6 @@ Inside: dust, boxes and broken things. Clear the clutter, collect wood, metal an
 • Progress is saved, and syncs across devices after sign-in.
 
 A calm game for anyone who loves to watch a mess turn into a cozy home.
-
-Sounds: ElevenLabs (elevenlabs.io)
 ```
 
 ### Как играть — 497 из 1000 знаков

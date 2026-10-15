@@ -117,8 +117,6 @@ export function showSettings(scene: Phaser.Scene, store: Store, platform: Platfo
       onTap: () => confirmReset(scene, store, () => modal.close(onClose)),
     }),
   );
-  // Attribution required by the ElevenLabs free plan for the sound effects (assets/LICENSES.md).
-  modal.add(scene.add.text(px + w / 2, py + h - 44, t('ui.settings.credits'), textStyle(24, '#7D7468')).setOrigin(0.5));
 }
 
 function confirmReset(scene: Phaser.Scene, store: Store, done: () => void): void {
