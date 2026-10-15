@@ -2,7 +2,8 @@
 // Run: npm run sounds:process. Uses the ffmpeg binary from the ffmpeg-static dev dependency.
 // - sfx_*: trailing silence cut, short fade-out, mono, levelled by loudness (RMS) with a peak limit,
 //   so a dense rustle and a sharp knock sound equally loud next to the synthesized UI sounds;
-// - music_*: the end is crossfaded into the start for a seamless loop, then levelled quietly (it sits under effects).
+// - music_*: the end is crossfaded into the start for a seamless loop (unless the file is named *.looped.*),
+//   then levelled quietly (it sits under effects).
 import { spawnSync } from 'node:child_process';
 import { mkdirSync, readdirSync, readFileSync, statSync, writeFileSync } from 'node:fs';
 import { basename, extname, join } from 'node:path';
@@ -39,7 +40,12 @@ function sfx(src: string, dst: string, melody: boolean): void {
   ffmpeg(['-i', src, '-af', `${shape},${level}`, '-ar', '44100', '-c:a', 'libmp3lame', '-b:a', melody ? '96k' : '80k', dst]);
 }
 
-function music(src: string, dst: string): void {
+function music(src: string, dst: string, looped: boolean): void {
+  // A track the author already made seamless (file named *.looped.*) is only levelled: a crossfade would smear its seam.
+  if (looped) {
+    ffmpeg(['-i', src, '-af', `loudnorm=I=${MUSIC_LUFS}:TP=-3:LRA=11`, '-ar', '44100', '-c:a', 'libmp3lame', '-b:a', '128k', dst]);
+    return;
+  }
   // body = [x, end - x]; its last x seconds are mixed with the first x seconds fading in, so the loop point is inaudible.
   const x = LOOP_XFADE_S;
   const end = duration(src);
@@ -56,13 +62,15 @@ function music(src: string, dst: string): void {
 
 mkdirSync(OUT, { recursive: true });
 const manifest = JSON.parse(readFileSync(MANIFEST, 'utf8')) as { sounds: Record<string, { file: string | null; synth?: unknown; loop?: boolean }> };
-// Sources may be MP3 (ElevenLabs) or OGG (Kenney, CC0); older replaced sources wait in subfolders and are skipped.
+// Sources may be MP3, OGG or WAV; replaced sources and untouched originals wait in subfolders and are skipped.
 for (const name of readdirSync(SRC).filter((f) => /.(mp3|ogg|wav)$/.test(f)).sort()) {
-  const key = basename(name, extname(name));
+  const stem = basename(name, extname(name));
+  const looped = stem.endsWith('.looped');
+  const key = looped ? stem.slice(0, -'.looped'.length) : stem;
   const file = `sounds/${key}.mp3`;
   const src = join(SRC, name);
   const dst = join(OUT, `${key}.mp3`);
-  if (key.startsWith('music_')) music(src, dst);
+  if (key.startsWith('music_')) music(src, dst, looped);
   else sfx(src, dst, key === 'sfx_radio_melody');
   const entry = (manifest.sounds[key] ??= { file: null });
   entry.file = file;
